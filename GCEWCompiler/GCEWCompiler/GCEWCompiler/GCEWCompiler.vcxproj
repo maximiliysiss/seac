@@ -198,11 +198,6 @@
     <ClCompile Include="WhileTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="masmCompile.bat">
-      <FileType>Document</FileType>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="..\x64\Release\configuration.xml" />
   </ItemGroup>
   <ItemGroup>

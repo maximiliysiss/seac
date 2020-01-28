@@ -280,11 +280,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="masmCompile.bat">
-      <Filter>Source Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="..\x64\Release\configuration.xml">
       <Filter>Source Files</Filter>
     </Xml>
