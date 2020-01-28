@@ -141,6 +141,7 @@
     <ClInclude Include="BaseNode.h" />
     <ClInclude Include="ForTree.h" />
     <ClInclude Include="FunctionTree.h" />
+    <ClInclude Include="Helper.h" />
     <ClInclude Include="IfTree.h" />
     <ClInclude Include="IncludeOperation.h" />
     <ClInclude Include="Instruments.h" />

@@ -20,7 +20,6 @@ namespace gcew::trees::parser
 		inline std::string getType() const { return type; }
 		Term(std::string value, std::string type);
 		~Term();
-		virtual void createData(std::string & code) override;
 		// Inherited via BaseNode
 		virtual void toCode(std::string & code) override;
 

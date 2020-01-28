@@ -23,7 +23,6 @@ namespace  gcew::trees::elements
 		inline std::string getType() const { return type; }
 		Variable(int index, std::string line);
 		void toCode(std::string & code);
-		virtual void createData(std::string & code) override;
 		~Variable();
 	};
 }

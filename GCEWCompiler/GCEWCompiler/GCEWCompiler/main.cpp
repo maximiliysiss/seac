@@ -154,8 +154,8 @@ int main(int argc, char** argv)
 		outFileCode << code;
 		outFileCode.close();
 
-		std::string cmd = parentPath.string() + "\\masmCompile.bat " + fileResult;
-		system(cmd.c_str());
+		//std::string cmd = parentPath.string() + "\\masmCompile.bat " + fileResult;
+		//system(cmd.c_str());
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;

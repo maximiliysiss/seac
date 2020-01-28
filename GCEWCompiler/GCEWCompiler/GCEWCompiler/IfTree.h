@@ -10,7 +10,6 @@ namespace gcew::trees::structural
 	{
 		gcew::trees::parser::BaseNode * expression;
 		ElseTree * elseTree;
-		virtual void createData(std::string & code);
 		virtual void postWork(void * tree);
 	public:
 		virtual bool isCallFunction(std::string name) override;

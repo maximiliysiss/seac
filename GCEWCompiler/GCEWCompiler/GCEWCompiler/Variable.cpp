@@ -41,17 +41,6 @@ namespace gcew::trees::elements
 		}
 	}
 
-	void Variable::createData(std::string & code)
-	{
-		std::string value = "?";
-		auto * term = dynamic_cast<gcew::trees::parser::Term*>(this->exp);
-		if (term && term->isTempValue())
-			value = ((gcew::trees::parser::Term*)exp)->getValue();
-		else if (exp)
-			exp->createData(code);
-		code += codeName + " " + gcew::commons::CompileConfiguration::typeOperation[type][Operations::Convert] + " " + value + "\n";
-	}
-
 	Variable::~Variable()
 	{
 		if (exp)

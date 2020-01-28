@@ -8,13 +8,6 @@ void gcew::trees::structural::FunctionTree::generateCodeForMain(std::string & co
 	code += "exit\nend start\n";
 }
 
-void gcew::trees::structural::FunctionTree::createData(std::string & code)
-{
-	for (auto var : arguments)
-		var->createData(code);
-	Tree::createData(code);
-}
-
 void gcew::trees::structural::FunctionTree::createInitializeData(std::string & code)
 {
 }

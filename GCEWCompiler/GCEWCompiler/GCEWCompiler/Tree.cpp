@@ -18,12 +18,6 @@ namespace gcew::trees::structural
 			var->createInitializeData(code);
 	}
 
-	void Tree::createData(std::string & code)
-	{
-		for (auto elem : this->operations)
-			elem->createData(code);
-	}
-
 	bool Tree::isBlockForOptimize()
 	{
 		bool result = this->operations.size() == 0;
@@ -127,10 +121,7 @@ namespace gcew::trees::structural
 
 	std::string Tree::createCode()
 	{
-		std::string code = ".386\n.model flat, stdcall\noption casemap : none\ninclude /masm32/include/kernel32.inc\ninclude /masm32/macros/macros.asm\ninclude /masm32/include/msvcrt.inc\ninclude /masm32/include/masm32.inc\nincludelib /masm32/lib/kernel32\nincludelib /masm32/lib/msvcrt\nincludelib /masm32/lib/masm32\n";
-		code += ".data\n";
-		createData(code);
-		code += ".code\n";
+		std::string code;
 		toCode(code);
 		return code;
 	}

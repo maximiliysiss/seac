@@ -2,14 +2,6 @@
 
 namespace gcew::trees::structural
 {
-	void ForTree::createData(std::string & code)
-	{
-		CycleTree::createData(code);
-		if (startAction)
-			this->startAction->createData(code);
-		if (iteration)
-			this->iteration->createData(code);
-	}
 
 	bool ForTree::isCallFunction(std::string name)
 	{

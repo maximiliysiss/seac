@@ -19,15 +19,6 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void Node::createData(std::string & code)
-	{
-		left->createData(code);
-		right->createData(code);
-		auto type = left->tryGetType();
-		if (type.length() > 0)
-			code += name + " " + gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Convert] + " ?\n";
-	}
-
 	void Node::toCode(std::string & code)
 	{
 		this->left->toCode(code);

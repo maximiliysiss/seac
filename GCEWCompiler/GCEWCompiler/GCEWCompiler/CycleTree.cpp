@@ -3,13 +3,6 @@
 
 namespace gcew::trees::structural
 {
-	void CycleTree::createData(std::string & code)
-	{
-		Tree::createData(code);
-		if (condition)
-			condition->createData(code);
-	}
-
 	bool CycleTree::isCallFunction(std::string name)
 	{
 		return condition->isCallFunction(name);

@@ -2,11 +2,6 @@
 
 namespace gcew::trees::structural
 {
-	void IfTree::createData(std::string & code)
-	{
-		Tree::createData(code);
-		this->expression->createData(code);
-	}
 
 	void IfTree::postWork(void * tree)
 	{

@@ -10,7 +10,6 @@ namespace gcew::trees::elements::operations
 		std::string name;
 		gcew::trees::structural::FunctionTree * function{ nullptr };
 		std::vector<gcew::trees::parser::BaseNode*> arguments;
-		virtual void createData(std::string & code);
 		gcew::trees::structural::Tree * tree;
 	public:
 		virtual bool isCallFunction(std::string name) override;

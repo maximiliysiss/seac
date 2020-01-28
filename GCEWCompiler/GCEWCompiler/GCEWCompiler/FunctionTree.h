@@ -18,7 +18,6 @@ namespace gcew::trees::structural
 		std::vector<gcew::trees::elements::Variable*> arguments;
 		bool isMainFunction;
 		void generateCodeForMain(std::string & code);
-		virtual void createData(std::string & code);
 	protected:
 		virtual void createInitializeData(std::string & code);
 		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;

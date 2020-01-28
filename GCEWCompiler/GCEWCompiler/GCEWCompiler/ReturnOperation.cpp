@@ -1,13 +1,5 @@
 #include "ReturnOperation.h"
 
-
-
-void gcew::trees::elements::operations::ReturnOperation::createData(std::string & code)
-{
-	if (ret)
-		this->ret->createData(code);
-}
-
 bool gcew::trees::elements::operations::ReturnOperation::isCallFunction(std::string name)
 {
 	return this->ret->isCallFunction(name);

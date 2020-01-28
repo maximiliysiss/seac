@@ -17,7 +17,6 @@ namespace gcew::trees::parser
 		BaseNode * node;
 	public:
 		virtual void toCode(std::string & code) = 0;
-		virtual void createData(std::string & code);
 		OneNode(BaseNode * node, std::string operation);
 		~OneNode();
 
@@ -36,7 +35,6 @@ namespace gcew::trees::parser
 	public:
 		virtual std::string tryGetType() override;
 		virtual bool isCallFunction(std::string name) override;
-		virtual void createData(std::string & code) override;
 		virtual void postWork(void * tree) override;
 		virtual bool isInActiveTree(std::string name) override;
 		CallNode(std::string operation);

@@ -38,8 +38,3 @@ bool gcew::trees::elements::operations::AssigmentOperation::isInActiveTree(std::
 {
 	return this->exp->isInActiveTree(name);
 }
-
-void gcew::trees::elements::operations::AssigmentOperation::createData(std::string & code)
-{
-	this->exp->createData(code);
-}

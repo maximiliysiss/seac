@@ -15,7 +15,6 @@ namespace gcew::trees::parser
 		virtual std::string tryGetType();
 		inline std::string getName() const { return name; }
 		BaseNode();
-		virtual void createData(std::string & code) {}
 		virtual bool isInActiveTree(std::string name) { return false; }
 		virtual ~BaseNode();
 	};

@@ -13,7 +13,6 @@ namespace gcew::trees::structural
 		std::vector<std::string> parts;
 		Element * iteration{ nullptr };
 		Element * startAction{ nullptr };
-		virtual void createData(std::string & code);
 	public:
 		virtual bool isCallFunction(std::string name) override;
 		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;

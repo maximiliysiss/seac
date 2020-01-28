@@ -11,7 +11,6 @@ namespace gcew::trees::structural
 	{
 	protected:
 		BaseNode * condition{ nullptr };
-		virtual void createData(std::string & code);
 		std::string breakOperation;
 		std::string continueOperation;
 	public:

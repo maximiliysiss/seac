@@ -22,12 +22,6 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void Term::createData(std::string & code)
-	{
-		if (isTemp)
-			code += name + " " + gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::Convert] + " " + value + "\n";
-	}
-
 	void Term::toCode(std::string & code)
 	{
 		code += gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldSet] + " " + name + "\n";

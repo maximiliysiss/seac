@@ -1,11 +1,5 @@
 #include "CallOperation.h"
 
-void gcew::trees::elements::operations::CallOperation::createData(std::string & code)
-{
-	for (auto arg : arguments)
-		arg->createData(code);
-}
-
 bool gcew::trees::elements::operations::CallOperation::isCallFunction(std::string name)
 {
 	return name == function->getFuncName();

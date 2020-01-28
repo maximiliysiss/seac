@@ -3,10 +3,6 @@
 
 namespace gcew::trees::parser
 {
-	void OneNode::createData(std::string & code)
-	{
-		node->createData(code);
-	}
 
 	OneNode::OneNode(BaseNode * node, std::string operation)
 		: node(node), operation(operation)
@@ -44,11 +40,6 @@ namespace gcew::trees::parser
 	bool CallNode::isCallFunction(std::string name)
 	{
 		return call->isCallFunction(name);
-	}
-
-	void CallNode::createData(std::string & code)
-	{
-		call->createData(code);
 	}
 
 	void CallNode::postWork(void * tree)

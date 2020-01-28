@@ -30,7 +30,6 @@ namespace gcew::trees::structural
 		Tree* parent{ nullptr };
 		bool isBlockList();
 		virtual void createInitializeData(std::string & code);
-		virtual void createData(std::string & code);
 		virtual bool isBlockForOptimize();
 		bool isInTree(std::string name);
 		virtual bool isInActiveTree(std::string name) override;
