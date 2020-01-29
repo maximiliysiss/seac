@@ -30,12 +30,12 @@ void gcew::trees::structural::FunctionTree::toCode(std::ostream& code)
 		generateCodeForMain(code);
 		return;
 	}
-	code << name + " proc near\n";
+	code << (ull)gcew::commons::JitOperation::proc;
 	for (auto i = arguments.rbegin(); i != arguments.rend(); i++)
 		code << gcew::commons::CompileConfiguration::typeOperation[(*i)->getType()][gcew::commons::Operations::FieldGet] + " " + (*i)->getCodeName() + "\n";
 	Tree::toCode(code);
 	code << gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + name + ":\nret\n";
-	code << name + " endp\n";
+	code << (ull)gcew::commons::JitOperation::exit;
 }
 
 gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg)

@@ -24,7 +24,7 @@ namespace gcew::trees::parser
 
 	void Term::toCode(std::ostream& code)
 	{
-		code << gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldSet] + " " + name + "\n";
+		code << (ull)gcew::commons::JitOperation::stack << value;
 	}
 
 	std::vector<std::string> Term::toBoolCode(std::ostream& code)

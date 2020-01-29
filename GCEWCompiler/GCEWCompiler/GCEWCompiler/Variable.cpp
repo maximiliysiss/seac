@@ -35,7 +35,7 @@ namespace gcew::trees::elements
 		code << (ull)gcew::commons::JitOperation::init << (ull)gcew::commons::CompileConfiguration::jitTypes[type];
 		if (exp) {
 			exp->toCode(code);
-			code << gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldGet] + " " + codeName + "\n";
+			code << (ull)gcew::commons::JitOperation::assign;
 		}
 	}
 

@@ -6,6 +6,7 @@
 #include <map>
 #include "tinyxml.h"
 #include "Instruments.h"
+#include "RuntimeConfiguration.h"
 
 constexpr auto COMMONS = "commons";
 

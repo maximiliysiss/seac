@@ -66,6 +66,8 @@ namespace gcew::commons
 		start = 558,
 		ret = 672,
 		end = 311,
-		exit = 442
+		exit = 442,
+		assign = 645,
+		stack = 534
 	};
 }
