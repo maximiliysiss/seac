@@ -8,7 +8,7 @@ namespace gcew::trees::elements
 			return this->exp->isCallFunction(name);
 		return false;
 	}
-	void Variable::postWork(void * tree)
+	void Variable::postWork(void* tree)
 	{
 		if (exp)
 			exp->postWork(tree);
@@ -30,14 +30,12 @@ namespace gcew::trees::elements
 			name = name.substr(0, name.length() - breakOperation);
 	}
 
-	void Variable::toCode(std::string & code)
+	void Variable::toCode(std::ostream& code)
 	{
+		code << (ull)gcew::commons::JitOperation::init << (ull)gcew::commons::CompileConfiguration::jitTypes[type];
 		if (exp) {
-			auto * term = dynamic_cast<Term*>(exp);
-			if (!term || !term->isTempValue()) {
-				exp->toCode(code);
-				code += gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldGet] + " " + codeName + "\n";
-			}
+			exp->toCode(code);
+			code << gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldGet] + " " + codeName + "\n";
 		}
 	}
 

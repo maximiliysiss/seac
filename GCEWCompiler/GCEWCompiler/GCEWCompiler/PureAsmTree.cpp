@@ -15,10 +15,10 @@ void gcew::trees::structural::PureAsmTree::addLine(std::string str)
 	this->datas.push_back(str);
 }
 
-void gcew::trees::structural::PureAsmTree::toCode(std::string & code)
+void gcew::trees::structural::PureAsmTree::toCode(std::ostream& code)
 {
 	for (auto str : datas)
-		code += str + "\n";
+		code << str + "\n";
 }
 
 void gcew::trees::structural::PureAsmTree::postWork(void * tree)

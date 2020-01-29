@@ -17,16 +17,15 @@ namespace gcew::trees::structural
 		std::string outputType;
 		std::vector<gcew::trees::elements::Variable*> arguments;
 		bool isMainFunction;
-		void generateCodeForMain(std::string & code);
+		void generateCodeForMain(std::ostream& code);
 	protected:
-		virtual void createInitializeData(std::string & code);
 		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;
 		virtual bool isBlockForOptimize() override;
 	public:
 		inline std::string getFuncName() const { return functionName; }
 		inline std::string getFuncOutputType() const { return outputType; }
 		inline bool isMain() const { return isMainFunction; }
-		virtual void toCode(std::string& code) override;
+		virtual void toCode(std::ostream& code) override;
 		FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg);
 	};
 }

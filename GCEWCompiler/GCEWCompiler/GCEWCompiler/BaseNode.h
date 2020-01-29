@@ -10,7 +10,7 @@ namespace gcew::trees::parser
 		std::string name;
 	public:
 		virtual void postWork(void * tree) {}
-		virtual void toCode(std::string& code) = 0;
+		virtual void toCode(std::ostream& code) = 0;
 		virtual bool isCallFunction(std::string name) = 0;
 		virtual std::string tryGetType();
 		inline std::string getName() const { return name; }

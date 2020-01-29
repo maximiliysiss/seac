@@ -1,18 +1,14 @@
 #include "FunctionTree.h"
 
 
-void gcew::trees::structural::FunctionTree::generateCodeForMain(std::string & code)
+void gcew::trees::structural::FunctionTree::generateCodeForMain(std::ostream& code)
 {
-	code += "start:\n";
+	code << (ull)gcew::commons::JitOperation::start;
 	Tree::toCode(code);
-	code += "exit\nend start\n";
+	code << (ull)gcew::commons::JitOperation::exit;
 }
 
-void gcew::trees::structural::FunctionTree::createInitializeData(std::string & code)
-{
-}
-
-gcew::trees::elements::Variable * gcew::trees::structural::FunctionTree::findVariableByName(std::string name)
+gcew::trees::elements::Variable* gcew::trees::structural::FunctionTree::findVariableByName(std::string name)
 {
 	for (auto arg : arguments)
 		if (arg->getName() == name)
@@ -28,18 +24,18 @@ bool gcew::trees::structural::FunctionTree::isBlockForOptimize()
 	return this->isInTree(this->functionName) || res;
 }
 
-void gcew::trees::structural::FunctionTree::toCode(std::string & code)
+void gcew::trees::structural::FunctionTree::toCode(std::ostream& code)
 {
 	if (isMainFunction) {
 		generateCodeForMain(code);
 		return;
 	}
-	code += name + " proc near\n";
+	code << name + " proc near\n";
 	for (auto i = arguments.rbegin(); i != arguments.rend(); i++)
-		code += gcew::commons::CompileConfiguration::typeOperation[(*i)->getType()][gcew::commons::Operations::FieldGet] + " " + (*i)->getCodeName() + "\n";
+		code << gcew::commons::CompileConfiguration::typeOperation[(*i)->getType()][gcew::commons::Operations::FieldGet] + " " + (*i)->getCodeName() + "\n";
 	Tree::toCode(code);
-	code += gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + name + ":\nret\n";
-	code += name + " endp\n";
+	code << gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + name + ":\nret\n";
+	code << name + " endp\n";
 }
 
 gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg)
@@ -54,7 +50,7 @@ gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line,
 	std::for_each(parts.begin(), parts.end(), [](std::string str) {str = gcew::commons::trim(str); });
 	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [](std::string arg) {
 		return new gcew::trees::elements::Variable(0, arg);
-	});
+		});
 	isMainFunction = this->functionName == "main";
 }
 

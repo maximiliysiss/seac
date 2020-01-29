@@ -19,8 +19,7 @@ namespace  gcew::trees::elements
 		Element(int index, std::string line);
 		Element(int index, std::string line, RegexResult reg);
 		virtual ~Element();
-		virtual void createInitializeData(std::string & code) {}
-		virtual void toCode(std::string & code) = 0;
+		virtual void toCode(std::ostream& code) = 0;
 		virtual void postWork(void* tree) {}
 		virtual bool isCallFunction(std::string name) { return false; }
 		virtual bool isInActiveTree(std::string name) { return false; }

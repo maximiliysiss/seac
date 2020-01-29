@@ -20,7 +20,7 @@ namespace gcew::trees::structural
 		virtual bool isInActiveTree(std::string name);
 		ForTree(int index, std::string & line);
 		~ForTree();
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream& code) override;
 	};
 }
 

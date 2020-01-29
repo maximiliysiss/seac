@@ -21,14 +21,13 @@ gcew::trees::elements::operations::AssigmentOperation::~AssigmentOperation()
 		delete exp;
 }
 
-void gcew::trees::elements::operations::AssigmentOperation::toCode(std::string & code)
+void gcew::trees::elements::operations::AssigmentOperation::toCode(std::ostream& code)
 {
 	exp->toCode(code);
-	code += gcew::commons::CompileConfiguration::typeOperation[var->getType()][gcew::commons::Operations::FieldGet]
-		+ " " + var->getCodeName() + "\n";
+	code << gcew::commons::CompileConfiguration::typeOperation[var->getType()][gcew::commons::Operations::FieldGet] + " " + var->getCodeName() + "\n";
 }
 
-void gcew::trees::elements::operations::AssigmentOperation::postWork(void * tree)
+void gcew::trees::elements::operations::AssigmentOperation::postWork(void* tree)
 {
 	this->var = ((gcew::trees::structural::Tree*)tree)->findVariableByName(name);
 	this->exp->postWork(tree);

@@ -22,7 +22,7 @@ namespace gcew::trees::elements::operations
 	{
 	}
 
-	void IncludeOperation::toCode(std::string & code)
+	void IncludeOperation::toCode(std::ostream& code)
 	{
 	}
 

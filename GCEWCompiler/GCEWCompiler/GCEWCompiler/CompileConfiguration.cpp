@@ -34,6 +34,7 @@ namespace gcew::commons
 	}
 
 	std::map<std::string, std::map<Operations, std::string>> CompileConfiguration::typeOperation;
+	std::map<std::string, int> CompileConfiguration::jitTypes;
 
 	void CompileConfiguration::load()
 	{
@@ -70,6 +71,13 @@ namespace gcew::commons
 				}
 				typeOperation[name] = operations;
 			}
+
+			jitTypes = {
+				{ "int", 1 },
+				{ "float", 2 },
+				{ "double", 3 },
+				{ "string", 4 }
+			};
 		}
 		catch (std::exception ex) {
 			std::cout << "Exception load configuration: " << ex.what() << std::endl;

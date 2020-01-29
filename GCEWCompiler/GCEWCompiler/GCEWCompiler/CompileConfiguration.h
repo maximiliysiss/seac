@@ -22,6 +22,7 @@ namespace gcew::commons
 		static std::string workPath;
 		static CompileConfiguration & instance();
 		static std::map<std::string, std::map<Operations, std::string>> typeOperation;
+		static std::map<std::string, int> jitTypes;
 		static std::string getTypeInitializeByValue(std::string value);
 		inline std::string getCompilePath() const { return pathForCompile; }
 		inline std::string getLibsPath() const { return libsPath; }

@@ -22,12 +22,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void Term::toCode(std::string & code)
+	void Term::toCode(std::ostream& code)
 	{
-		code += gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldSet] + " " + name + "\n";
+		code << gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldSet] + " " + name + "\n";
 	}
 
-	std::vector<std::string> Term::toBoolCode(std::string & code)
+	std::vector<std::string> Term::toBoolCode(std::ostream& code)
 	{
 		toCode(code);
 		return { name };

@@ -142,20 +142,15 @@ int main(int argc, char** argv)
 		auto rootTree = generateTree(p.string());
 		rootTree->postWork(rootTree);
 		rootTree->optimize();
-		std::string code = rootTree->createCode();
 		fileFolder += "build\\";
 		if (exists(fileFolder))
 			remove_all(fileFolder);
 		create_directory(fileFolder);
 		std::string fileName = path(fileExecute).filename().string();
-		auto fileResult = fileFolder.string() + fileName.substr(0, fileName.find('.')) + "_build.asm";
-
-		std::ofstream outFileCode(fileResult);
-		outFileCode << code;
+		auto fileResult = fileFolder.string() + fileName.substr(0, fileName.find('.')) + "_build.seac";
+		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
+		rootTree->createCode(outFileCode);
 		outFileCode.close();
-
-		//std::string cmd = parentPath.string() + "\\masmCompile.bat " + fileResult;
-		//system(cmd.c_str());
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;

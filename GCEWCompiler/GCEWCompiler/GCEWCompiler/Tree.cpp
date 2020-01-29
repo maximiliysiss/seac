@@ -12,12 +12,6 @@ namespace gcew::trees::structural
 		return false;
 	}
 
-	void Tree::createInitializeData(std::string & code)
-	{
-		for (auto var : this->getElementsForInit())
-			var->createInitializeData(code);
-	}
-
 	bool Tree::isBlockForOptimize()
 	{
 		bool result = this->operations.size() == 0;
@@ -119,11 +113,9 @@ namespace gcew::trees::structural
 		}
 	}
 
-	std::string Tree::createCode()
+	void Tree::createCode(std::ostream & code)
 	{
-		std::string code;
 		toCode(code);
-		return code;
 	}
 
 	std::vector<Tree*> Tree::getChildren()
@@ -184,9 +176,8 @@ namespace gcew::trees::structural
 		return results;
 	}
 
-	void Tree::toCode(std::string & code)
+	void Tree::toCode(std::ostream& code)
 	{
-		createInitializeData(code);
 		Element * tmpMain = nullptr;
 		std::vector<Element*> opers;
 		for (auto oper : operations) {

@@ -63,7 +63,7 @@ namespace gcew::regulars
 
 	RegexResult TreeRegularBuilder::isType(std::string input, bool type)
 	{
-		return regex_matcher("^[a-zA-Z]+[a-z-A-Z0-9]* [a-zA-Z]+[a-zA-Z0-9]*( = .*)*;$", input, type) ? RegexResult::Type : RegexResult::NotClassic;
+		return regex_matcher("^[a-zA-Z]+[a-z-A-Z0-9]* [a-zA-Z]+[a-zA-Z0-9]*( *= *.*)*;$", input, type) ? RegexResult::Type : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isFunction(std::string input, bool type)
@@ -93,7 +93,7 @@ namespace gcew::regulars
 
 	RegexResult TreeRegularBuilder::isFor(std::string input, bool type)
 	{
-		return regex_matcher(getForRegex(), input, type) ? RegexResult::For : RegexResult::NotClassic;
+		return regex_matcher("^for\\(.*;.*;.*\\)$", input, type) ? RegexResult::For : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isOpenFigure(std::string input, bool type)

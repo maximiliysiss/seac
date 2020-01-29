@@ -16,7 +16,7 @@ namespace gcew::trees::parser
 		std::string operation;
 		BaseNode * node;
 	public:
-		virtual void toCode(std::string & code) = 0;
+		virtual void toCode(std::ostream& code) = 0;
 		OneNode(BaseNode * node, std::string operation);
 		~OneNode();
 
@@ -27,7 +27,7 @@ namespace gcew::trees::parser
 	class OperatorNot : public OneNode {
 	public:
 		OperatorNot(std::string operation, BaseNode * node);
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream& code) override;
 	};
 
 	class CallNode : public OneNode {
@@ -38,7 +38,7 @@ namespace gcew::trees::parser
 		virtual void postWork(void * tree) override;
 		virtual bool isInActiveTree(std::string name) override;
 		CallNode(std::string operation);
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream& code) override;
 	};
 }
 

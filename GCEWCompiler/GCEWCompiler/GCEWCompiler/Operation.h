@@ -9,7 +9,7 @@ namespace  gcew::trees::elements
 	public:
 		Operation(int index, std::string line, RegexResult reg);
 		virtual ~Operation();
-		void toCode(std::string& code) = 0;
+		void toCode(std::ostream& code) = 0;
 	};
 }
 

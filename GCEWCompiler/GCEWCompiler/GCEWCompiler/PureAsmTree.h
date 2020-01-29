@@ -11,7 +11,7 @@ namespace gcew::trees::structural
 	public:
 		PureAsmTree(int index, std::string line);
 		void addLine(std::string str);
-		virtual void toCode(std::string & code);
+		virtual void toCode(std::ostream& code);
 		virtual void postWork(void * tree) override;
 	};
 

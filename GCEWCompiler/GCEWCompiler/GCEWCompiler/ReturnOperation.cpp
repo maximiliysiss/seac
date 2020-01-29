@@ -35,9 +35,9 @@ void gcew::trees::elements::operations::ReturnOperation::postWork(void * tree)
 		ret->postWork(tree);
 }
 
-void gcew::trees::elements::operations::ReturnOperation::toCode(std::string & code)
+void gcew::trees::elements::operations::ReturnOperation::toCode(std::ostream& code)
 {
 	if (ret)
 		ret->toCode(code);
-	code += "jmp " + gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + functionTree->getName() + "\n";
+	code << "jmp " + gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + functionTree->getName() + "\n";
 }

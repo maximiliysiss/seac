@@ -20,7 +20,7 @@ namespace gcew::trees::elements::operations
 		}
 
 		// Inherited via Operation
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream & code) override;
 	};
 }
 

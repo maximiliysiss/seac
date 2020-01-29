@@ -29,7 +29,6 @@ namespace gcew::trees::structural
 		std::list<gcew::trees::elements::CustomTypes*> customTypes;
 		Tree* parent{ nullptr };
 		bool isBlockList();
-		virtual void createInitializeData(std::string & code);
 		virtual bool isBlockForOptimize();
 		bool isInTree(std::string name);
 		virtual bool isInActiveTree(std::string name) override;
@@ -46,7 +45,7 @@ namespace gcew::trees::structural
 		FunctionTree * findFunctionTreeUp();
 		FunctionTree * findFunctionTree(std::string name);
 		void optimize();
-		std::string createCode();
+		void createCode(std::ostream&);
 		std::vector<Tree*> getChildren();
 		inline Tree* getParent() const { return parent; }
 		Tree * addChild(Tree * child);
@@ -56,7 +55,7 @@ namespace gcew::trees::structural
 		void addOperation(Element * elem);
 		std::vector<Element*> getElementsForInit();
 		// Inherited via Element
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream& code) override;
 		inline std::string getName() const { return name; }
 	};
 }

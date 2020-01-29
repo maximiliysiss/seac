@@ -8,7 +8,7 @@ namespace gcew::trees::structural
 	{
 	public:
 		WhileTree(int index, std::string line);
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(std::ostream& code) override;
 	};
 
 }

@@ -2,13 +2,13 @@
 
 namespace gcew::trees::structural
 {
-	void ElseTree::toCode(std::string & code)
+	void ElseTree::toCode(std::ostream& code)
 	{
 	}
 
-	void ElseTree::toElseCode(std::string & code)
+	void ElseTree::toElseCode(std::ostream& code)
 	{
-		code += gcew::commons::CompileConfiguration::typeOperation["else"][gcew::commons::Operations::Start] + name + ":\n";
+		code << gcew::commons::CompileConfiguration::typeOperation["else"][gcew::commons::Operations::Start] + name + ":\n";
 		Tree::toCode(code);
 	}
 

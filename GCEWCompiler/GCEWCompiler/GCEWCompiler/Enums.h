@@ -1,4 +1,7 @@
 #pragma once
+#include <map>
+#include <string>
+#define ull unsigned long long
 
 namespace gcew::commons
 {
@@ -48,5 +51,21 @@ namespace gcew::commons
 		Struct,
 		Return,
 		Block
+	};
+
+	enum class JitOperation: ull {
+		func = 428,
+		proc = 436,
+		init = 1306,
+		equal = 536,
+		plus = 452,
+		minus = 556,
+		divide = 629,
+		multiply = 896,
+		call = 412,
+		start = 558,
+		ret = 672,
+		end = 311,
+		exit = 442
 	};
 }

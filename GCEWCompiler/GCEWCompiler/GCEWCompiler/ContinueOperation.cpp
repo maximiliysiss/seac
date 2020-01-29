@@ -9,7 +9,7 @@ gcew::trees::elements::operations::ContinueOperation::~ContinueOperation()
 {
 }
 
-void gcew::trees::elements::operations::ContinueOperation::toCode(std::string & code)
+void gcew::trees::elements::operations::ContinueOperation::toCode(std::ostream & code)
 {
-	code += "jmp " + this->cycleTree->getContinue() + "\n";
+	code << "jmp " + this->cycleTree->getContinue() + "\n";
 }
