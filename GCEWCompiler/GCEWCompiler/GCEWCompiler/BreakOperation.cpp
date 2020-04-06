@@ -5,7 +5,7 @@ gcew::trees::elements::operations::BreakOperation::BreakOperation(int index, std
 {
 }
 
-void gcew::trees::elements::operations::BreakOperation::toCode(std::ostream & code)
+void gcew::trees::elements::operations::BreakOperation::toCode(gcew::commons::CodeStream& code)
 {
-	code << "jmp " + this->cycleTree->getBreak() + "\n";
+	//code << "jmp " + this->cycleTree->getBreak() + "\n";
 }

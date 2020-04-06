@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Enums.h"
+#include "CodeStream.h"
 
 namespace  gcew::trees::elements
 {
@@ -19,7 +20,7 @@ namespace  gcew::trees::elements
 		Element(int index, std::string line);
 		Element(int index, std::string line, RegexResult reg);
 		virtual ~Element();
-		virtual void toCode(std::ostream& code) = 0;
+		virtual void toCode(CodeStream& code) = 0;
 		virtual void postWork(void* tree) {}
 		virtual bool isCallFunction(std::string name) { return false; }
 		virtual bool isInActiveTree(std::string name) { return false; }

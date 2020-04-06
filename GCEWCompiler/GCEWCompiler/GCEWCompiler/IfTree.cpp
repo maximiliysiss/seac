@@ -14,11 +14,11 @@ namespace gcew::trees::structural
 		return expression->isCallFunction(name);
 	}
 
-	void IfTree::toCode(std::ostream& code)
+	void IfTree::toCode(gcew::commons::CodeStream& code)
 	{
 		std::string start = gcew::commons::CompileConfiguration::typeOperation["if"][gcew::commons::Operations::Start] + name;
 		std::string breakOperation = gcew::commons::CompileConfiguration::typeOperation["if"][gcew::commons::Operations::End] + name;
-		code << "finit\n";
+		//code << "finit\n";
 		auto cond = dynamic_cast<gcew::trees::parser::BoolNode*>(expression)->toBoolCode(code);
 		/*auto index = code.find(cond[1]);
 		code.insert(index + cond[1].length(), "\njmp " + start + "\n");
@@ -29,10 +29,10 @@ namespace gcew::trees::structural
 			code.insert(index + cond[2].length(), "\njmp " + breakOperation + "\n");
 		code += start + ":\n";*/
 		Tree::toCode(code);
-		code << "jmp " + breakOperation + "\n";
+		//code << "jmp " + breakOperation + "\n";
 		if (elseTree)
 			elseTree->toElseCode(code);
-		code << breakOperation + ":\n";
+		//code << breakOperation + ":\n";
 	}
 
 	IfTree::IfTree(int index, std::string line)

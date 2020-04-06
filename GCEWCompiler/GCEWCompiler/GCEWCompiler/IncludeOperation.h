@@ -21,7 +21,7 @@ namespace gcew::trees::elements::operations
 		~IncludeOperation();
 
 		// Inherited via Operation
-		virtual void toCode(std::ostream& code) override;
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 

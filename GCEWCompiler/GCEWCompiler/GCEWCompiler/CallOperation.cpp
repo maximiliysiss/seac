@@ -37,10 +37,10 @@ gcew::trees::elements::operations::CallOperation::~CallOperation()
 {
 }
 
-void gcew::trees::elements::operations::CallOperation::toCode(std::ostream & code)
+void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::CodeStream& code)
 {
 	for (auto arg : arguments) {
 		arg->toCode(code);
 	}
-	code << "call " + function->getName() + "\n";
+	//code << "call " + function->getName() + "\n";
 }

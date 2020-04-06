@@ -64,7 +64,7 @@ namespace gcew::trees::structural
 			delete startAction;
 	}
 
-	void ForTree::toCode(std::ostream& code)
+	void ForTree::toCode(CodeStream& code)
 	{
 		std::string start = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Start] + name;
 		std::string body = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Body] + name;
@@ -72,8 +72,8 @@ namespace gcew::trees::structural
 		std::string end = breakOperation;
 		if (startAction)
 			startAction->toCode(code);
-		code << start + ":\n";
-		code << "finit\n";
+	/*	code << start + ":\n";
+		code << "finit\n";*/
 		/*auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
 		auto index = code.find(cond[1]);
 		code.insert(index + cond[1].length(), "\njmp " + body + "\n");
@@ -83,9 +83,9 @@ namespace gcew::trees::structural
 		iteration->toCode(code);
 		code += "jmp " + start + "\n";
 		code += body + ":\n";*/
-		Tree::toCode(code);
+		/*Tree::toCode(code);
 		code << "jmp " + iter + "\n";
-		code << end + ":\n";
+		code << end + ":\n";*/
 	}
 
 }

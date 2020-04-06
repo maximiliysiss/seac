@@ -33,29 +33,29 @@ namespace gcew::trees::structural
 		bool isInTree(std::string name);
 		virtual bool isInActiveTree(std::string name) override;
 	public:
-		virtual void postWork(void * tree) override;
-		static Tree ** currentTree;
+		virtual void postWork(void* tree) override;
+		static Tree** currentTree;
 		inline std::vector<Element*> getElements() const { return operations; }
 		Tree() = delete;
 		Tree(int index, std::string line, gcew::commons::RegexResult reg);
 		virtual ~Tree();
-		void treeChildrenPrinter(std::ostream & out, int level = 0);
-		void variableInfoPrinter(std::ostream & out, int level = 0);
-		CycleTree * findCycleTreeUp();
-		FunctionTree * findFunctionTreeUp();
-		FunctionTree * findFunctionTree(std::string name);
+		void treeChildrenPrinter(std::ostream& out, int level = 0);
+		void variableInfoPrinter(std::ostream& out, int level = 0);
+		CycleTree* findCycleTreeUp();
+		FunctionTree* findFunctionTreeUp();
+		FunctionTree* findFunctionTree(std::string name);
 		void optimize();
-		void createCode(std::ostream&);
+		void createCode(gcew::commons::CodeStream&);
 		std::vector<Tree*> getChildren();
 		inline Tree* getParent() const { return parent; }
-		Tree * addChild(Tree * child);
-		Tree * getRoot();
-		virtual gcew::trees::elements::Variable * findVariableByName(std::string name);
+		Tree* addChild(Tree* child);
+		Tree* getRoot();
+		virtual gcew::trees::elements::Variable* findVariableByName(std::string name);
 		std::vector<gcew::trees::elements::Variable*> getVariables();
-		void addOperation(Element * elem);
+		void addOperation(Element* elem);
 		std::vector<Element*> getElementsForInit();
 		// Inherited via Element
-		virtual void toCode(std::ostream& code) override;
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 		inline std::string getName() const { return name; }
 	};
 }

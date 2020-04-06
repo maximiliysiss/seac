@@ -17,7 +17,7 @@ namespace gcew::trees::elements::operations
 		inline void setCycleTree(gcew::trees::structural::CycleTree * cycleTree) { this->cycleTree = cycleTree; }
 
 		// Inherited via Operation
-		virtual void toCode(std::ostream & code) override;
+		virtual void toCode(CodeStream& code) override;
 	};
 }
 

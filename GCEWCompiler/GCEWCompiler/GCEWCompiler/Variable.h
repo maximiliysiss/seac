@@ -22,7 +22,7 @@ namespace  gcew::trees::elements
 		inline std::string getName() const { return name; }
 		inline std::string getType() const { return type; }
 		Variable(int index, std::string line);
-		void toCode(std::ostream& code);
+		void toCode(CodeStream& code);
 		~Variable();
 	};
 }

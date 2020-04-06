@@ -19,7 +19,7 @@ namespace gcew::trees::elements::operations
 		~AssigmentOperation();
 
 		// Inherited via Operation
-		virtual void toCode(std::ostream & code) override;
+		virtual void toCode(CodeStream& code) override;
 
 		// Inherited via Operation
 		virtual void postWork(void * tree) override;

@@ -7,8 +7,8 @@ namespace gcew::trees::structural
 		public Tree
 	{
 	public:
-		virtual void toCode(std::ostream& code) override;
-		void toElseCode(std::ostream& code);
+		virtual void toCode(gcew::commons::CodeStream& code) override;
+		void toElseCode(gcew::commons::CodeStream& code);
 		ElseTree(int index, std::string line);
 		~ElseTree();
 	};

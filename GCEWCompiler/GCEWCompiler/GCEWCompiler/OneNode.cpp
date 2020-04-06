@@ -25,7 +25,7 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorNot::toCode(std::ostream& code)
+	void OperatorNot::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
@@ -60,7 +60,7 @@ namespace gcew::trees::parser
 			->setTree(*gcew::trees::structural::Tree::currentTree);
 	}
 
-	void CallNode::toCode(std::ostream& code)
+	void CallNode::toCode(gcew::commons::CodeStream& code)
 	{
 		call->toCode(code);
 	}

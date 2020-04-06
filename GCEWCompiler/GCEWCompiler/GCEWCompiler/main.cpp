@@ -148,9 +148,8 @@ int main(int argc, char** argv)
 		create_directory(fileFolder);
 		std::string fileName = path(fileExecute).filename().string();
 		auto fileResult = fileFolder.string() + fileName.substr(0, fileName.find('.')) + "_build.seac";
-		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
-		rootTree->createCode(outFileCode);
-		outFileCode.close();
+		/*std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
+		rootTree->createCode(outFileCode);*/
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;

@@ -21,10 +21,10 @@ gcew::trees::elements::operations::AssigmentOperation::~AssigmentOperation()
 		delete exp;
 }
 
-void gcew::trees::elements::operations::AssigmentOperation::toCode(std::ostream& code)
+void gcew::trees::elements::operations::AssigmentOperation::toCode(gcew::commons::CodeStream& code)
 {
 	exp->toCode(code);
-	code << gcew::commons::CompileConfiguration::typeOperation[var->getType()][gcew::commons::Operations::FieldGet] + " " + var->getCodeName() + "\n";
+	//code << gcew::commons::CompileConfiguration::typeOperation[var->getType()][gcew::commons::Operations::FieldGet] + " " + var->getCodeName() + "\n";
 }
 
 void gcew::trees::elements::operations::AssigmentOperation::postWork(void* tree)

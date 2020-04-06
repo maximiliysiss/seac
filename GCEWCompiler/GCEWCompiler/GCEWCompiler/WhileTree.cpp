@@ -10,13 +10,13 @@ gcew::trees::structural::WhileTree::WhileTree(int index, std::string line)
 	this->condition = gcew::commons::Parser::preParser(line.substr(startBrk + 1, endBrk - startBrk - 1));
 }
 
-void gcew::trees::structural::WhileTree::toCode(std::ostream& code)
+void gcew::trees::structural::WhileTree::toCode(gcew::commons::CodeStream& code)
 {
 	std::string start = continueOperation;
 	std::string body = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::Body] + name;
 	std::string end = breakOperation;
-	code << start + ":\n";
-	code << "finit\n";
+	/*code << start + ":\n";
+	code << "finit\n";*/
 	/*auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
 	auto index = code.find(cond[1]);
 	code.insert(index + cond[1].length(), "\njmp " + body + "\n");
@@ -24,6 +24,6 @@ void gcew::trees::structural::WhileTree::toCode(std::ostream& code)
 	code.insert(index + cond[2].length(), "\njmp " + end + "\n");
 	code += body + ":\n";*/
 	Tree::toCode(code);
-	code << "jmp " + start + "\n";
-	code << end + ":\n";
+	/*code << "jmp " + start + "\n";
+	code << end + ":\n";*/
 }

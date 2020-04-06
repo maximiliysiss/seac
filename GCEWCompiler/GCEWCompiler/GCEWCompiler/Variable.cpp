@@ -30,12 +30,12 @@ namespace gcew::trees::elements
 			name = name.substr(0, name.length() - breakOperation);
 	}
 
-	void Variable::toCode(std::ostream& code)
+	void Variable::toCode(CodeStream& code)
 	{
-		code << (ull)gcew::commons::JitOperation::init << (ull)gcew::commons::CompileConfiguration::jitTypes[type];
+		/*code << (ull)gcew::commons::JitOperation::init << (ull)gcew::commons::CompileConfiguration::jitTypes[type];*/
 		if (exp) {
 			exp->toCode(code);
-			code << (ull)gcew::commons::JitOperation::assign;
+			//code << (ull)gcew::commons::JitOperation::assign;
 		}
 	}
 

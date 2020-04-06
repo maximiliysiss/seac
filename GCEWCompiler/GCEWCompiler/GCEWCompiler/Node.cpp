@@ -19,7 +19,7 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void Node::toCode(std::ostream& code)
+	void Node::toCode(gcew::commons::CodeStream& code)
 	{
 		this->left->toCode(code);
 		this->right->toCode(code);
@@ -43,11 +43,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorGreater::toCode(std::ostream& code)
+	void OperatorGreater::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorGreater::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorGreater::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		/*code += gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::Start] + boolOperationName + ":\n";
 		auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
@@ -65,11 +65,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorLower::toCode(std::ostream& code)
+	void OperatorLower::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorLower::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorLower::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		/*code += gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::Start] + boolOperationName + ":\n";
 		auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
@@ -87,11 +87,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorEqual::toCode(std::ostream& code)
+	void OperatorEqual::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorEqual::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorEqual::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		/*code += gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::Start] + boolOperationName + ":\n";
 		auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
@@ -109,11 +109,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorNotEqual::toCode(std::ostream& code)
+	void OperatorNotEqual::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorNotEqual::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorNotEqual::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		/*code += gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::Start] + boolOperationName + ":\n";
 		auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
@@ -131,11 +131,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorAnd::toCode(std::ostream& code)
+	void OperatorAnd::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorAnd::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorAnd::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		auto rightCode = dynamic_cast<BoolNode*>(right)->toBoolCode(code);
@@ -161,11 +161,11 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorOr::toCode(std::ostream& code)
+	void OperatorOr::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
-	std::vector<std::string> OperatorOr::toBoolCode(std::ostream& code)
+	std::vector<std::string> OperatorOr::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		/*auto leftCode = dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		auto rightCode = dynamic_cast<BoolNode*>(right)->toBoolCode(code);
@@ -191,10 +191,10 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorPlus::toCode(std::ostream& code)
+	void OperatorPlus::toCode(gcew::commons::CodeStream& code)
 	{
 		SimpleCalculateNode::toCode(code);
-		code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Plus] + (isInteger ? " " + name : "") + "\n";
+		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Plus] + (isInteger ? " " + name : "") + "\n";
 	}
 
 	OperatorMinus::OperatorMinus(std::string operation, BaseNode * left, BaseNode * right)
@@ -202,10 +202,10 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorMinus::toCode(std::ostream& code)
+	void OperatorMinus::toCode(gcew::commons::CodeStream& code)
 	{
 		SimpleCalculateNode::toCode(code);
-		code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Minus] + (isInteger ? " " + name : "") + "\n";
+		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Minus] + (isInteger ? " " + name : "") + "\n";
 	}
 
 	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode * left, BaseNode * right)
@@ -213,10 +213,10 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorMultiply::toCode(std::ostream& code)
+	void OperatorMultiply::toCode(gcew::commons::CodeStream& code)
 	{
 		SimpleCalculateNode::toCode(code);
-		code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Multiply] + (isInteger ? " " + name : "") + "\n";
+		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Multiply] + (isInteger ? " " + name : "") + "\n";
 	}
 
 	OperatorDivide::OperatorDivide(std::string operation, BaseNode * left, BaseNode * right)
@@ -224,10 +224,10 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorDivide::toCode(std::ostream& code)
+	void OperatorDivide::toCode(gcew::commons::CodeStream& code)
 	{
 		SimpleCalculateNode::toCode(code);
-		code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Divide] + (isInteger ? " " + name : "") + "\n";
+		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Divide] + (isInteger ? " " + name : "") + "\n";
 	}
 
 	OperatorMod::OperatorMod(std::string operation, BaseNode * left, BaseNode * right)
@@ -235,7 +235,7 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void OperatorMod::toCode(std::ostream& code)
+	void OperatorMod::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
@@ -244,13 +244,13 @@ namespace gcew::trees::parser
 	{
 	}
 
-	void SimpleCalculateNode::toCode(std::ostream& code)
+	void SimpleCalculateNode::toCode(gcew::commons::CodeStream& code)
 	{
 		left->toCode(code);
 		right->toCode(code);
 		isInteger = left->tryGetType() == "int";
 		if (isInteger) {
-			code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::FieldGet] + " " + name + "\n";
+			//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::FieldGet] + " " + name + "\n";
 		}
 	}
 

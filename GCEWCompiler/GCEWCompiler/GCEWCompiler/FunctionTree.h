@@ -17,7 +17,7 @@ namespace gcew::trees::structural
 		std::string outputType;
 		std::vector<gcew::trees::elements::Variable*> arguments;
 		bool isMainFunction;
-		void generateCodeForMain(std::ostream& code);
+		void generateCodeForMain(gcew::commons::CodeStream& code);
 	protected:
 		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;
 		virtual bool isBlockForOptimize() override;
@@ -25,7 +25,7 @@ namespace gcew::trees::structural
 		inline std::string getFuncName() const { return functionName; }
 		inline std::string getFuncOutputType() const { return outputType; }
 		inline bool isMain() const { return isMainFunction; }
-		virtual void toCode(std::ostream& code) override;
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 		FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg);
 	};
 }

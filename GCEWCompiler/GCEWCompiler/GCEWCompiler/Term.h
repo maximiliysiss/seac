@@ -21,10 +21,10 @@ namespace gcew::trees::parser
 		Term(std::string value, std::string type);
 		~Term();
 		// Inherited via BaseNode
-		virtual void toCode(std::ostream& code) override;
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(std::ostream& code) override;
+		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BaseNode
 		virtual bool isCallFunction(std::string name) override;

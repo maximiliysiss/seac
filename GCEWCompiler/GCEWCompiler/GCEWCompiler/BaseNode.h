@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "CodeStream.h"
 
 namespace gcew::trees::parser
 {
@@ -10,7 +11,7 @@ namespace gcew::trees::parser
 		std::string name;
 	public:
 		virtual void postWork(void * tree) {}
-		virtual void toCode(std::ostream& code) = 0;
+		virtual void toCode(gcew::commons::CodeStream& code) = 0;
 		virtual bool isCallFunction(std::string name) = 0;
 		virtual std::string tryGetType();
 		inline std::string getName() const { return name; }
