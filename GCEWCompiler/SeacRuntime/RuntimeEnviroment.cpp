@@ -11,6 +11,11 @@ namespace seac::runtime {
 		:logger(seac::logger::Logger<RuntimeEnviroment>::getInstance()) {
 	}
 
+	void RuntimeEnviroment::initValue(seac::reader::IntReader* reader) {
+		void* data = malloc(reader->get_memory_operation());
+		stack.push(data);
+	}
+
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
 		if (re)
 			return *re;
@@ -23,6 +28,7 @@ namespace seac::runtime {
 			logger.logInformation("Start operation");
 			break;
 		case (ull)JitOperation::init:
+			initValue((seac::reader::IntReader*)operation);
 			break;
 		}
 	}

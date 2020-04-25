@@ -73,10 +73,10 @@ namespace gcew::commons
 			}
 
 			jitTypes = {
-				{ "int", 1 },
-				{ "float", 2 },
-				{ "double", 3 },
-				{ "string", 4 }
+				{ "int", sizeof(int) },
+				{ "float", sizeof(float) },
+				{ "double", sizeof(double) },
+				{ "string", 0 }
 			};
 		}
 		catch (std::exception ex) {
