@@ -22,6 +22,7 @@ namespace gcew::trees::structural
 		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;
 		virtual bool isBlockForOptimize() override;
 	public:
+		std::string getFMName();
 		inline std::string getFuncName() const { return functionName; }
 		inline std::string getFuncOutputType() const { return outputType; }
 		inline bool isMain() const { return isMainFunction; }

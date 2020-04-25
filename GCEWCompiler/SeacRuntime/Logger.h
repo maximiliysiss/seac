@@ -5,7 +5,7 @@
 #include <typeinfo>
 
 #define ToString(type) #type
-
+#define LOGGER
 
 namespace seac::logger {
 

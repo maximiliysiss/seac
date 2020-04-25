@@ -8,13 +8,13 @@ namespace gcew::trees::parser
 		auto rightType = right->tryGetType();
 		return leftType == "int" ? rightType : leftType;
 	}
-	void Node::postWork(void * tree)
+	void Node::postWork(void* tree)
 	{
 		this->left->postWork(tree);
 		this->right->postWork(tree);
 	}
 
-	Node::Node(std::string operation, BaseNode * left, BaseNode * right)
+	Node::Node(std::string operation, BaseNode* left, BaseNode* right)
 		:operation(operation), left(left), right(right)
 	{
 	}
@@ -38,7 +38,7 @@ namespace gcew::trees::parser
 		return this->left->isCallFunction(name) || this->right->isCallFunction(name);
 	}
 
-	OperatorGreater::OperatorGreater(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorGreater::OperatorGreater(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("greater")
 	{
 	}
@@ -60,7 +60,7 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorLower::OperatorLower(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorLower::OperatorLower(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("lower")
 	{
 	}
@@ -82,7 +82,7 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorEqual::OperatorEqual(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorEqual::OperatorEqual(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("equal")
 	{
 	}
@@ -104,7 +104,7 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorNotEqual::OperatorNotEqual(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorNotEqual::OperatorNotEqual(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("notequal")
 	{
 	}
@@ -126,7 +126,7 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorAnd::OperatorAnd(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorAnd::OperatorAnd(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("and")
 	{
 	}
@@ -156,7 +156,7 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorOr::OperatorOr(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorOr::OperatorOr(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right), BoolNode("or")
 	{
 	}
@@ -186,72 +186,57 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorPlus::OperatorPlus(std::string operation, BaseNode * left, BaseNode * right)
-		:SimpleCalculateNode(operation, left, right)
+	OperatorPlus::OperatorPlus(std::string operation, BaseNode* left, BaseNode* right)
+		:Node(operation, left, right)
 	{
 	}
 
 	void OperatorPlus::toCode(gcew::commons::CodeStream& code)
 	{
-		SimpleCalculateNode::toCode(code);
-		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Plus] + (isInteger ? " " + name : "") + "\n";
+		Node::toCode(code);
+		code << IntStreamData((ull)gcew::commons::Operations::Plus);
 	}
 
-	OperatorMinus::OperatorMinus(std::string operation, BaseNode * left, BaseNode * right)
-		:SimpleCalculateNode(operation, left, right)
+	OperatorMinus::OperatorMinus(std::string operation, BaseNode* left, BaseNode* right)
+		:Node(operation, left, right)
 	{
 	}
 
 	void OperatorMinus::toCode(gcew::commons::CodeStream& code)
 	{
-		SimpleCalculateNode::toCode(code);
-		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Minus] + (isInteger ? " " + name : "") + "\n";
+		Node::toCode(code);
+		code << IntStreamData((ull)gcew::commons::Operations::Minus);
 	}
 
-	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode * left, BaseNode * right)
-		:SimpleCalculateNode(operation, left, right)
+	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode* left, BaseNode* right)
+		:Node(operation, left, right)
 	{
 	}
 
 	void OperatorMultiply::toCode(gcew::commons::CodeStream& code)
 	{
-		SimpleCalculateNode::toCode(code);
-		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Multiply] + (isInteger ? " " + name : "") + "\n";
+		Node::toCode(code);
+		code << IntStreamData((ull)gcew::commons::Operations::Multiply);
 	}
 
-	OperatorDivide::OperatorDivide(std::string operation, BaseNode * left, BaseNode * right)
-		:SimpleCalculateNode(operation, left, right)
+	OperatorDivide::OperatorDivide(std::string operation, BaseNode* left, BaseNode* right)
+		:Node(operation, left, right)
 	{
 	}
 
 	void OperatorDivide::toCode(gcew::commons::CodeStream& code)
 	{
-		SimpleCalculateNode::toCode(code);
-		//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::Divide] + (isInteger ? " " + name : "") + "\n";
+		Node::toCode(code);
+		code << IntStreamData((ull)gcew::commons::Operations::Divide);
 	}
 
-	OperatorMod::OperatorMod(std::string operation, BaseNode * left, BaseNode * right)
+	OperatorMod::OperatorMod(std::string operation, BaseNode* left, BaseNode* right)
 		:Node(operation, left, right)
 	{
 	}
 
 	void OperatorMod::toCode(gcew::commons::CodeStream& code)
 	{
-	}
-
-	SimpleCalculateNode::SimpleCalculateNode(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), isInteger(false)
-	{
-	}
-
-	void SimpleCalculateNode::toCode(gcew::commons::CodeStream& code)
-	{
-		left->toCode(code);
-		right->toCode(code);
-		isInteger = left->tryGetType() == "int";
-		if (isInteger) {
-			//code << gcew::commons::CompileConfiguration::typeOperation[left->tryGetType()][gcew::commons::Operations::FieldGet] + " " + name + "\n";
-		}
 	}
 
 }

@@ -4,7 +4,6 @@
 #include "Utilities.h"
 #include "Enums.h"
 #include "AssemblyRuntime.h"
-#include "Logger.cpp"
 
 
 int main(int argn, char** argc) {
@@ -28,9 +27,16 @@ int main(int argn, char** argc) {
 		logger.logInformation((*iter).first + ":" + (*iter).second);
 	}
 
-
-	auto factory = seac::runtime::IAssemblyRuntime::getAssemblyRuntime(execMode);
-	factory->execute(name, arguments);
+	try {
+		auto factory = seac::runtime::IAssemblyRuntime::getAssemblyRuntime(execMode);
+		factory->execute(name, arguments);
+	}
+	catch (std::exception ex) {
+		logger.logError(ex.what());
+	}
+	catch (...) {
+		logger.logError("native error");
+	}
 
 	return 0;
 }

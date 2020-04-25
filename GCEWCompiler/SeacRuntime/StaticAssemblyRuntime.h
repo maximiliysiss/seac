@@ -1,6 +1,10 @@
 #pragma once
 #include "AssemblyRuntime.h"
-#include "Logger.cpp"
+#include <filesystem>
+#include <fstream>
+#include "Reader.h"
+
+namespace fs = std::filesystem;
 
 namespace seac::runtime {
 

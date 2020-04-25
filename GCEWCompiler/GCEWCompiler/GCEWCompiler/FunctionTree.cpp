@@ -3,9 +3,6 @@
 
 void gcew::trees::structural::FunctionTree::generateCodeForMain(gcew::commons::CodeStream& code)
 {
-	//code << (ull)gcew::commons::JitOperation::start;
-	Tree::toCode(code);
-	//code << (ull)gcew::commons::JitOperation::exit;
 }
 
 gcew::trees::elements::Variable* gcew::trees::structural::FunctionTree::findVariableByName(std::string name)
@@ -24,18 +21,32 @@ bool gcew::trees::structural::FunctionTree::isBlockForOptimize()
 	return this->isInTree(this->functionName) || res;
 }
 
+std::string gcew::trees::structural::FunctionTree::getFMName() {
+	std::string fmName = functionName;
+	for (auto& a : arguments) {
+		fmName += "_" + a->getType();
+	}
+	return fmName;
+}
+
 void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& code)
 {
+	VM.registerTree();
 	if (isMainFunction) {
-		generateCodeForMain(code);
-		return;
+		code << IntStreamData((ull)gcew::commons::JitOperation::start);
+		Tree::toCode(code);
+		code << IntStreamData((ull)gcew::commons::JitOperation::exit);
 	}
-	//code << (ull)gcew::commons::JitOperation::proc;
-	//for (auto i = arguments.rbegin(); i != arguments.rend(); i++)
-		//code << gcew::commons::CompileConfiguration::typeOperation[(*i)->getType()][gcew::commons::Operations::FieldGet] + " " + (*i)->getCodeName() + "\n";
-	Tree::toCode(code);
-	//code << gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + name + ":\nret\n";
-	//code << (ull)gcew::commons::JitOperation::exit;
+	else {
+		code << IntStreamData((ull)gcew::commons::JitOperation::proc, FM.getFunction(getFMName()));
+		for (auto i = arguments.rbegin(); i != arguments.rend(); i++) {
+			(*i)->toCode(code);
+			code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable((*i)->getName()));
+		}
+		Tree::toCode(code);
+		code << IntStreamData((ull)gcew::commons::JitOperation::end);
+	}
+	VM.unregisterTree();
 }
 
 gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg)
@@ -48,9 +59,10 @@ gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line,
 	auto indexClose = line.find(')');
 	parts = gcew::commons::splitter(line.substr(indexOpen + 1, indexClose - indexOpen - 1), ',');
 	std::for_each(parts.begin(), parts.end(), [](std::string str) {str = gcew::commons::trim(str); });
-	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [](std::string arg) {
-		return new gcew::trees::elements::Variable(0, arg);
-		});
+	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [](std::string arg) {return new gcew::trees::elements::Variable(0, arg); });
 	isMainFunction = this->functionName == "main";
+	if (!isMainFunction) {
+		FM.registerTree(getFMName());
+	}
 }
 

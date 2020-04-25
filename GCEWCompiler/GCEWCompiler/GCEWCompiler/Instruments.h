@@ -29,6 +29,7 @@ namespace gcew::commons
 	std::list<size_t> findAllIndexesWithOffset(std::string input, std::string substr);
 	std::list<size_t> findAllIndexesWithOffset(std::string input, char substr);
 	bool isNumber(std::string str);
+	bool isString(std::string str);
 	bool isBracketCorrect(const std::string & str);
 	void removeFromString(std::string & input, std::string remove);
 	std::string createUniqueGUID();

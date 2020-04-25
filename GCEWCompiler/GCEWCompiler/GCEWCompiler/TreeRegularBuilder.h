@@ -44,6 +44,7 @@ namespace gcew::regulars
 
 		static RegexResult isAssigment(std::string input, bool);
 		static RegexResult isCall(std::string input, bool);
+		static RegexResult isExternalCall(std::string input, bool);
 
 		static RegexResult isBreak(std::string input, bool);
 		static RegexResult isContinue(std::string input, bool);

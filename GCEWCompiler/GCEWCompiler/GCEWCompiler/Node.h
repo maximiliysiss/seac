@@ -28,14 +28,6 @@ namespace gcew::trees::parser
 		virtual bool isCallFunction(std::string name) override;
 	};
 
-	class SimpleCalculateNode : public Node {
-	protected:
-		bool isInteger;
-	public:
-		SimpleCalculateNode(std::string operation, BaseNode* left, BaseNode* right);
-		virtual void toCode(gcew::commons::CodeStream& code) override;
-	};
-
 	class OperatorGreater : public Node, public BoolNode {
 	public:
 		OperatorGreater(std::string operation, BaseNode * left, BaseNode * right);
@@ -90,25 +82,25 @@ namespace gcew::trees::parser
 		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
-	class OperatorPlus : public SimpleCalculateNode {
+	class OperatorPlus : public Node {
 	public:
 		OperatorPlus(std::string operation, BaseNode * left, BaseNode * right);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
-	class OperatorMinus : public SimpleCalculateNode {
+	class OperatorMinus : public Node {
 	public:
 		OperatorMinus(std::string operation, BaseNode * left, BaseNode * right);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
-	class OperatorMultiply : public SimpleCalculateNode {
+	class OperatorMultiply : public Node {
 	public:
 		OperatorMultiply(std::string operation, BaseNode * left, BaseNode * right);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
-	class OperatorDivide : public SimpleCalculateNode {
+	class OperatorDivide : public Node {
 	public:
 		OperatorDivide(std::string operation, BaseNode * left, BaseNode * right);
 		virtual void toCode(gcew::commons::CodeStream& code) override;

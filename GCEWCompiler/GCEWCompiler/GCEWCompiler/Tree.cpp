@@ -118,6 +118,11 @@ namespace gcew::trees::structural
 		toCode(code);
 	}
 
+	void Tree::createCode(gcew::commons::CodeStream&& code)
+	{
+		toCode(code);
+	}
+
 	std::vector<Tree*> Tree::getChildren()
 	{
 		std::vector<Tree*> children;
@@ -189,7 +194,7 @@ namespace gcew::trees::structural
 		}
 
 		if (tmpMain)
-			opers.push_back(tmpMain);
+			opers.insert(opers.begin(), tmpMain);
 
 		for (auto oper : opers) {
 			oper->toCode(code);

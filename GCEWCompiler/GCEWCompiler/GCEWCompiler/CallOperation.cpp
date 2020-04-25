@@ -5,15 +5,15 @@ bool gcew::trees::elements::operations::CallOperation::isCallFunction(std::strin
 	return name == function->getFuncName();
 }
 
-void gcew::trees::elements::operations::CallOperation::postWork(void * tree)
+void gcew::trees::elements::operations::CallOperation::postWork(void* tree)
 {
 	function = this->tree->findFunctionTree(name);
 	for (auto arg : arguments)
 		arg->postWork(tree);
 }
 
-gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::string line)
-	:Operation(index, line, RegexResult::Call)
+gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::string line, RegexResult reg)
+	:Operation(index, line, reg)
 {
 	name = splitter(line, '(')[0];
 	auto startBracket = line.find('(');
@@ -22,7 +22,7 @@ gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::
 	std::for_each(arg.begin(), arg.end(), [this](std::string& str) {
 		str = trim(str);
 		arguments.push_back(gcew::commons::Parser::preParser(str));
-	});
+		});
 }
 
 bool gcew::trees::elements::operations::CallOperation::isInActiveTree(std::string name)
@@ -42,5 +42,8 @@ void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::Cod
 	for (auto arg : arguments) {
 		arg->toCode(code);
 	}
-	//code << "call " + function->getName() + "\n";
+	if (nodeType == RegexResult::Call)
+		code << IntStreamData((ull)Operations::Call, FM.getFunction(function->getFMName()));
+	else
+		code << StringStreamData((ull)Operations::ExtCall, this->name);
 }

@@ -1,6 +1,5 @@
 #include "AssemblyRuntime.h"
 #include "StaticAssemblyRuntime.h"
-#include <fstream>
 
 namespace seac::runtime {
 

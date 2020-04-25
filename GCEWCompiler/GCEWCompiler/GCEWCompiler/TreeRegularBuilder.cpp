@@ -6,6 +6,7 @@ namespace gcew::regulars
 	std::list<TreeRegularBuilder::RegexValidate> TreeRegularBuilder::regexes = {
 		TreeRegularBuilder::isAssigment,
 		TreeRegularBuilder::isBreak,
+		TreeRegularBuilder::isExternalCall,
 		TreeRegularBuilder::isCall,
 		TreeRegularBuilder::isCloseFigure,
 		TreeRegularBuilder::isContinue,
@@ -114,6 +115,11 @@ namespace gcew::regulars
 	RegexResult TreeRegularBuilder::isCall(std::string input, bool type)
 	{
 		return regex_matcher("^[a-zA-Z]+[a-zA-Z0-9]*\\(.*\\);$", input, type) ? RegexResult::Call : RegexResult::NotClassic;
+	}
+
+	RegexResult TreeRegularBuilder::isExternalCall(std::string input, bool type)
+	{
+		return regex_matcher("^[a-zA-Z]+[a-zA-Z0-9]*:[a-zA-Z]+[a-zA-Z0-9]*\\(.*\\);$", input, type) ? RegexResult::ExternalCall : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isBreak(std::string input, bool type)

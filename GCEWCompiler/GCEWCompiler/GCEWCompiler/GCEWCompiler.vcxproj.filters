@@ -177,6 +177,9 @@
     <ClInclude Include="CodeStream.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
+    <ClInclude Include="VariableManager.h">
+      <Filter>Header Files\commons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tree.cpp">
@@ -288,6 +291,9 @@
       <Filter>Source Files\commons</Filter>
     </ClCompile>
     <ClCompile Include="CodeStream.cpp">
+      <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableManager.cpp">
       <Filter>Source Files\commons</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,6 +18,6 @@ std::string seac::utilities::getCurrentDateTime() {
 	localtime_s(&timeinfo, &rawtime);
 
 	strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", &timeinfo);
-	std::string str(buffer);
-	return str;
+	std::string to_str(buffer);
+	return to_str;
 }

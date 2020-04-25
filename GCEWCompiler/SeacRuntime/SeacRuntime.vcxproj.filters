@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Logger">
       <UniqueIdentifier>{b660d85b-6fca-4cb0-b5c9-f2901705c70a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Reader">
+      <UniqueIdentifier>{a0ac342b-e263-48ec-a5d3-deff35c58e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Reader">
+      <UniqueIdentifier>{b752f677-374a-4e5f-bbd5-64528364a61d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +54,12 @@
     <ClCompile Include="StaticAssemblyRuntime.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="Reader.cpp">
+      <Filter>Source Files\Reader</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeEnviroment.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -69,6 +81,15 @@
       <Filter>Header Files\Logger</Filter>
     </ClInclude>
     <ClInclude Include="StaticAssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Reader.h">
+      <Filter>Header Files\Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeEnviroment.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>

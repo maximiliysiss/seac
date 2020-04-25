@@ -3,6 +3,8 @@
 #include <vector>
 #include <map>
 #include "Enums.h"
+#include "Logger.cpp"
+#include "RuntimeEnviroment.h"
 
 
 namespace seac::runtime {

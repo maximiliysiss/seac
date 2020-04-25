@@ -3,19 +3,19 @@
 namespace gcew::commons
 {
 	static const std::vector<std::vector<OperationParser>> operationsOrder{
-		{OperationParser(Operations::Plus),
-		OperationParser(Operations::Minus),
-		OperationParser(Operations::And, OperationParser::Two),
-		OperationParser(Operations::Or, OperationParser::Two)},
-		{OperationParser(Operations::Multiply),
-		OperationParser(Operations::Divide),
-		OperationParser(Operations::Greater),
-		OperationParser(Operations::Lower),
-		OperationParser(Operations::Equal, OperationParser::Two)},
-		{OperationParser(Operations::Mod)}
+		{OperationParser((char)Operations::Plus),
+		OperationParser((char)Operations::Minus),
+		OperationParser((char)Operations::And, OperationParser::Two),
+		OperationParser((char)Operations::Or, OperationParser::Two)},
+		{OperationParser((char)Operations::Multiply),
+		OperationParser((char)Operations::Divide),
+		OperationParser((char)Operations::Greater),
+		OperationParser((char)Operations::Lower),
+		OperationParser((char)Operations::Equal, OperationParser::Two)},
+		{OperationParser((char)Operations::Mod)}
 	};
 
-	Node * getOperation(std::string oper, BaseNode * l, BaseNode * r) {
+	Node* getOperation(std::string oper, BaseNode* l, BaseNode* r) {
 		switch ((Operations)oper[0]) {
 		case Operations::Plus:
 			return new OperatorPlus(oper, l, r);
@@ -52,7 +52,7 @@ namespace gcew::commons
 		return OperationParser();
 	}
 
-	BaseNode * step(int type, std::string str, int & level) {
+	BaseNode* step(int type, std::string str, int& level) {
 		for (int i = static_cast<int>(str.length()) - 1; i >= 0; i--) {
 			char c = str[i];
 			if (c == '(') {
@@ -75,7 +75,7 @@ namespace gcew::commons
 		return nullptr;
 	}
 
-	BaseNode * Parser::preParser(std::string str)
+	BaseNode* Parser::preParser(std::string str)
 	{
 		try {
 			str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
@@ -88,10 +88,10 @@ namespace gcew::commons
 		}
 	}
 
-	BaseNode * gcew::commons::Parser::parser(std::string str)
+	BaseNode* gcew::commons::Parser::parser(std::string str)
 	{
 		int level = 0;
-		BaseNode * result = nullptr;
+		BaseNode* result = nullptr;
 		for (short i = 0; i < 2; ++i) {
 			result = step(i, str, level);
 			if (result)
@@ -116,8 +116,8 @@ namespace gcew::commons
 		else if (gcew::regulars::TreeRegularBuilder::isFunctionInExpression(str) == gcew::regulars::RegexResult::Call) {
 			return new CallNode(str);
 		}
-		else if (str[0] == Operations::Not)
-			return new OperatorNot(std::string(1, Operations::Not), parser(str.substr(1)));
+		else if (str[0] ==(char)Operations::Not)
+			return new OperatorNot(std::string(1, (char)Operations::Not), parser(str.substr(1)));
 		else
 			return new Term(str, "");
 		return result;

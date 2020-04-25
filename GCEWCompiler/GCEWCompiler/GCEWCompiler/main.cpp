@@ -63,6 +63,7 @@ Tree* generateTree(std::string path) {
 		case RegexResult::Continue:
 			root->addOperation(gcew::trees::construct_elements(reg, index, line));
 			break;
+		case RegexResult::ExternalCall:
 		case RegexResult::Call:
 		{
 			CallOperation* call = (CallOperation*)gcew::trees::construct_elements(reg, index, line);
@@ -109,6 +110,16 @@ Tree* generateTree(std::string path) {
 	return root;
 }
 
+std::string help = "\n"
+"Usage: gcew [OPTIONS] [PATH/COMMAND]\n\n"
+"Compiler of remote code\n\n"
+"Options:\n"
+"  --os string            OS\n"
+"  --type string          type of compile\n\n"
+"  path string            path to .gcew file\n\n"
+"Command:\n"
+"  version                program version\n"
+"  help                   help";
 
 int main(int argc, char** argv)
 {
@@ -116,8 +127,22 @@ int main(int argc, char** argv)
 		cout << "Not found arguments\n";
 		return EXIT_FAILURE;
 	}
-	std::cout << argv[0] << std::endl;
-	std::cout << argv[1] << std::endl;
+
+	std::map<std::string, std::string> arguments;
+	for (int i = 1; i < argc; i++) {
+		if (argv[i][0] == '-') {
+			arguments[argv[i]] = argv[i + 1];
+			i++;
+		}
+		else {
+			arguments["cmd"] = argv[i];
+		}
+	}
+
+	if (arguments["cmd"] == "help") {
+		std::cout << help << std::endl;
+		return EXIT_SUCCESS;
+	}
 
 	auto parentPath = path(argv[0]).parent_path();
 
@@ -126,7 +151,7 @@ int main(int argc, char** argv)
 
 		auto& conf = gcew::commons::CompileConfiguration::instance();
 
-		std::string fileExecute = argv[1];
+		std::string fileExecute = arguments["cmd"];
 		path p = absolute(path(fileExecute));
 		path fileFolder = p.parent_path();
 		fileFolder += path::preferred_separator;
@@ -148,11 +173,14 @@ int main(int argc, char** argv)
 		create_directory(fileFolder);
 		std::string fileName = path(fileExecute).filename().string();
 		auto fileResult = fileFolder.string() + fileName.substr(0, fileName.find('.')) + "_build.seac";
-		/*std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
-		rootTree->createCode(outFileCode);*/
+		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
+		CodeStream codeStream(outFileCode);
+		codeStream << CodeStream::HeaderStreamData(arguments["--os"], arguments["--type"]);
+		rootTree->createCode(codeStream);
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 
 	std::cout << "Press Enter to Continue";

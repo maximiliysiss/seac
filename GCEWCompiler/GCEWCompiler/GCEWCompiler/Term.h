@@ -12,6 +12,7 @@ namespace gcew::trees::parser
 	{
 	protected:
 		bool isTemp{ false };
+		bool isVariable{ false };
 		std::string value;
 		std::string type;
 	public:

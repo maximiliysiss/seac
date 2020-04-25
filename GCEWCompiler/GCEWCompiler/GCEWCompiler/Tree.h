@@ -46,6 +46,7 @@ namespace gcew::trees::structural
 		FunctionTree* findFunctionTree(std::string name);
 		void optimize();
 		void createCode(gcew::commons::CodeStream&);
+		void createCode(gcew::commons::CodeStream&&);
 		std::vector<Tree*> getChildren();
 		inline Tree* getParent() const { return parent; }
 		Tree* addChild(Tree* child);

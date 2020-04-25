@@ -10,7 +10,8 @@ gcew::trees::elements::Element * gcew::trees::construct_elements(gcew::regulars:
 	case RegexResult::Break:
 		return new BreakOperation(index, line);
 	case RegexResult::Call:
-		return new CallOperation(index, line);
+	case RegexResult::ExternalCall:
+		return new CallOperation(index, line, reg);
 	case RegexResult::Continue:
 		return new ContinueOperation(index, line);
 	case RegexResult::Else:

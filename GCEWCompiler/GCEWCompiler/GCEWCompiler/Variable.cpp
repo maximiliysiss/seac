@@ -32,10 +32,10 @@ namespace gcew::trees::elements
 
 	void Variable::toCode(CodeStream& code)
 	{
-		/*code << (ull)gcew::commons::JitOperation::init << (ull)gcew::commons::CompileConfiguration::jitTypes[type];*/
+		code << IntStreamData((ull)gcew::commons::JitOperation::init, VM.registerVariable(this->name), 0, (ull)gcew::commons::CompileConfiguration::jitTypes[type]);
 		if (exp) {
 			exp->toCode(code);
-			//code << (ull)gcew::commons::JitOperation::assign;
+			code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable(this->name));
 		}
 	}
 

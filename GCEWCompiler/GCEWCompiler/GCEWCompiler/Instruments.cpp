@@ -180,9 +180,9 @@ std::string gcew::commons::codeCorrector(std::string code)
 		std::smatch sm;
 		auto cpy = code;
 		while (std::regex_search(cpy, sm, rg)) {
-			for (auto m : sm) {
-				rightNewLine(code, m);
-				removeFromString(cpy, m);
+			for (auto fm : sm) {
+				rightNewLine(code, fm);
+				removeFromString(cpy, fm);
 			}
 		}
 	}
@@ -242,6 +242,12 @@ bool gcew::commons::isNumber(std::string str)
 			return false;
 	return true;
 }
+
+bool gcew::commons::isString(std::string str)
+{
+	return str.length() > 3 && str[0] == '\'' && str[str.length() - 1] == '\'';
+}
+
 
 bool gcew::commons::isBracketCorrect(const std::string & str)
 {

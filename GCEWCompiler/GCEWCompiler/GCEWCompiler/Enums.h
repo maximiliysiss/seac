@@ -5,7 +5,7 @@
 
 namespace gcew::commons
 {
-	enum Operations {
+	enum class Operations: ull {
 		FieldSet = 0,
 		Convert = 1,
 		FieldGet = 2,
@@ -26,10 +26,12 @@ namespace gcew::commons
 		Lower = '<',
 		Equal = '=',
 		Not = '!',
-		Mod = '%'
+		Mod = '%',
+		Call = 2000,
+		ExtCall = 2001,
 	};
 
-	enum RegexResult {
+	enum class RegexResult: ull {
 		Include,
 		Type,
 		For,
@@ -44,6 +46,7 @@ namespace gcew::commons
 		Mathematic,
 		Assigment,
 		Call,
+		ExternalCall,
 		Break,
 		Continue,
 		PureAsm,

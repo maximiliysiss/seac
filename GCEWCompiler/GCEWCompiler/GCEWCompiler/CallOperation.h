@@ -17,7 +17,7 @@ namespace gcew::trees::elements::operations
 		inline std::string getFunctionName() { return function->getFuncName(); }
 		inline std::string getOutputType() { return function->getFuncOutputType(); }
 		virtual void postWork(void* tree);
-		CallOperation(int index, std::string line);
+		CallOperation(int index, std::string line, RegexResult reg);
 		virtual bool isInActiveTree(std::string name) override;
 		~CallOperation();
 

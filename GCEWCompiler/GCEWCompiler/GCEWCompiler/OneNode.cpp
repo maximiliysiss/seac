@@ -4,7 +4,7 @@
 namespace gcew::trees::parser
 {
 
-	OneNode::OneNode(BaseNode * node, std::string operation)
+	OneNode::OneNode(BaseNode* node, std::string operation)
 		: node(node), operation(operation)
 	{
 	}
@@ -20,7 +20,7 @@ namespace gcew::trees::parser
 		return this->node->isCallFunction(name);
 	}
 
-	OperatorNot::OperatorNot(std::string operation, BaseNode * node)
+	OperatorNot::OperatorNot(std::string operation, BaseNode* node)
 		:OneNode(node, operation)
 	{
 	}
@@ -42,7 +42,7 @@ namespace gcew::trees::parser
 		return call->isCallFunction(name);
 	}
 
-	void CallNode::postWork(void * tree)
+	void CallNode::postWork(void* tree)
 	{
 		call->postWork(tree);
 	}
@@ -55,9 +55,8 @@ namespace gcew::trees::parser
 	CallNode::CallNode(std::string operation)
 		:OneNode(nullptr, operation)
 	{
-		this->call = new gcew::trees::elements::operations::CallOperation(0, operation + ";");
-		dynamic_cast<gcew::trees::elements::operations::CallOperation*>(this->call)
-			->setTree(*gcew::trees::structural::Tree::currentTree);
+		this->call = new gcew::trees::elements::operations::CallOperation(0, operation + ";", gcew::regulars::RegexResult::Call);
+		dynamic_cast<gcew::trees::elements::operations::CallOperation*>(this->call)->setTree(*gcew::trees::structural::Tree::currentTree);
 	}
 
 	void CallNode::toCode(gcew::commons::CodeStream& code)
