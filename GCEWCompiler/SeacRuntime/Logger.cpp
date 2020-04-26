@@ -24,7 +24,7 @@ namespace seac::logger {
 	template<typename T>
 	std::string Logger<T>::formatLog(std::string type)
 	{
-		return type + ":" + loggerName + " " + seac::utilities::getCurrentDateTime() + ": ";
+		return type + " " + seac::utilities::getCurrentDateTime() + " " + loggerName + ": ";
 	}
 
 	template<typename T>

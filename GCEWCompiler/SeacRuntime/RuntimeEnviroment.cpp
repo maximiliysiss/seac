@@ -12,8 +12,22 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::initValue(seac::reader::IntReader* reader) {
+		logger.logInformation("init value sizeof " + to_str(reader->get_memory_operation()));
 		void* data = malloc(reader->get_memory_operation());
-		stack.push(data);
+		callStack.top()->push(reader->get_operand_first(), data);
+	}
+
+	void RuntimeEnviroment::procStart(seac::reader::StringReader* reader) {
+		logger.logInformation("procedure " + reader->get_operand_first());
+		callStack.push(new stack::Call(reader->get_operand_first(), reader));
+	}
+
+	void RuntimeEnviroment::procEnd() {
+		logger.logInformation(callStack.top()->get_reader()->get_operand_first() + " proc end");
+		callStack.pop();
+	}
+
+	void RuntimeEnviroment::pushStack(seac::reader::IOpReader* reader) {
 	}
 
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
@@ -27,8 +41,17 @@ namespace seac::runtime {
 		case (ull)JitOperation::start:
 			logger.logInformation("Start operation");
 			break;
+		case (ull)JitOperation::proc:
+			procStart((seac::reader::StringReader*)operation);
+			break;
+		case (ull)JitOperation::end:
+			procEnd();
+			break;
 		case (ull)JitOperation::init:
 			initValue((seac::reader::IntReader*)operation);
+			break;
+		case (ull)JitOperation::stack:
+			pushStack((seac::reader::IOpReader*)operation);
 			break;
 		}
 	}

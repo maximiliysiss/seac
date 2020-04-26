@@ -32,20 +32,13 @@ std::string gcew::trees::structural::FunctionTree::getFMName() {
 void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& code)
 {
 	VM.registerTree();
-	if (isMainFunction) {
-		code << IntStreamData((ull)gcew::commons::JitOperation::start);
-		Tree::toCode(code);
-		code << IntStreamData((ull)gcew::commons::JitOperation::exit);
+	code << StringStreamData((ull)gcew::commons::JitOperation::proc, getFMName(), std::string(), FM.getFunction(getFMName()));
+	for (auto i = arguments.rbegin(); i != arguments.rend(); i++) {
+		(*i)->toCode(code);
+		code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable((*i)->getName()));
 	}
-	else {
-		code << IntStreamData((ull)gcew::commons::JitOperation::proc, FM.getFunction(getFMName()));
-		for (auto i = arguments.rbegin(); i != arguments.rend(); i++) {
-			(*i)->toCode(code);
-			code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable((*i)->getName()));
-		}
-		Tree::toCode(code);
-		code << IntStreamData((ull)gcew::commons::JitOperation::end);
-	}
+	Tree::toCode(code);
+	code << IntStreamData((ull)gcew::commons::JitOperation::end);
 	VM.unregisterTree();
 }
 
@@ -61,8 +54,6 @@ gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line,
 	std::for_each(parts.begin(), parts.end(), [](std::string str) {str = gcew::commons::trim(str); });
 	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [](std::string arg) {return new gcew::trees::elements::Variable(0, arg); });
 	isMainFunction = this->functionName == "main";
-	if (!isMainFunction) {
-		FM.registerTree(getFMName());
-	}
+	FM.registerTree(getFMName());
 }
 

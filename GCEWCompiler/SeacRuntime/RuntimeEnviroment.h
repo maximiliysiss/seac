@@ -1,7 +1,7 @@
 #pragma once
-#include "VirtualPageMemory.h"
 #include "Reader.h"
 #include "Logger.h"
+#include "Call.h"
 #include <map>
 
 namespace seac::runtime {
@@ -9,9 +9,14 @@ namespace seac::runtime {
 		static RuntimeEnviroment* re;
 		RuntimeEnviroment();
 		seac::logger::Logger<RuntimeEnviroment>& logger;
-	private:
+		std::stack<stack::Call*> callStack;
+
 		read_only_prop_ref(VirtualStack, stack);
+	private:
 		void initValue(seac::reader::IntReader* reader);
+		void procStart(seac::reader::StringReader* reader);
+		void procEnd();
+		void pushStack(seac::reader::IOpReader* reader);
 	public:
 		static RuntimeEnviroment& runtimeManager();
 		void jitOperation(seac::reader::IReader* operation);

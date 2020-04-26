@@ -23,10 +23,22 @@ namespace seac::reader {
 		HeaderReader(std::istream&);
 	};
 
+	class IOpReader : public IReader {
+	protected:
+		void* operand_first;
+		void* operand_second;
+	private:
+		read_only_prop(ull, memory_operation);
+		read_only_prop(ull, memory_agrument);
+	};
+
 	template<typename T>
-	class OpReader : public IReader {
-		read_only_prop(T, operand_first);
-		read_only_prop(T, operand_second);
+	class OpReader : public IOpReader {
+	public:
+		T& get_operand_first();
+		T& get_operand_second();
+		void set_operand_first(T* val);
+		void set_operand_second(T* val);
 		read_only_prop(ull, memory_operation);
 		read_only_prop(ull, memory_agrument);
 	};
@@ -40,6 +52,26 @@ namespace seac::reader {
 	public:
 		StringReader(std::istream& in);
 	};
+
+	template<typename T>
+	inline T& OpReader<T>::get_operand_first() {
+		return *(T*)operand_first;
+	}
+
+	template<typename T>
+	inline T& OpReader<T>::get_operand_second() {
+		return *(T*)operand_second;
+	}
+
+	template<typename T>
+	inline void OpReader<T>::set_operand_first(T* val) {
+		operand_first = val;
+	}
+
+	template<typename T>
+	inline void OpReader<T>::set_operand_second(T* val) {
+		operand_second = val;
+	}
 
 }
 

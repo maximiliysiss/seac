@@ -4,23 +4,25 @@
 
 namespace seac::runtime {
 
-	class VirtualStack {
+	struct Storage {
+	private:
+		void* data;
+		ull id;
+	public:
+		Storage(ull id, void* data);
+		Storage(void* data);
+		template<typename T>
+		T* get();
+		template<typename T>
+		T getValue();
+		~Storage();
+	};
 
-		struct Storage {
-		private:
-			void* data;
-		public:
-			Storage(void* data);
-			template<typename T>
-			T* get();
-			template<typename T>
-			T getValue();
-			~Storage();
-		};
+	class VirtualStack {
 		std::stack<Storage*> stack;
 	public:
-		inline void push(void* data) {
-			stack.push(new Storage(data));
+		inline void push(ull id, void* data) {
+			stack.push(new Storage(id, data));
 		}
 
 		inline Storage* pop() {
@@ -40,12 +42,12 @@ namespace seac::runtime {
 	};
 
 	template<typename T>
-	inline T* VirtualStack::Storage::get() {
+	inline T* Storage::get() {
 		return (T*)data;
 	}
 
 	template<typename T>
-	inline T VirtualStack::Storage::getValue() {
+	inline T Storage::getValue() {
 		return *get<T>();
 	}
 

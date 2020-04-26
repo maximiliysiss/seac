@@ -13,11 +13,15 @@ namespace seac::runtime {
 		delete this->page;
 	}
 
-	VirtualStack::Storage::Storage(void* data)
-		:data(data) {
+	Storage::Storage(ull id, void* data)
+		:data(data), id(id) {
 	}
 
-	VirtualStack::Storage::~Storage(){
+	Storage::Storage(void* data)
+		: data(data), id(-1) {
+	}
+
+	Storage::~Storage() {
 		delete data;
 	}
 

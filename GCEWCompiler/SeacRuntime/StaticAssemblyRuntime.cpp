@@ -28,7 +28,6 @@ namespace seac::runtime {
 			if (!operation)
 				break;
 			re.jitOperation(operation);
-			delete operation;
 		}
 
 		delete header;

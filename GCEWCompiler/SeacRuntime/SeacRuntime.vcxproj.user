@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>-n testProgram -m 0 -p x86 -f "C:\Repositories\seac\TestProject\test.seac"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-n testProgram -m 0 -p x86 -f "C:\Repositories\seac\TestProject\GCEWCompile\build\main_build.seac"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

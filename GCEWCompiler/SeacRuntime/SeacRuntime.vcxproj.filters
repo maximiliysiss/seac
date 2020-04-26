@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Reader">
       <UniqueIdentifier>{b752f677-374a-4e5f-bbd5-64528364a61d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Runtime\Stack">
+      <UniqueIdentifier>{d157aa2c-9ec0-48da-8bc0-1e8eaa7be496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Stack">
+      <UniqueIdentifier>{ddcfac21-629d-4deb-95f1-2119294c2ab9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="RuntimeEnviroment.cpp">
       <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Call.cpp">
+      <Filter>Source Files\Runtime\Stack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="RuntimeEnviroment.h">
       <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Call.h">
+      <Filter>Header Files\Runtime\Stack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

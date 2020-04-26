@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Appenders.cpp" />
     <ClCompile Include="AssemblyRuntime.cpp" />
+    <ClCompile Include="Call.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reader.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Appenders.h" />
     <ClInclude Include="AssemblyRuntime.h" />
+    <ClInclude Include="Call.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Logger.h" />
