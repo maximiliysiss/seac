@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Runtime\External">
       <UniqueIdentifier>{f697ce15-93ff-4257-8698-d10ace1fbe6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{baca9164-51cb-4909-b627-78b582ca81bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{086f25e5-daa3-4028-94b1-5eb9684853b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="ExternalConfiguration.h">
       <Filter>Header Files\Runtime\External</Filter>
+    </ClInclude>
+    <ClInclude Include="bitset.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

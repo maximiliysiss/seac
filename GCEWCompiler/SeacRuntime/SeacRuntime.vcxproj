@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="Appenders.h" />
     <ClInclude Include="AssemblyRuntime.h" />
+    <ClInclude Include="bitset.h" />
     <ClInclude Include="Call.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Enums.h" />

@@ -4,19 +4,14 @@ namespace seac::runtime::external {
 
 	ExternalCallManager* ExternalCallManager::ecm = nullptr;
 
-	ExternalCallManager::ExternalCallManager() {
+	ExternalCallManager::ExternalCallManager()
+		:config(RuntimeConfiguration::config().get_ec()) {
 	}
 
 	ExternalCallManager& seac::runtime::external::ExternalCallManager::manager() {
 		if (ecm)
 			return *ecm;
 		return *(ecm = new ExternalCallManager());
-	}
-
-	void ExternalCallManager::call(std::string name, void* data ...) {
-	}
-
-	void ExternalCallManager::call(std::string name) {
 	}
 
 }

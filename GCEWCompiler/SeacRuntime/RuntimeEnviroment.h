@@ -2,6 +2,7 @@
 #include "Reader.h"
 #include "Logger.h"
 #include "Call.h"
+#include "External.h"
 #include <map>
 
 namespace seac::runtime {
@@ -21,6 +22,8 @@ namespace seac::runtime {
 		void pushStack(seac::reader::IOpReader* reader);
 		void assignFromStack(seac::reader::UniversalReader* reader);
 		void plusOperation();
+		void minusOperation();
+		void externalCall(seac::reader::StringReader* reader);
 	public:
 		static RuntimeEnviroment& runtimeManager();
 		void jitOperation(seac::reader::IReader* operation);

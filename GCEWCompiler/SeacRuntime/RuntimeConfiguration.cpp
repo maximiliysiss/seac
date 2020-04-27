@@ -17,9 +17,8 @@ namespace seac {
 		bool parsingSuccessful = Json::parseFromStream(rbuilder, file, &root, &errs);
 		if (!parsingSuccessful)
 			throw std::exception(errs.c_str());
+		ec.read(root["external"]);
 		file.close();
-
-
 	}
 
 }

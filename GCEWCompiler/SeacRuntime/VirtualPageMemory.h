@@ -23,6 +23,9 @@ namespace seac::runtime {
 
 		friend Storage& operator+(Storage&& s1, Storage&& s2);
 		friend Storage& operator+(Storage& s1, Storage& s2);
+
+		friend Storage& operator-(Storage&& s1, Storage&& s2);
+		friend Storage& operator-(Storage& s1, Storage& s2);
 	};
 
 	class VirtualStack {

@@ -61,6 +61,18 @@ namespace seac::runtime {
 		delete second;
 	}
 
+	void RuntimeEnviroment::minusOperation() {
+		auto* first = stack.pop();
+		auto* second = stack.pop();
+		stack.push(&(*second - *first));
+		delete first;
+		delete second;
+	}
+
+	void RuntimeEnviroment::externalCall(seac::reader::StringReader* reader) {
+		//external::ExternalCallManager::manager().call(reader->get_operand_first());
+	}
+
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
 		if (re)
 			return *re;
@@ -92,6 +104,7 @@ namespace seac::runtime {
 			plusOperation();
 			break;
 		case JitOperation::minus:
+			minusOperation();
 			break;
 		case JitOperation::divide:
 			break;
@@ -99,6 +112,7 @@ namespace seac::runtime {
 			break;
 
 		case JitOperation::extcall:
+			externalCall((seac::reader::StringReader*)operation);
 			break;
 		}
 	}

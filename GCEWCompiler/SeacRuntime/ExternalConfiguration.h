@@ -4,7 +4,7 @@
 #include <json/json.h>
 #include <list>
 
-namespace seac::runtime::extermal {
+namespace seac::runtime::external {
 
 	struct ExternalConfiguration {
 		std::map<std::string, std::string> alias;
