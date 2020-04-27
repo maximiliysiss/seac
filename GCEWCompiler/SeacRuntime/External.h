@@ -1,7 +1,7 @@
 #pragma once
-#include <libloaderapi.h>
 #include <string>
-#include <json/json.h>
+#include <map>
+#include <list>
 
 namespace seac::runtime::external {
 

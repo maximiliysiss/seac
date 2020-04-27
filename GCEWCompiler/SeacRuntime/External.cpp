@@ -4,6 +4,9 @@ namespace seac::runtime::external {
 
 	ExternalCallManager* ExternalCallManager::ecm = nullptr;
 
+	ExternalCallManager::ExternalCallManager() {
+	}
+
 	ExternalCallManager& seac::runtime::external::ExternalCallManager::manager() {
 		if (ecm)
 			return *ecm;

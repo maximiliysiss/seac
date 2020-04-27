@@ -81,6 +81,12 @@
     <ClCompile Include="External.cpp">
       <Filter>Source Files\Runtime\External</Filter>
     </ClCompile>
+    <ClCompile Include="RuntimeConfiguration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalConfiguration.cpp">
+      <Filter>Source Files\Runtime\External</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -116,9 +122,18 @@
     <ClInclude Include="Call.h">
       <Filter>Header Files\Runtime\Stack</Filter>
     </ClInclude>
+    <ClInclude Include="RuntimeConfiguration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalConfiguration.h">
+      <Filter>Header Files\Runtime\External</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="build.bat">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
