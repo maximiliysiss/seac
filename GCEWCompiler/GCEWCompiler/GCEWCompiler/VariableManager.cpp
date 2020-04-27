@@ -20,9 +20,10 @@ namespace gcew::commons {
 		levelStart.erase(levelStart.end() - 1);
 	}
 
-	int VariableManager::registerVariable(std::string name) {
+	int VariableManager::registerVariable(std::string name, ull size) {
 		contextVariableLevel++;
-		contextInfo[currentLevel][name] = contextVariableLevel;
+		VariableContext vc; vc.id = contextVariableLevel; vc.size = size;
+		contextInfo[currentLevel][name] = vc;
 		return contextVariableLevel;
 	}
 
@@ -30,7 +31,7 @@ namespace gcew::commons {
 		contextInfo[currentLevel].erase(name);
 	}
 
-	int VariableManager::getVariable(std::string name) {
+	VariableManager::VariableContext VariableManager::getVariable(std::string name) {
 		if (contextInfo[currentLevel].find(name) == contextInfo[currentLevel].end()) {
 			throw std::exception("not found variable");
 		}

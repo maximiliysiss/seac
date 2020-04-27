@@ -24,7 +24,8 @@ gcew::trees::elements::operations::AssigmentOperation::~AssigmentOperation()
 void gcew::trees::elements::operations::AssigmentOperation::toCode(gcew::commons::CodeStream& code)
 {
 	exp->toCode(code);
-	code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable(this->var->getName()));
+	ull tmpId = gcew::commons::VariableManager::manager().getVariable(this->var->getName()).id;
+	code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &tmpId);
 }
 
 void gcew::trees::elements::operations::AssigmentOperation::postWork(void* tree)

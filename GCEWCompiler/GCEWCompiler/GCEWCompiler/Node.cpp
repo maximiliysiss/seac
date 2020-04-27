@@ -194,7 +194,7 @@ namespace gcew::trees::parser
 	void OperatorPlus::toCode(gcew::commons::CodeStream& code)
 	{
 		Node::toCode(code);
-		code << IntStreamData((ull)gcew::commons::Operations::Plus);
+		code << StreamData((ull)gcew::commons::Operations::Plus);
 	}
 
 	OperatorMinus::OperatorMinus(std::string operation, BaseNode* left, BaseNode* right)
@@ -205,7 +205,7 @@ namespace gcew::trees::parser
 	void OperatorMinus::toCode(gcew::commons::CodeStream& code)
 	{
 		Node::toCode(code);
-		code << IntStreamData((ull)gcew::commons::Operations::Minus);
+		code << StreamData((ull)gcew::commons::Operations::Minus);
 	}
 
 	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode* left, BaseNode* right)
@@ -216,7 +216,7 @@ namespace gcew::trees::parser
 	void OperatorMultiply::toCode(gcew::commons::CodeStream& code)
 	{
 		Node::toCode(code);
-		code << IntStreamData((ull)gcew::commons::Operations::Multiply);
+		code << StreamData((ull)gcew::commons::Operations::Multiply);
 	}
 
 	OperatorDivide::OperatorDivide(std::string operation, BaseNode* left, BaseNode* right)
@@ -227,7 +227,7 @@ namespace gcew::trees::parser
 	void OperatorDivide::toCode(gcew::commons::CodeStream& code)
 	{
 		Node::toCode(code);
-		code << IntStreamData((ull)gcew::commons::Operations::Divide);
+		code << StreamData((ull)gcew::commons::Operations::Divide);
 	}
 
 	OperatorMod::OperatorMod(std::string operation, BaseNode* left, BaseNode* right)

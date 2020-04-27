@@ -21,7 +21,7 @@ std::string gcew::commons::trim(std::string str)
 
 
 
-void gcew::commons::commentEraser(std::string &line, bool & currentState)
+void gcew::commons::commentEraser(std::string& line, bool& currentState)
 {
 	auto indexOpen = line.find("/*");
 	auto indexClose = line.find("*/");
@@ -67,7 +67,7 @@ std::string gcew::commons::eraseSpaces(std::string line)
 	char spaces[]{ ' ', '\n','\t' };
 	std::for_each(spaces, spaces + 3, [&line](char c) {
 		eraserRepeate(line, c);
-	});
+		});
 	return line;
 }
 
@@ -238,7 +238,7 @@ std::list<size_t> gcew::commons::findAllIndexesWithOffset(std::string input, cha
 bool gcew::commons::isNumber(std::string str)
 {
 	for (char c : str)
-		if (!std::isdigit(c) && c != '.')
+		if (!std::isdigit(c) && c != '.' && str[0] != '+' && str[0] != '-')
 			return false;
 	return true;
 }
@@ -249,7 +249,7 @@ bool gcew::commons::isString(std::string str)
 }
 
 
-bool gcew::commons::isBracketCorrect(const std::string & str)
+bool gcew::commons::isBracketCorrect(const std::string& str)
 {
 	std::stack<char> s;
 	for (char c : str) {
@@ -263,7 +263,7 @@ bool gcew::commons::isBracketCorrect(const std::string & str)
 	return s.empty();
 }
 
-void gcew::commons::removeFromString(std::string & input, std::string remove)
+void gcew::commons::removeFromString(std::string& input, std::string remove)
 {
 	size_t iter;
 	while ((iter = input.find(remove)) != std::string::npos) {

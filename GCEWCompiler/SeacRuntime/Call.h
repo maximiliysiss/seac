@@ -15,7 +15,7 @@ namespace seac::runtime::stack {
 		read_only_prop(seac::reader::StringReader*, reader);
 	public:
 		Call(std::string name, seac::reader::StringReader* reader);
-		void push(ull id, void* data);
+		void push(ull id, uint data);
 		void pop();
 	};
 

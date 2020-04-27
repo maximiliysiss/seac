@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #define ull unsigned long long
+#define elif else if
 
 namespace gcew::commons
 {

@@ -30,6 +30,9 @@ namespace seac::reader {
 	private:
 		read_only_prop(ull, memory_operation);
 		read_only_prop(ull, memory_agrument);
+	public:
+		inline void* get_clean_operand_first() { return operand_first; }
+		inline void* get_clean_operand_second() { return operand_second; }
 	};
 
 	template<typename T>
@@ -39,13 +42,11 @@ namespace seac::reader {
 		T& get_operand_second();
 		void set_operand_first(T* val);
 		void set_operand_second(T* val);
-		read_only_prop(ull, memory_operation);
-		read_only_prop(ull, memory_agrument);
 	};
 
-	class IntReader : public OpReader<ull> {
+	class UniversalReader : public IOpReader {
 	public:
-		IntReader(std::istream& in);
+		UniversalReader(std::istream& in);
 	};
 
 	class StringReader : public OpReader<std::string> {

@@ -26,11 +26,20 @@ namespace gcew::trees::parser
 	void Term::toCode(gcew::commons::CodeStream& code)
 	{
 		try {
-			ull valueResult = isVariable ? gcew::commons::VariableManager::manager().getVariable(value) : std::stoi(value);
-			code << IntStreamData((ull)gcew::commons::JitOperation::stack, valueResult);
+			if (isVariable) {
+				auto var = gcew::commons::VariableManager::manager().getVariable(value);
+				code << StreamData((ull)gcew::commons::JitOperation::stack, sizeof(ull), &var.id, 0, 0, isVariable, var.size);
+			}
+			else {
+				auto type = gcew::commons::CompileConfiguration::getTypeInitializeByValue(value);
+				auto valueResult = gcew::commons::CompileConfiguration::convertStringToValue(value, type);
+				auto size = gcew::commons::CompileConfiguration::jitTypes[type];
+				code << StreamData((ull)gcew::commons::JitOperation::stack, size, valueResult, 0, 0, isVariable, size);
+				delete valueResult;
+			}
 		}
 		catch (...) {
-			code << StringStreamData((ull)gcew::commons::JitOperation::stack, value);
+			code << StringStreamData((ull)gcew::commons::JitOperation::stack, value, std::string(), isVariable, value.length());
 		}
 	}
 

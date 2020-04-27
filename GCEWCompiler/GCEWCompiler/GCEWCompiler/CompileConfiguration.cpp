@@ -29,6 +29,21 @@ namespace gcew::commons
 		return  "";
 	}
 
+	void* CompileConfiguration::convertStringToValue(std::string value, std::string type) {
+
+		void* result = nullptr;
+
+		if (type == "double") {
+			result = new double(std::stod(value));
+		} elif(type == "float") {
+			result = new float(std::stof(value));
+		} elif(type == "int") {
+			result = new int(std::stoi(value));
+		}
+
+		return result;
+	}
+
 	CompileConfiguration::CompileConfiguration()
 	{
 	}

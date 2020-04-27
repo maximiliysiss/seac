@@ -32,13 +32,15 @@ std::string gcew::trees::structural::FunctionTree::getFMName() {
 void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& code)
 {
 	VM.registerTree();
-	code << StringStreamData((ull)gcew::commons::JitOperation::proc, getFMName(), std::string(), FM.getFunction(getFMName()));
+	std::string tmpName = getFMName();
+	code << StringStreamData((ull)gcew::commons::JitOperation::proc, tmpName, std::string(), FM.getFunction(getFMName()));
 	for (auto i = arguments.rbegin(); i != arguments.rend(); i++) {
 		(*i)->toCode(code);
-		code << IntStreamData((ull)gcew::commons::JitOperation::assign, gcew::commons::VariableManager::manager().getVariable((*i)->getName()));
+		ull id = gcew::commons::VariableManager::manager().getVariable((*i)->getName()).id;
+		code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &id);
 	}
 	Tree::toCode(code);
-	code << IntStreamData((ull)gcew::commons::JitOperation::end);
+	code << StreamData((ull)gcew::commons::JitOperation::end);
 	VM.unregisterTree();
 }
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "Enums.h"
 #include <stack>
+#include <algorithm>
+#include <boost/dynamic_bitset.hpp>
 
 namespace seac::runtime {
 
@@ -8,21 +10,30 @@ namespace seac::runtime {
 	private:
 		void* data;
 		ull id;
+		read_only_prop(uint, size);
 	public:
-		Storage(ull id, void* data);
-		Storage(void* data);
+		Storage(ull id, void* data, uint size);
 		template<typename T>
 		T* get();
 		template<typename T>
 		T getValue();
+		void setValue(void* data);
+		void* getCpy();
 		~Storage();
+
+		friend Storage& operator+(Storage&& s1, Storage&& s2);
+		friend Storage& operator+(Storage& s1, Storage& s2);
 	};
 
 	class VirtualStack {
 		std::stack<Storage*> stack;
 	public:
-		inline void push(ull id, void* data) {
-			stack.push(new Storage(id, data));
+		inline void push(Storage* data) {
+			stack.push(data);
+		}
+
+		inline void push(void* data, uint size) {
+			stack.push(new Storage(-1, data, size));
 		}
 
 		inline Storage* pop() {
@@ -30,15 +41,10 @@ namespace seac::runtime {
 			stack.pop();
 			return data;
 		}
-	};
 
-	class VirtualPageMemory
-	{
-		void* page;
-		uint size;
-	public:
-		VirtualPageMemory(uint size);
-		~VirtualPageMemory();
+		inline Storage* top() {
+			return stack.top();
+		}
 	};
 
 	template<typename T>
@@ -50,5 +56,11 @@ namespace seac::runtime {
 	inline T Storage::getValue() {
 		return *get<T>();
 	}
+
+
+	struct StringStorage : public Storage {
+		StringStorage(ull id, void* data);
+		StringStorage(void* data);
+	};
 
 }

@@ -20,8 +20,8 @@ namespace seac::reader {
 		case ReaderType::Header:
 			reader = new HeaderReader(in);
 			break;
-		case ReaderType::Int:
-			reader = new IntReader(in);
+		case ReaderType::Universal:
+			reader = new UniversalReader(in);
 			break;
 		case ReaderType::String:
 			reader = new StringReader(in);
@@ -42,17 +42,19 @@ namespace seac::reader {
 		in.read(type.data(), t_l);
 	}
 
-	IntReader::IntReader(std::istream& in) {
-
-		operand_first = new ull();
-		operand_second = new ull();
+	UniversalReader::UniversalReader(std::istream& in) {
 
 		in.read((char*)&code, sizeof(ull));
-		in.read((char*)operand_first, sizeof(ull));
-		in.read((char*)operand_second, sizeof(ull));
 		in.read((char*)&memory_operation, sizeof(ull));
 		in.read((char*)&memory_agrument, sizeof(ull));
-		logger.logInformation(to_str(code) + " " + to_str(get_operand_first()) + " " + to_str(get_operand_second()) + " " + to_str(memory_operation) + " " + to_str(memory_agrument));
+		ull f_l, s_l;
+		in.read((char*)&f_l, sizeof(ull));
+		operand_first = malloc(f_l);
+		in.read((char*)operand_first, f_l);
+		in.read((char*)&s_l, sizeof(ull));
+		operand_second = malloc(s_l);
+		in.read((char*)operand_second, s_l);
+		logger.logInformation(to_str(code) + " " + to_str(f_l) + " " + to_str(s_l) + " " + to_str(memory_operation) + " " + to_str(memory_agrument));
 	}
 
 	StringReader::StringReader(std::istream& in) {
@@ -62,14 +64,14 @@ namespace seac::reader {
 		operand_second = new std::string();
 
 		in.read((char*)&code, sizeof(ull));
+		in.read((char*)&memory_operation, sizeof(ull));
+		in.read((char*)&memory_agrument, sizeof(ull));
 		in.read((char*)&f_l, sizeof(ull));
 		get_operand_first().resize(f_l);
 		in.read(get_operand_first().data(), f_l);
 		in.read((char*)&s_l, sizeof(ull));
 		get_operand_second().resize(s_l);
 		in.read(get_operand_second().data(), s_l);
-		in.read((char*)&memory_operation, sizeof(ull));
-		in.read((char*)&memory_agrument, sizeof(ull));
 		logger.logInformation(to_str(code) + " " + get_operand_first() + " " + get_operand_second() + " " + to_str(memory_operation) + " " + to_str(memory_agrument));
 	}
 

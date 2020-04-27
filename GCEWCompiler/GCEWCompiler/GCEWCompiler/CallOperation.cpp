@@ -42,8 +42,10 @@ void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::Cod
 	for (auto arg : arguments) {
 		arg->toCode(code);
 	}
-	if (nodeType == RegexResult::Call)
-		code << IntStreamData((ull)Operations::Call, FM.getFunction(function->getFMName()));
+	if (nodeType == RegexResult::Call) {
+		ull tmpId = FM.getFunction(function->getFMName());
+		code << StreamData((ull)Operations::Call, sizeof(ull), &tmpId);
+	}
 	else
 		code << StringStreamData((ull)Operations::ExtCall, this->name);
 }
