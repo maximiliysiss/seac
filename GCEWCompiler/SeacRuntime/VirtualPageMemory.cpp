@@ -29,33 +29,63 @@ namespace seac::runtime {
 		:Storage(id, data, -1) {
 	}
 
-	Storage& operator+(Storage&& s1, Storage&& s2) {
-		return s1 + s2;
+	Storage& Storage::operator+(Storage&& s2) {
+		return (*this) + s2;
 	}
 
-	Storage& operator+(Storage& s1, Storage& s2) {
-		auto size = std::max(s1.size, s2.size);
+	Storage& Storage::operator+(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
 
-		bitset f(s1.getCpy(), s1.size);
+		bitset f(getCpy(), size);
 		bitset s(s2.getCpy(), s2.size);
 
 		auto res = f + s;
-		Storage* newStorage = new Storage(-1, res.cpy(), size);
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
 		return *newStorage;
 	}
 
-	Storage& operator-(Storage&& s1, Storage&& s2) {
-		return s1 - s2;
+	Storage& Storage::operator-(Storage&& s2) {
+		return (*this) - s2;
 	}
 
-	Storage& operator-(Storage& s1, Storage& s2) {
-		auto size = std::max(s1.size, s2.size);
+	Storage& Storage::operator-(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
 
-		bitset x(s1.getCpy(), s1.size);
+		bitset x(getCpy(), size);
 		bitset y(s2.getCpy(), s2.size);
 		auto res = x - y;
 
-		Storage* newStorage = new Storage(-1, res.cpy(), size);
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		return *newStorage;
+	}
+
+	Storage& Storage::operator*(Storage&& s2) {
+		return (*this) * s2;
+	}
+
+	Storage& Storage::operator*(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
+
+		bitset x(getCpy(), size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = x * y;
+
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		return *newStorage;
+	}
+
+	Storage& Storage::operator/(Storage&& s2) {
+		return (*this) / s2;
+	}
+
+	Storage& Storage::operator/(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
+
+		bitset x(getCpy(), size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = x / y;
+
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
 		return *newStorage;
 	}
 

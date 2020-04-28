@@ -3,17 +3,23 @@
 namespace seac::helper {
 
 	bitset::~bitset() {
-		if (data)
+		if (data) {
 			delete data;
+		}
+		data = nullptr;
 	}
 
-	bitset::bitset(bitset& bitset) {
+	bitset::bitset(const bitset& bitset) {
+		if (this == &bitset)
+			return;
 		this->size = bitset.size;
 		this->data = (char*)malloc(size);
 		memcpy(data, bitset.data, size);
 	}
 
-	bitset& seac::helper::bitset::operator=(bitset& b) {
+	bitset& seac::helper::bitset::operator=(const bitset& b) {
+		if (this == &b)
+			return *this;
 		if (data)
 			delete data;
 		this->size = b.size;
@@ -22,12 +28,17 @@ namespace seac::helper {
 		return *this;
 	}
 
-	bitset bitset::operator+(bitset& s) {
-		auto resSize = std::max(size, s.size);
+	bitset& bitset::operator=(const bitset&& b) {
+		return (*this) = b;
+	}
+
+	bitset bitset::operator+(const bitset& sb) {
+		auto resSize = std::max(size, sb.size);
 		bitset newMemory(calloc(1, resSize), resSize);
-		bitset& f = *this;
+		bitset f(*this);
+		bitset s(sb);
 		bool carry = false;
-		for (unsigned i = 0; i < resSize; i++) {
+		for (unsigned i = 0; i < resSize * 8; i++) {
 			unsigned v = f[i] + s[i] + (carry ? 1 : 0);
 			carry = v > 1;
 			newMemory.set(v == 1, i);
@@ -35,65 +46,133 @@ namespace seac::helper {
 		return newMemory;
 	}
 
-	bitset bitset::operator+(bitset&& s) {
+	bitset bitset::operator+(const bitset&& s) {
 		return *this + s;
 	}
 
-	bitset bitset::operator-(bitset& s) {
+	bitset bitset::operator-(const bitset& s) {
 		return (*this) + (-s);
 	}
 
-	bitset bitset::operator-(bitset&& s) {
+	bitset bitset::operator-(const bitset&& s) {
 		return (*this) - s;
 	}
 
-	bitset bitset::operator*(bitset& s) {
-		auto resSize = std::max(size, s.size);
-		bitset res(malloc(resSize), resSize);
-		for (unsigned i = 0; i < resSize; i++) {
-
+	bitset bitset::operator*(const bitset& sb) {
+		bitset a(*this);
+		bitset b(sb);
+		auto resSize = std::max(size, sb.size);
+		bitset res(calloc(1, resSize), resSize);
+		while (a.is()) {
+			if (a[0])
+				res = res + b;
+			a >>= 1;
+			b <<= 1;
 		}
 		return res;
 	}
 
-	bitset bitset::operator*(bitset&& s) {
+	bitset bitset::operator*(const bitset&& s) {
 		return (*this) * s;
+	}
+
+	bitset bitset::operator/(const bitset& sb) {
+
+		if (!sb.is())
+			throw helpers::runtime("zero divide");
+
+		bitset dividend(*this);
+		bitset remain(*this);
+		bitset scaled_divisor(sb);
+
+		auto resSize = std::max(size, sb.size);
+		auto multiple = create_bitset(1);
+		bitset result(calloc(1, resSize), resSize);
+
+		while (scaled_divisor < dividend) {
+			scaled_divisor = scaled_divisor + scaled_divisor; // Multiply by two.
+			multiple <<= 1;
+		}
+
+		do {
+			if (remain >= scaled_divisor)
+			{
+				remain = remain - scaled_divisor;
+				result = result + multiple;
+			}
+			scaled_divisor >>= 1;
+			multiple >>= 1;
+		} while (!multiple.is());
+
+		return result;
+	}
+
+	bitset bitset::operator/(const bitset&& s) {
+		return (*this) / s;
 	}
 
 	bitset bitset::operator~() {
 		bitset tmp(*this);
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size * 8; i++) {
 			tmp.set(tmp[i] ^ 1, i);
 		}
 		return tmp;
 	}
 
-	bitset bitset::operator-() {
-
-		bitset t = create_bitset(0xFFFFFFFF);
-		t <<= 2;
-
+	bitset bitset::operator-() const {
 		bitset tmp(*this);
 		return ~tmp + create_bitset(1);
 	}
 
+	bool bitset::operator<(const bitset& b) {
+		for (int i = size * 8 - 1; i >= 0; i--) {
+			if ((*this)[i] < b[i])
+				return true;
+		}
+		return false;
+	}
+
+	bool bitset::operator<=(const bitset& b) {
+		return !((*this) > b);
+	}
+
+	bool bitset::operator>(const bitset& b) {
+		for (int i = size * 8 - 1; i >= 0; i--) {
+			if ((*this)[i] > b[i])
+				return true;
+		}
+		return false;
+	}
+
+	bool bitset::operator>=(const bitset& b) {
+		return !((*this) < b);
+	}
+
 	void bitset::operator>>=(int s)
 	{
-		for (unsigned i = 0; i < size - s; i++) {
+		for (unsigned i = 0; i < 8 * size - s; i++) {
 			this->set((*this)[i + s], i);
 		}
-		for (int i = size - s; i < size; i++) {
+		for (int i = 8 * size - s; i < 8 * size; i++) {
 			this->set(0, i);
 		}
 	}
 
 	void bitset::operator<<=(int s) {
-		for (unsigned i = size - 1; i > s - 1; i--) {
+		for (unsigned i = 8 * size - 1; i > s - 1; i--) {
 			this->set((*this)[i - s], i);
 		}
 		for (int i = 0; i < s; i++) {
 			this->set(0, i);
 		}
+	}
+
+	bool bitset::is() const {
+		for (int i = 0; i < size; i++) {
+			if (data[i])
+				return true;
+		}
+		return false;
 	}
 
 	void* bitset::cpy() {
@@ -104,7 +183,7 @@ namespace seac::helper {
 
 	std::string bitset::str() {
 		std::string s;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size * 8; i++) {
 			s = std::to_string((*this)[i]) + s;
 		}
 		return s;

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "runtime.h"
 
 #define uint unsigned int
 #define ull unsigned long long

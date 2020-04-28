@@ -24,6 +24,8 @@ namespace seac::runtime {
 		void assignFromStack(seac::reader::UniversalReader* reader);
 		void plusOperation();
 		void minusOperation();
+		void multiplyOperation();
+		void divideOperation();
 		void externalCall(seac::reader::StringReader* reader);
 	public:
 		static RuntimeEnviroment& runtimeManager();

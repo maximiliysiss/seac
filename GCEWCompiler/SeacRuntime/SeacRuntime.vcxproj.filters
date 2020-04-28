@@ -94,7 +94,10 @@
       <Filter>Source Files\Runtime\External</Filter>
     </ClCompile>
     <ClCompile Include="bitset.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="runtime.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +141,9 @@
       <Filter>Header Files\Runtime\External</Filter>
     </ClInclude>
     <ClInclude Include="bitset.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="runtime.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>

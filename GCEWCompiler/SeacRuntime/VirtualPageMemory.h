@@ -2,7 +2,6 @@
 #include "Enums.h"
 #include <stack>
 #include <algorithm>
-#include <boost/dynamic_bitset.hpp>
 
 namespace seac::runtime {
 
@@ -21,11 +20,14 @@ namespace seac::runtime {
 		void* getCpy();
 		~Storage();
 
-		friend Storage& operator+(Storage&& s1, Storage&& s2);
-		friend Storage& operator+(Storage& s1, Storage& s2);
-
-		friend Storage& operator-(Storage&& s1, Storage&& s2);
-		friend Storage& operator-(Storage& s1, Storage& s2);
+		virtual Storage& operator+(Storage&& s2);
+		virtual Storage& operator+(Storage& s2);
+		virtual Storage& operator-(Storage&& s2);
+		virtual Storage& operator-(Storage& s2);
+		virtual Storage& operator*(Storage&& s2);
+		virtual Storage& operator*(Storage& s2);
+		virtual Storage& operator/(Storage&& s2);
+		virtual Storage& operator/(Storage& s2);
 	};
 
 	class VirtualStack {
@@ -60,10 +62,8 @@ namespace seac::runtime {
 		return *get<T>();
 	}
 
-
 	struct StringStorage : public Storage {
 		StringStorage(ull id, void* data);
-		StringStorage(void* data);
 	};
 
 }
