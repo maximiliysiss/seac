@@ -36,18 +36,11 @@ namespace seac::runtime {
 	Storage& operator+(Storage& s1, Storage& s2) {
 		auto size = std::max(s1.size, s2.size);
 
-		bitset newMemory(calloc(1, size));
-		bitset f(s1.get<char>());
-		bitset s(s2.get<char>());
+		bitset f(s1.getCpy(), s1.size);
+		bitset s(s2.getCpy(), s2.size);
 
-		bool carry = false;
-		for (unsigned i = 0; i < size * 8; i++) {
-			unsigned v = f[i] + s[i] + (carry ? 1 : 0);
-			carry = v > 1;
-			newMemory.set(v == 1, i);
-		}
-
-		Storage* newStorage = new Storage(-1, newMemory.get_data(), size);
+		auto res = f + s;
+		Storage* newStorage = new Storage(-1, res.cpy(), size);
 		return *newStorage;
 	}
 
@@ -57,25 +50,12 @@ namespace seac::runtime {
 
 	Storage& operator-(Storage& s1, Storage& s2) {
 		auto size = std::max(s1.size, s2.size);
-		char* newMemory = (char*)calloc(1, size);
 
-		bitset result(newMemory);
-		bitset f(s1.get<char>());
-		bitset s(s2.get<char>());
+		bitset x(s1.getCpy(), s1.size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = x - y;
 
-		bool carry = false;
-		for (unsigned i = 0; i < size * 8; i++) {
-
-			unsigned v = f[i] - s[i] + (carry ? 1 : 0);
-
-			for (int j = 0; j < 8; j++) {
-				unsigned v = bool(f[i] & (1 << j)) - bool(s[i] & (1 << j)) + (carry ? 1 : 0);
-				carry = v > 1;
-				newMemory[i] |= (v == 1) << j;
-			}
-		}
-
-		Storage* newStorage = new Storage(-1, newMemory, size);
+		Storage* newStorage = new Storage(-1, res.cpy(), size);
 		return *newStorage;
 	}
 

@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="Appenders.cpp" />
     <ClCompile Include="AssemblyRuntime.cpp" />
+    <ClCompile Include="bitset.cpp" />
     <ClCompile Include="Call.cpp" />
     <ClCompile Include="External.cpp" />
     <ClCompile Include="External.h" />

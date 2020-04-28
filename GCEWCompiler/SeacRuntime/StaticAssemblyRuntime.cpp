@@ -28,9 +28,14 @@ namespace seac::runtime {
 			if (!operation)
 				break;
 			re.jitOperation(operation);
+			if (re.get_isClose()) {
+				break;
+			}
 		}
 
+		logger.logInformation("Closing program");
 		delete header;
+		logger.logInformation("Closed program");
 
 	}
 

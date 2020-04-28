@@ -13,6 +13,7 @@ namespace seac::runtime {
 		std::stack<stack::Call*> callStack;
 		stack::Call* globalCallStack;
 
+		read_only_prop(bool, isClose, false);
 		read_only_prop_ref(VirtualStack, stack);
 		Storage* findVariableStorage(ull id);
 	private:

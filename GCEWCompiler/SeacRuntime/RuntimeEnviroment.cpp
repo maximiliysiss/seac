@@ -32,6 +32,9 @@ namespace seac::runtime {
 	void RuntimeEnviroment::procEnd() {
 		logger.logInformation(callStack.top()->get_reader()->get_operand_first() + " proc end");
 		callStack.pop();
+		if (callStack.size() == 1) {
+			isClose = true;
+		}
 	}
 
 	void RuntimeEnviroment::pushStack(seac::reader::IOpReader* reader) {

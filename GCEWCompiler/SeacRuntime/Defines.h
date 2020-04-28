@@ -13,6 +13,15 @@
 		} \
 	private:
 
+#define read_only_prop(type, name, value) \
+	protected: \
+		type name{##value}; \
+	public: \
+		type get_##name(){ \
+			return name; \
+		} \
+	private:
+
 #define read_only_prop_ref(type, name) \
 	protected: \
 		type name; \

@@ -93,6 +93,9 @@
     <ClCompile Include="ExternalConfiguration.cpp">
       <Filter>Source Files\Runtime\External</Filter>
     </ClCompile>
+    <ClCompile Include="bitset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
