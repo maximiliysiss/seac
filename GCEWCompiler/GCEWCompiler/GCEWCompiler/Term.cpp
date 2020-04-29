@@ -26,20 +26,22 @@ namespace gcew::trees::parser
 	void Term::toCode(gcew::commons::CodeStream& code)
 	{
 		try {
+			auto type = gcew::commons::CompileConfiguration::getTypeInitializeByValue(value);
+
 			if (isVariable) {
 				auto var = gcew::commons::VariableManager::manager().getVariable(value);
 				code << StreamData((ull)gcew::commons::JitOperation::stack, sizeof(ull), &var.id, 0, 0, isVariable, var.size);
 			}
 			else {
-				auto type = gcew::commons::CompileConfiguration::getTypeInitializeByValue(value);
-				auto valueResult = gcew::commons::CompileConfiguration::convertStringToValue(value, type);
-				auto size = gcew::commons::CompileConfiguration::jitTypes[type];
-				code << StreamData((ull)gcew::commons::JitOperation::stack, size, valueResult, 0, 0, isVariable, size);
+				int size = 0;
+				auto valueResult = gcew::commons::CompileConfiguration::convertStringToValue(value, type, size);
+				auto prop = commons::CompileConfiguration::typeProp(type);
+				code << StreamData((ull)gcew::commons::JitOperation::stack, size, valueResult, sizeof(unsigned int), &prop, isVariable, size);
 				delete valueResult;
 			}
 		}
 		catch (...) {
-			code << StringStreamData((ull)gcew::commons::JitOperation::stack, value, std::string(), isVariable, value.length());
+			throw commons::compiler_exception("error create term. value = " + value);
 		}
 	}
 

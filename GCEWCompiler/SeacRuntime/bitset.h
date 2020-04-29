@@ -41,6 +41,12 @@ namespace seac::helper {
 		bitset operator*(const bitset&& s);
 		bitset operator/(const bitset& s);
 		bitset operator/(const bitset&& s);
+		bitset operator&(const bitset& s);
+		bitset operator&(const bitset&& s);
+		bitset operator|(const bitset& s);
+		bitset operator|(const bitset&& s);
+		bitset operator^(const bitset& s);
+		bitset operator^(const bitset&& s);
 		bitset operator~();
 		bitset operator-() const;
 		bool operator<(const bitset& b);

@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include "CommonLogger.h"
 #define ull unsigned long long
 #define elif else if
 

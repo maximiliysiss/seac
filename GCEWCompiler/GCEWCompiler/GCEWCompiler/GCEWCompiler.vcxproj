@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Appenders.h" />
     <ClInclude Include="AssigmentOperation.h" />
     <ClInclude Include="BoolNode.h" />
     <ClInclude Include="BreakOperation.h" />
@@ -153,7 +154,6 @@
     <ClInclude Include="BaseNode.h" />
     <ClInclude Include="ForTree.h" />
     <ClInclude Include="FunctionTree.h" />
-    <ClInclude Include="Helper.h" />
     <ClInclude Include="IfTree.h" />
     <ClInclude Include="IncludeOperation.h" />
     <ClInclude Include="Instruments.h" />
@@ -175,6 +175,7 @@
     <ClInclude Include="WhileTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Appenders.cpp" />
     <ClCompile Include="AssigmentOperation.cpp" />
     <ClCompile Include="BoolNode.cpp" />
     <ClCompile Include="BreakOperation.cpp" />

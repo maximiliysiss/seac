@@ -25,8 +25,8 @@ namespace seac::reader {
 
 	class IOpReader : public IReader {
 	protected:
-		void* operand_first;
-		void* operand_second;
+		void* operand_first{ nullptr };
+		void* operand_second{ nullptr };
 	private:
 		read_only_prop(ull, memory_operation);
 		read_only_prop(ull, memory_agrument);

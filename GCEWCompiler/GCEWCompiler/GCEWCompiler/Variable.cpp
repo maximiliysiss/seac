@@ -33,7 +33,8 @@ namespace gcew::trees::elements
 	void Variable::toCode(CodeStream& code)
 	{
 		ull id = VM.registerVariable(this->name, CompileConfiguration::jitTypes[type]);
-		code << StreamData((ull)gcew::commons::JitOperation::init, sizeof(ull), &id, 0, 0, (ull)gcew::commons::CompileConfiguration::jitTypes[type]);
+		auto prop = commons::CompileConfiguration::typeProp(type);
+		code << StreamData((ull)gcew::commons::JitOperation::init, sizeof(ull), &id, sizeof(uint), &prop, (ull)gcew::commons::CompileConfiguration::jitTypes[type]);
 		if (exp) {
 			exp->toCode(code);
 			code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &id);

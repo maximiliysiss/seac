@@ -21,7 +21,7 @@ namespace seac::runtime {
 
 	void RuntimeEnviroment::initValue(seac::reader::UniversalReader* reader) {
 		logger.logInformation("init value sizeof " + to_str(reader->get_memory_operation()));
-		callStack.top()->push(*(ull*)reader->get_clean_operand_first(), reader->get_memory_operation());
+		callStack.top()->add(Storage::create_storage(*(ull*)reader->get_clean_operand_first(), *(uint*)reader->get_clean_operand_second(), reader->get_memory_operation()));
 	}
 
 	void RuntimeEnviroment::procStart(seac::reader::StringReader* reader) {
@@ -41,10 +41,10 @@ namespace seac::runtime {
 		logger.logInformation("push stack");
 		if (reader->get_memory_operation()) {
 			auto* var = findVariableStorage(*(ull*)reader->get_clean_operand_first());
-			stack.push(var->getCpy(), reader->get_memory_agrument());
+			stack.push(Storage::create_storage(-1, var->get_prop(), var->getCpy(), var->get_size()));
 		}
 		else {
-			stack.push(reader->get_clean_operand_first(), reader->get_memory_agrument());
+			stack.push(Storage::create_storage(-1, *(ull*)reader->get_clean_operand_second(), reader->get_clean_operand_first(), reader->get_memory_agrument()));
 		}
 	}
 
@@ -57,6 +57,7 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::plusOperation() {
+		logger.logInformation("plus operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
 		stack.push(&(*first + *second));
@@ -65,6 +66,7 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::minusOperation() {
+		logger.logInformation("minus operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
 		stack.push(&(*second - *first));
@@ -73,6 +75,7 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::multiplyOperation() {
+		logger.logInformation("multiply operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
 		stack.push(&(*second * *first));
@@ -81,6 +84,7 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::divideOperation() {
+		logger.logInformation("divide operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
 		stack.push(&(*second / *first));
@@ -90,9 +94,10 @@ namespace seac::runtime {
 
 	void RuntimeEnviroment::externalCall(seac::reader::StringReader* reader) {
 		std::vector<seac::runtime::external::ArgumentCall> args;
-		char* format = new char[3] { '%', 'i', '\0' };
-		args.push_back({ 3, format });
-		args.push_back({ 4, new int(5) });
+		for (int i = 0; i < reader->get_memory_operation(); i++) {
+			auto* top = stack.pop();
+			args.insert(args.begin(), external::ArgumentCall{ top->get_size(), top->getCpy() });
+		}
 		external::ExternalCallManager::manager().call(reader->get_operand_first(), args);
 	}
 

@@ -168,9 +168,6 @@
     <ClInclude Include="CommonLogger.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
-    <ClInclude Include="Helper.h">
-      <Filter>Header Files\commons</Filter>
-    </ClInclude>
     <ClInclude Include="RuntimeConfiguration.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
@@ -178,6 +175,9 @@
       <Filter>Header Files\commons</Filter>
     </ClInclude>
     <ClInclude Include="VariableManager.h">
+      <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="Appenders.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
   </ItemGroup>
@@ -294,6 +294,9 @@
       <Filter>Source Files\commons</Filter>
     </ClCompile>
     <ClCompile Include="VariableManager.cpp">
+      <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="Appenders.cpp">
       <Filter>Source Files\commons</Filter>
     </ClCompile>
   </ItemGroup>

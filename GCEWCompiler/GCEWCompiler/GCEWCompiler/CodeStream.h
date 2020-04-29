@@ -4,6 +4,7 @@
 #include "VariableManager.h"
 
 #define ull unsigned long long
+#define uint unsigned int
 
 namespace gcew::commons {
 

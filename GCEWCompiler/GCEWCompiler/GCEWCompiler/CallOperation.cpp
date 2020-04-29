@@ -47,5 +47,5 @@ void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::Cod
 		code << StreamData((ull)Operations::Call, sizeof(ull), &tmpId);
 	}
 	else
-		code << StringStreamData((ull)Operations::ExtCall, this->name);
+		code << StringStreamData((ull)Operations::ExtCall, this->name, std::string(), this->arguments.size());
 }

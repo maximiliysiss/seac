@@ -5,6 +5,44 @@ namespace seac::runtime {
 
 	using namespace helper;
 
+	Storage* seac::runtime::Storage::create_storage(uint id, uint prop, void* data, uint size)
+	{
+		Storage* st = nullptr;
+
+		if (prop & 1) {
+
+		} elif(prop & (1 << 1)) {
+			st = new StringStorage(id, data);
+		}
+		else {
+			st = new Storage(id, data, size);
+		}
+
+		if (st)
+			st->prop = prop;
+
+		return st;
+	}
+
+	Storage* seac::runtime::Storage::create_storage(uint id, uint prop, uint size)
+	{
+		Storage* st = nullptr;
+
+		if (prop & 1) {
+
+		} elif(prop & (1 << 1)) {
+			st = new StringStorage(id, nullptr);
+		}
+		else {
+			st = new Storage(id, calloc(1, size), size);
+		}
+
+		if (st)
+			st->prop = prop;
+
+		return st;
+	}
+
 	Storage::Storage(ull id, void* data, uint size)
 		:data(data), id(id), size(size) {
 	}
@@ -26,7 +64,7 @@ namespace seac::runtime {
 	}
 
 	StringStorage::StringStorage(ull id, void* data)
-		:Storage(id, data, -1) {
+		:Storage(id, data, strlen((char*)data) + 1) {
 	}
 
 	Storage& Storage::operator+(Storage&& s2) {

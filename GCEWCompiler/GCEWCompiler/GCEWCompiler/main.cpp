@@ -123,8 +123,10 @@ std::string help = "\n"
 
 int main(int argc, char** argv)
 {
+	gcew::commons::Logger<Tree> log = gcew::commons::Logger<Tree>::getInstance();
+
 	if (argc < 2) {
-		cout << "Not found arguments\n";
+		log.logError("Not found arguments");
 		return EXIT_FAILURE;
 	}
 
@@ -179,8 +181,11 @@ int main(int argc, char** argv)
 		rootTree->createCode(codeStream);
 	}
 	catch (std::exception ex) {
-		std::cout << ex.what() << std::endl;
+		log.logError(ex.what());
 		return EXIT_FAILURE;
+	}
+	catch (...) {
+		log.logError("compiler error");
 	}
 
 	std::cout << "Press Enter to Continue";

@@ -24,8 +24,10 @@ namespace gcew::commons
 		static CompileConfiguration & instance();
 		static std::map<std::string, std::map<Operations, std::string>> typeOperation;
 		static std::map<std::string, int> jitTypes;
+		static std::map<std::string, char> specSymbols;
+		static unsigned int typeProp(std::string type);
 		static std::string getTypeInitializeByValue(std::string value);
-		static void* convertStringToValue(std::string value, std::string type);
+		static void* convertStringToValue(std::string& value, std::string type, int& size);
 		inline std::string getCompilePath() const { return pathForCompile; }
 		inline std::string getLibsPath() const { return libsPath; }
 	private:

@@ -41,7 +41,7 @@ namespace seac::runtime::external {
 			size = 0;
 			for (int i = 1; i < data.size(); i++) {
 				memcpy(arg + size, data[i].data, data[i].size);
-				i += data[i].size;
+				size += data[i].size;
 			}
 			vprintf((const char*)data[0].data, arg);
 			delete[] arg;

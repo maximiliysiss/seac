@@ -1,5 +1,6 @@
 #pragma once
 #include "Enums.h"
+#include "Reader.h"
 #include <stack>
 #include <algorithm>
 
@@ -8,9 +9,12 @@ namespace seac::runtime {
 	struct Storage {
 	private:
 		void* data;
-		ull id;
+		read_only_prop(ull, id);
 		read_only_prop(uint, size);
+		read_only_prop(uint, prop);
 	public:
+		static Storage* create_storage(uint id, uint prop, void* data, uint size);
+		static Storage* create_storage(uint id, uint prop, uint size);
 		Storage(ull id, void* data, uint size);
 		template<typename T>
 		T* get();

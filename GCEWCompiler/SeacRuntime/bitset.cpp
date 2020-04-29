@@ -34,16 +34,20 @@ namespace seac::helper {
 
 	bitset bitset::operator+(const bitset& sb) {
 		auto resSize = std::max(size, sb.size);
-		bitset newMemory(calloc(1, resSize), resSize);
-		bitset f(*this);
-		bitset s(sb);
-		bool carry = false;
-		for (unsigned i = 0; i < resSize * 8; i++) {
-			unsigned v = f[i] + s[i] + (carry ? 1 : 0);
-			carry = v > 1;
-			newMemory.set(v == 1, i);
+		bitset a(*this);
+		bitset b(sb);
+
+		bitset carry = a & b;
+		bitset result = a ^ b;
+		while (carry.is())
+		{
+			bitset shiftedcarry = carry;
+			shiftedcarry <<= 1;
+			carry = result & shiftedcarry;
+			result = result ^ shiftedcarry;
 		}
-		return newMemory;
+
+		return result;
 	}
 
 	bitset bitset::operator+(const bitset&& s) {
@@ -90,7 +94,7 @@ namespace seac::helper {
 		bitset result(calloc(1, resSize), resSize);
 
 		while (scaled_divisor < dividend) {
-			scaled_divisor = scaled_divisor + scaled_divisor; // Multiply by two.
+			scaled_divisor <<= 1; // Multiply by two.
 			multiple <<= 1;
 		}
 
@@ -102,13 +106,49 @@ namespace seac::helper {
 			}
 			scaled_divisor >>= 1;
 			multiple >>= 1;
-		} while (!multiple.is());
+		} while (multiple.is());
 
 		return result;
 	}
 
 	bitset bitset::operator/(const bitset&& s) {
 		return (*this) / s;
+	}
+
+	bitset bitset::operator&(const bitset& s) {
+		bitset tmp(*this);
+		for (int i = 0; i < size * 8; i++) {
+			tmp.set(tmp[i] & s[i], i);
+		}
+		return tmp;
+	}
+
+	bitset bitset::operator&(const bitset&& s) {
+		return (*this) & s;
+	}
+
+	bitset bitset::operator|(const bitset& s) {
+		bitset tmp(*this);
+		for (int i = 0; i < size * 8; i++) {
+			tmp.set(tmp[i] | s[i], i);
+		}
+		return tmp;
+	}
+
+	bitset bitset::operator|(const bitset&& s) {
+		return (*this) | s;
+	}
+
+	bitset bitset::operator^(const bitset& s) {
+		bitset tmp(*this);
+		for (int i = 0; i < size * 8; i++) {
+			tmp.set(tmp[i] ^ s[i], i);
+		}
+		return tmp;
+	}
+
+	bitset bitset::operator^(const bitset&& s) {
+		return (*this) ^ s;
 	}
 
 	bitset bitset::operator~() {
