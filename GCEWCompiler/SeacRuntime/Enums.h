@@ -1,5 +1,6 @@
 #pragma once
 #include "Defines.h"
+#include "Helper.h"
 #include "RuntimeConfiguration.h"
 
 namespace seac::common {

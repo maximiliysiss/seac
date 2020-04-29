@@ -99,6 +99,9 @@
     <ClCompile Include="runtime.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="runtime.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>

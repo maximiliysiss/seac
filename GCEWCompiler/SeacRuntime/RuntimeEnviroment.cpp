@@ -89,7 +89,11 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::externalCall(seac::reader::StringReader* reader) {
-		//external::ExternalCallManager::manager().call(reader->get_operand_first());
+		std::vector<seac::runtime::external::ArgumentCall> args;
+		char* format = new char[3] { '%', 'i', '\0' };
+		args.push_back({ 3, format });
+		args.push_back({ 4, new int(5) });
+		external::ExternalCallManager::manager().call(reader->get_operand_first(), args);
 	}
 
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {

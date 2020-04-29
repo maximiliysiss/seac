@@ -4,6 +4,7 @@
 
 #define uint unsigned int
 #define ull unsigned long long
+#define elif else if
 
 #define read_only_prop(type, name) \
 	protected: \
