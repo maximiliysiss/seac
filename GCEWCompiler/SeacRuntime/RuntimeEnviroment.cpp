@@ -9,7 +9,7 @@ namespace seac::runtime {
 
 	RuntimeEnviroment::RuntimeEnviroment()
 		:logger(seac::logger::Logger<RuntimeEnviroment>::getInstance()) {
-		callStack.push(globalCallStack = new stack::Call("global", nullptr));
+		callStack.push(globalCallStack = new stack::Call("global", nullptr, line));
 	}
 
 	Storage* RuntimeEnviroment::findVariableStorage(ull id) {
@@ -26,15 +26,21 @@ namespace seac::runtime {
 
 	void RuntimeEnviroment::procStart(seac::reader::StringReader* reader) {
 		logger.logInformation("procedure " + reader->get_operand_first());
-		callStack.push(new stack::Call(reader->get_operand_first(), reader));
+		callStack.push(new stack::Call(reader->get_operand_first(), reader, line));
 	}
 
 	void RuntimeEnviroment::procEnd() {
 		logger.logInformation(callStack.top()->get_reader()->get_operand_first() + " proc end");
+		auto top = callStack.top();
 		callStack.pop();
 		if (callStack.size() == 1) {
 			isClose = true;
 		}
+		else {
+			line = callStack.top()->get_line() - 1;
+		}
+
+		delete top;
 	}
 
 	void RuntimeEnviroment::pushStack(seac::reader::IOpReader* reader) {
@@ -101,6 +107,11 @@ namespace seac::runtime {
 		external::ExternalCallManager::manager().call(reader->get_operand_first(), args);
 	}
 
+	void RuntimeEnviroment::execCall(seac::reader::StringReader* reader) {
+		logger.logInformation("call " + reader->get_operand_first());
+		jump_to(functionFinder[reader->get_memory_agrument()] - 1);
+	}
+
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
 		if (re)
 			return *re;
@@ -144,7 +155,13 @@ namespace seac::runtime {
 		case JitOperation::extcall:
 			externalCall((seac::reader::StringReader*)operation);
 			break;
+		case JitOperation::call:
+			execCall((seac::reader::StringReader*)operation);
+			break;
 		}
+
+		line++;
+		callStack.top()->get_line()++;
 	}
 
 }

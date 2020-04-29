@@ -23,14 +23,19 @@ namespace seac::runtime {
 
 		auto& re = seac::runtime::RuntimeEnviroment::runtimeManager();
 
+		std::vector<IReader*> readers;
 		while (inputFile.good()) {
 			auto operation = IReader::nextRead(inputFile);
 			if (!operation)
 				break;
-			re.jitOperation(operation);
-			if (re.get_isClose()) {
-				break;
-			}
+			if (operation->get_code() == (ull)common::JitOperation::proc)
+				re.get_functionFinder()[((reader::StringReader*)operation)->get_memory_operation()] = readers.size();
+			readers.push_back(operation);
+		}
+		inputFile.close();
+
+		while (!re.get_isClose()) {
+			re.jitOperation(readers[re.get_line()]);
 		}
 
 		logger.logInformation("Closing program");

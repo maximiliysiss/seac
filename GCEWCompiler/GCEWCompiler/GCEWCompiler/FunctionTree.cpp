@@ -33,7 +33,7 @@ void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& co
 {
 	VM.registerTree();
 	std::string tmpName = getFMName();
-	code << StringStreamData((ull)gcew::commons::JitOperation::proc, tmpName, std::string(), FM.getFunction(getFMName()));
+	code << StringStreamData((ull)gcew::commons::JitOperation::proc, tmpName, std::string(), FM.getFunction(tmpName));
 	for (auto i = arguments.rbegin(); i != arguments.rend(); i++) {
 		(*i)->toCode(code);
 		ull id = gcew::commons::VariableManager::manager().getVariable((*i)->getName()).id;

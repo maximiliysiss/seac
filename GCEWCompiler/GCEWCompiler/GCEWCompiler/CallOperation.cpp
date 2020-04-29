@@ -19,9 +19,11 @@ gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::
 	auto startBracket = line.find('(');
 	auto endBracket = line.find_last_of(')');
 	auto arg = getArguments(line.substr(startBracket + 1, endBracket - startBracket - 1));
-	std::for_each(arg.begin(), arg.end(), [this](std::string& str) {
-		str = trim(str);
-		arguments.push_back(gcew::commons::Parser::preParser(str));
+	std::for_each(arg.begin(), arg.end(), [this](std::string& str)
+		{
+			str = trim(str);
+			if (str.length() > 0)
+				arguments.push_back(gcew::commons::Parser::preParser(str));
 		});
 }
 
@@ -44,7 +46,7 @@ void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::Cod
 	}
 	if (nodeType == RegexResult::Call) {
 		ull tmpId = FM.getFunction(function->getFMName());
-		code << StreamData((ull)Operations::Call, sizeof(ull), &tmpId);
+		code << StringStreamData((ull)Operations::Call, this->name, std::string(), this->arguments.size(), tmpId);
 	}
 	else
 		code << StringStreamData((ull)Operations::ExtCall, this->name, std::string(), this->arguments.size());

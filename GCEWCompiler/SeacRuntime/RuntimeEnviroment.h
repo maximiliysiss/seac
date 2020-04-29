@@ -13,8 +13,11 @@ namespace seac::runtime {
 		std::stack<stack::Call*> callStack;
 		stack::Call* globalCallStack;
 
+		typedef std::map<ull, uint> map_ull_uint;
+		read_only_prop_ref(map_ull_uint, functionFinder);
 		read_only_prop(bool, isClose, false);
 		read_only_prop_ref(VirtualStack, stack);
+		read_only_prop_ref(ull, line, 0);
 		Storage* findVariableStorage(ull id);
 	private:
 		void initValue(seac::reader::UniversalReader* reader);
@@ -27,6 +30,10 @@ namespace seac::runtime {
 		void multiplyOperation();
 		void divideOperation();
 		void externalCall(seac::reader::StringReader* reader);
+		void execCall(seac::reader::StringReader* reader);
+		inline void jump_to(ull index) {
+			this->line = index;
+		}
 	public:
 		static RuntimeEnviroment& runtimeManager();
 		void jitOperation(seac::reader::IReader* operation);
