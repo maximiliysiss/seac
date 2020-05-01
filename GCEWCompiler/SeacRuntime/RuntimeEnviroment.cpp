@@ -1,6 +1,5 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
-#include "External.cpp"
 
 namespace seac::runtime {
 
@@ -124,7 +123,7 @@ namespace seac::runtime {
 		callStack.top()->removeLayout();
 	}
 
-	void RuntimeEnviroment::lowerOperation(){
+	void RuntimeEnviroment::lowerOperation() {
 		logger.logInformation("lower operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
@@ -133,7 +132,25 @@ namespace seac::runtime {
 		delete second;
 	}
 
-	void RuntimeEnviroment::ifujmp(reader::UniversalReader* reader){
+	void RuntimeEnviroment::greaterOperation(){
+		logger.logInformation("greater operation");
+		auto* first = stack.pop();
+		auto* second = stack.pop();
+		stack.push(&(*second > *first));
+		delete first;
+		delete second;
+	}
+
+	void RuntimeEnviroment::ifujmp(reader::UniversalReader* reader) {
+		logger.logInformation("if operation");
+		auto stTop = stack.pop();
+		jump_to(stTop->getValue<bool>() ? *(ull*)reader->get_clean_operand_first() : *(ull*)reader->get_clean_operand_second());
+		delete stTop;
+	}
+
+	void RuntimeEnviroment::jump(reader::UniversalReader* reader) {
+		logger.logInformation("jmp operation");
+		jump_to(*(ull*)reader->get_clean_operand_first());
 	}
 
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
@@ -187,13 +204,20 @@ namespace seac::runtime {
 			localEnd((reader::UniversalReader*)operation);
 			break;
 
+		case JitOperation::greater:
+			greaterOperation();
+			break;
 		case JitOperation::lower:
 			lowerOperation();
 			break;
 		case JitOperation::ifop:
 			ifujmp((reader::UniversalReader*)operation);
 			break;
-
+		case JitOperation::jump:
+			jump((reader::UniversalReader*)operation);
+			break;
+		default:
+			throw helpers::runtime("not found operation");
 		}
 
 		line++;

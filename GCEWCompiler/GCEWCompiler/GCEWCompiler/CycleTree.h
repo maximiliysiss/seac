@@ -11,14 +11,12 @@ namespace gcew::trees::structural
 	{
 	protected:
 		BaseNode* condition{ nullptr };
-		std::string breakOperation;
-		std::string continueOperation;
+		std::vector<ull> breakers;
 	public:
+		std::vector<ull>& get_breakers() { return breakers; }
 		virtual bool isCallFunction(std::string name) override;
 		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name);
-		inline std::string getContinue()const { return continueOperation; }
-		inline std::string getBreak()const { return breakOperation; }
 		CycleTree(int index, std::string line, gcew::commons::RegexResult reg, void*);
 		~CycleTree();
 	};

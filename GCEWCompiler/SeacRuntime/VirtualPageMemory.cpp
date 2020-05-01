@@ -8,15 +8,17 @@ namespace seac::runtime {
 	Storage* seac::runtime::Storage::create_storage(uint id, uint prop, void* data, uint size)
 	{
 		Storage* st = nullptr;
+		void* dataCpy = malloc(size);
+		memcpy(dataCpy, data, size);
 
 		if (prop & 1) {
 
 		}
 		else if (prop & (1 << 1)) {
-			st = new StringStorage(id, data);
+			st = new StringStorage(id, dataCpy);
 		}
 		else {
-			st = new Storage(id, data, size);
+			st = new Storage(id, dataCpy, size);
 		}
 
 		if (st)

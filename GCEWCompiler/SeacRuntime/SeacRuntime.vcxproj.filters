@@ -110,9 +110,6 @@
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssemblyRuntime.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="VirtualPageMemory.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
@@ -151,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="AssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,9 @@ namespace gcew::commons {
 		struct IStreamData abstract {
 		protected:
 			ull stream_code;
+			bool isHeader{ false };
 		public:
+			bool is_header() { return isHeader; }
 			IStreamData(ull code) :stream_code(code) {}
 			virtual void write(std::ostream& out) = 0;
 		};
@@ -31,7 +33,6 @@ namespace gcew::commons {
 		};
 
 		struct StreamData : public IStreamCodeData {
-			bool isCustomWriter{ false };
 			ull memory_operation, memory_agrument;
 			void* operand_second, * operand_first;
 			ull operand_first_length, operand_second_length;
@@ -90,6 +91,7 @@ namespace gcew::commons {
 			std::string os, type;
 			HeaderStreamData(std::string os, std::string type)
 				: IStreamData(0), os(os), type(type) {
+				isHeader = true;
 			}
 			virtual void write(std::ostream& out) override {
 

@@ -53,9 +53,15 @@ Tree* generateTree(std::string path) {
 		line = trim(line);
 		RegexResult reg = gcew::regulars::TreeRegularBuilder::regex(line);
 		switch (reg) {
+		case RegexResult::Break:
+		{
+			gcew::trees::elements::operations::BreakOperation* brOp = (gcew::trees::elements::operations::BreakOperation*)gcew::trees::construct_elements(reg, index, line, root);
+			brOp->setCycleTree(root->findCycleTreeUp());
+			root->addOperation(brOp);
+			break;
+		}
 		case RegexResult::Type:
 		case RegexResult::Assigment:
-		case RegexResult::Break:
 		case RegexResult::Continue:
 			root->addOperation(gcew::trees::construct_elements(reg, index, line, root));
 			break;

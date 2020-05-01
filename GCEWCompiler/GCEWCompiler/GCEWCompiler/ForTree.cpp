@@ -45,8 +45,6 @@ namespace gcew::trees::structural
 	ForTree::ForTree(int index, std::string& line, void* root)
 		:CycleTree(index, line, RegexResult::For, root)
 	{
-		this->breakOperation = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::End] + name;
-		this->continueOperation = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Iter] + name;
 		auto startBreak = line.find('(');
 		auto endBreak = line.find(')');
 		parts = gcew::commons::leftSplitter(line.substr(startBreak + 1, endBreak - startBreak - 1), ';');
@@ -67,20 +65,25 @@ namespace gcew::trees::structural
 	void ForTree::toCode(CodeStream& code)
 	{
 		VirtualCodeStream vs(code);
-
 		if (startAction)
 			startAction->toCode(vs);
 		vs << StreamData((ull)JitOperation::start);
-		ull preCondition = vs.getLine();
+		ull preCondition = vs.getLine() - 1;
 		dynamic_cast<BoolNode*>(condition)->toBoolCode(vs);
-		ull preContinue = vs.getLine() + 1;
+		ull preContinue = vs.getLine();
 		vs << StreamData((ull)JitOperation::ifop, sizeof(ull), &preContinue, sizeof(ull));
 		StreamData* tmpIf = (StreamData*)vs.findByCodeLast((ull)JitOperation::ifop);
 		Tree::toCode(vs);
 		iteration->toCode(vs);
 		vs << StreamData((ull)JitOperation::jump, sizeof(ull), &preCondition);
+		tmpIf->operand_second = new ull(vs.getLine() - 1);
 		vs << StreamData((ull)JitOperation::localend);
-		tmpIf->operand_second = new ull(vs.getLine());
+
+		for (auto& line : breakers) {
+			((StreamData*)vs.ops()[line])->operand_first = new ull(*(ull*)tmpIf->operand_second);
+			((StreamData*)vs.ops()[line])->code = (ull)commons::JitOperation::jump;
+		}
+
 		code << vs;
 	}
 

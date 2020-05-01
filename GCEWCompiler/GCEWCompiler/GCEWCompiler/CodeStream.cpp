@@ -8,13 +8,16 @@ namespace gcew::commons {
 
 	CodeStream& CodeStream::operator<<(IStreamData&& data) {
 		data.write(outStream);
-		line++;
+		if (!data.is_header()) {
+			line++;
+		}
 		return *this;
 	}
 
 	CodeStream& CodeStream::operator<<(VirtualCodeStream& codeStream) {
 		for (auto i = codeStream.ops().begin(); i != codeStream.ops().end(); i++) {
 			i->second->write(outStream);
+			line++;
 		}
 		return *this;
 	}
@@ -64,6 +67,7 @@ namespace gcew::commons {
 	CodeStream& VirtualCodeStream::operator<<(VirtualCodeStream& codeStream) {
 		for (auto& op : codeStream.operations) {
 			operations[op.first] = op.second;
+			line++;
 		}
 		return (*this);
 	}

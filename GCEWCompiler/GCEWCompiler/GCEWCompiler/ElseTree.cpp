@@ -8,11 +8,12 @@ namespace gcew::trees::structural
 
 	void ElseTree::toElseCode(gcew::commons::CodeStream& code)
 	{
-		//code << gcew::commons::CompileConfiguration::typeOperation["else"][gcew::commons::Operations::Start] + name + ":\n";
+		code << StreamData((ull)commons::JitOperation::start);
 		Tree::toCode(code);
+		code << StreamData((ull)commons::JitOperation::end);
 	}
 
-	ElseTree::ElseTree(int index, std::string line, void * root)
+	ElseTree::ElseTree(int index, std::string line, void* root)
 		:Tree(index, line, gcew::commons::RegexResult::Else, root)
 	{
 	}

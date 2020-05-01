@@ -10,6 +10,7 @@ namespace gcew::trees::structural
 
 	void CycleTree::postWork(void * tree)
 	{
+		Tree::postWork(tree);
 		condition->postWork(tree);
 	}
 

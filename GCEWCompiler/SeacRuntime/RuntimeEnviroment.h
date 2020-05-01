@@ -40,6 +40,7 @@ namespace seac::runtime {
 		void requalOperation();
 		void notequalOperation();
 		void ifujmp(reader::UniversalReader* reader);
+		void jump(reader::UniversalReader* reader);
 
 		inline void jump_to(ull index) {
 			this->line = index;

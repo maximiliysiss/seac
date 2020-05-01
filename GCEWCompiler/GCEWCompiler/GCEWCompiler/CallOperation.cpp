@@ -36,8 +36,7 @@ bool gcew::trees::elements::operations::CallOperation::isInActiveTree(std::strin
 	return result;
 }
 
-gcew::trees::elements::operations::CallOperation::~CallOperation()
-{
+gcew::trees::elements::operations::CallOperation::~CallOperation() {
 }
 
 void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::CodeStream& code)
