@@ -20,7 +20,7 @@ namespace seac::runtime {
 		T* get();
 		template<typename T>
 		T getValue();
-		void setValue(void* data);
+		void setValue(void* data, uint size);
 		void* getCpy();
 		~Storage();
 
@@ -32,6 +32,10 @@ namespace seac::runtime {
 		virtual Storage& operator*(Storage& s2);
 		virtual Storage& operator/(Storage&& s2);
 		virtual Storage& operator/(Storage& s2);
+		virtual Storage& operator<(Storage&& s2);
+		virtual Storage& operator<(Storage& s2);
+		virtual Storage& operator>(Storage&& s2);
+		virtual Storage& operator>(Storage& s2);
 	};
 
 	class VirtualStack {

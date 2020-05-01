@@ -109,8 +109,8 @@ namespace gcew::commons
 				return nullptr;
 
 			for (auto& nickname : nicknames) {
-				auto res = (*trees::structural::Tree::currentTree);
-				std::cout << 1;
+				auto* r = (trees::structural::Tree*)root;
+				r->addOperation(new gcew::trees::elements::Variable(-1, "string " + nickname.first + " = \'" + nickname.second + "\';", root));
 			}
 
 			return parser(str, root);

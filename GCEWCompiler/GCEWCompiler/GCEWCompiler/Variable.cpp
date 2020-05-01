@@ -24,7 +24,11 @@ namespace gcew::trees::elements
 		codeName = name + gcew::commons::createUniqueGUID();
 		if (line.find('=') != std::string::npos) {
 			parts = splitter(line, '=');
-			this->exp = Parser::preParser(trim(parts[1]).substr(0, parts[1].length() - breakOperation), root);
+			auto values = trim(parts[1]).substr(0, parts[1].length() - breakOperation);
+			if (gcew::commons::isSimple(values))
+				this->exp = new Term(values, type, root);
+			else
+				this->exp = Parser::preParser(values, root);
 		}
 		else
 			name = name.substr(0, name.length() - breakOperation);

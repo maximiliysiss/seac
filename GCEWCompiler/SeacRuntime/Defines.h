@@ -15,6 +15,18 @@
 		} \
 	private:
 
+#define auto_prop(type, name) \
+	protected: \
+		type name; \
+	public: \
+		type get_##name(){ \
+			return name; \
+		} \
+		void set_##name(##type name){ \
+			this->##name = name; \
+		} \
+	private:
+
 #define read_only_prop(type, name, value) \
 	protected: \
 		type name{##value}; \

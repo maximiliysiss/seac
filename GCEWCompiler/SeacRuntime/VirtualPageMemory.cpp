@@ -11,7 +11,8 @@ namespace seac::runtime {
 
 		if (prop & 1) {
 
-		} elif(prop & (1 << 1)) {
+		}
+		else if (prop & (1 << 1)) {
 			st = new StringStorage(id, data);
 		}
 		else {
@@ -30,7 +31,8 @@ namespace seac::runtime {
 
 		if (prop & 1) {
 
-		} elif(prop & (1 << 1)) {
+		}
+		else if (prop & (1 << 1)) {
 			st = new StringStorage(id, nullptr);
 		}
 		else {
@@ -47,10 +49,11 @@ namespace seac::runtime {
 		:data(data), id(id), size(size) {
 	}
 
-	void Storage::setValue(void* newData) {
+	void Storage::setValue(void* newData, uint size) {
 		if (data)
 			delete data;
 		data = newData;
+		this->size = size;
 	}
 
 	void* Storage::getCpy() {
@@ -64,7 +67,9 @@ namespace seac::runtime {
 	}
 
 	StringStorage::StringStorage(ull id, void* data)
-		:Storage(id, data, strlen((char*)data) + 1) {
+		:Storage(id, data, 0) {
+		if (data)
+			size = strlen((char*)data) + 1;
 	}
 
 	Storage& Storage::operator+(Storage&& s2) {
@@ -122,6 +127,36 @@ namespace seac::runtime {
 		bitset x(getCpy(), size);
 		bitset y(s2.getCpy(), s2.size);
 		auto res = x / y;
+
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		return *newStorage;
+	}
+
+	Storage& Storage::operator<(Storage&& s2) {
+		return (*this) < s2;
+	}
+
+	Storage& Storage::operator<(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
+
+		bitset x(getCpy(), size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = bitset::create_bitset(x < y);
+
+		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		return *newStorage;
+	}
+
+	Storage& Storage::operator>(Storage&& s2) {
+		return (*this) > s2;
+	}
+
+	Storage& Storage::operator>(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
+
+		bitset x(getCpy(), size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = bitset::create_bitset(x > y);
 
 		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
 		return *newStorage;

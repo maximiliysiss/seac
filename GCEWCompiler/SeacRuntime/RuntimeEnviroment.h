@@ -31,6 +31,16 @@ namespace seac::runtime {
 		void divideOperation();
 		void externalCall(seac::reader::StringReader* reader);
 		void execCall(seac::reader::StringReader* reader);
+		void startLocal(reader::UniversalReader* reader);
+		void localEnd(reader::UniversalReader* reader);
+		void lowerOperation();
+		void greaterOperation();
+		void equalOperation();
+		void lequalOperation();
+		void requalOperation();
+		void notequalOperation();
+		void ifujmp(reader::UniversalReader* reader);
+
 		inline void jump_to(ull index) {
 			this->line = index;
 		}

@@ -66,26 +66,22 @@ namespace gcew::trees::structural
 
 	void ForTree::toCode(CodeStream& code)
 	{
-		std::string start = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Start] + name;
-		std::string body = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Body] + name;
-		std::string iter = continueOperation;
-		std::string end = breakOperation;
+		VirtualCodeStream vs(code);
+
 		if (startAction)
-			startAction->toCode(code);
-		/*	code << start + ":\n";
-			code << "finit\n";*/
-			/*auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
-			auto index = code.find(cond[1]);
-			code.insert(index + cond[1].length(), "\njmp " + body + "\n");
-			index = code.find(cond[2]);
-			code.insert(index + cond[2].length(), "\njmp " + end + "\n");
-			code += iter + ":\n";
-			iteration->toCode(code);
-			code += "jmp " + start + "\n";
-			code += body + ":\n";*/
-			/*Tree::toCode(code);
-			code << "jmp " + iter + "\n";
-			code << end + ":\n";*/
+			startAction->toCode(vs);
+		vs << StreamData((ull)JitOperation::start);
+		ull preCondition = vs.getLine();
+		dynamic_cast<BoolNode*>(condition)->toBoolCode(vs);
+		ull preContinue = vs.getLine() + 1;
+		vs << StreamData((ull)JitOperation::ifop, sizeof(ull), &preContinue, sizeof(ull));
+		StreamData* tmpIf = (StreamData*)vs.findByCodeLast((ull)JitOperation::ifop);
+		Tree::toCode(vs);
+		iteration->toCode(vs);
+		vs << StreamData((ull)JitOperation::jump, sizeof(ull), &preCondition);
+		vs << StreamData((ull)JitOperation::localend);
+		tmpIf->operand_second = new ull(vs.getLine());
+		code << vs;
 	}
 
 }

@@ -44,7 +44,18 @@ namespace seac::common {
 		multiply = '*',
 		divide = '/',
 		call = 2000,
-		extcall = 2001
+		extcall = 2001,
+		localend = 535,
+		jmp = 536,
+		lower = 537,
+		greater = 538,
+		lequal = 539,
+		gequal = 540,
+		notequal = 542,
+		andop = 543,
+		orop = 544,
+		ifop = 545,
+		jump = 546
 	};
 
 }

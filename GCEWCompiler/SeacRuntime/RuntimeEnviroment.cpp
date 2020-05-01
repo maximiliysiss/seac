@@ -1,5 +1,6 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
+#include "External.cpp"
 
 namespace seac::runtime {
 
@@ -13,10 +14,10 @@ namespace seac::runtime {
 	}
 
 	Storage* RuntimeEnviroment::findVariableStorage(ull id) {
-		auto var = callStack.top()->get_variables()[id];
+		auto var = callStack.top()->find(id);
 		if (var)
 			return var;
-		return globalCallStack->get_variables()[id];
+		return globalCallStack->find(id);
 	}
 
 	void RuntimeEnviroment::initValue(seac::reader::UniversalReader* reader) {
@@ -58,7 +59,7 @@ namespace seac::runtime {
 		logger.logInformation("assign to " + to_str(*(ull*)reader->get_clean_operand_first()));
 		auto* storageVariable = findVariableStorage(*(ull*)reader->get_clean_operand_first());
 		auto* stTop = stack.pop();
-		storageVariable->setValue(stTop->getCpy());
+		storageVariable->setValue(stTop->getCpy(), stTop->get_size());
 		delete stTop;
 	}
 
@@ -99,6 +100,7 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::externalCall(seac::reader::StringReader* reader) {
+		logger.logInformation("external call " + reader->get_operand_first());
 		std::vector<seac::runtime::external::ArgumentCall> args;
 		for (int i = 0; i < reader->get_memory_operation(); i++) {
 			auto* top = stack.pop();
@@ -112,6 +114,28 @@ namespace seac::runtime {
 		jump_to(functionFinder[reader->get_memory_agrument()] - 1);
 	}
 
+	void RuntimeEnviroment::startLocal(reader::UniversalReader* reader) {
+		logger.logInformation("local start");
+		callStack.top()->addLayout();
+	}
+
+	void RuntimeEnviroment::localEnd(reader::UniversalReader* reader) {
+		logger.logInformation("local end");
+		callStack.top()->removeLayout();
+	}
+
+	void RuntimeEnviroment::lowerOperation(){
+		logger.logInformation("lower operation");
+		auto* first = stack.pop();
+		auto* second = stack.pop();
+		stack.push(&(*second < *first));
+		delete first;
+		delete second;
+	}
+
+	void RuntimeEnviroment::ifujmp(reader::UniversalReader* reader){
+	}
+
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
 		if (re)
 			return *re;
@@ -120,9 +144,6 @@ namespace seac::runtime {
 
 	void RuntimeEnviroment::jitOperation(seac::reader::IReader* operation) {
 		switch ((JitOperation)operation->get_code()) {
-		case JitOperation::start:
-			logger.logInformation("Start operation");
-			break;
 		case JitOperation::proc:
 			procStart((seac::reader::StringReader*)operation);
 			break;
@@ -158,6 +179,21 @@ namespace seac::runtime {
 		case JitOperation::call:
 			execCall((seac::reader::StringReader*)operation);
 			break;
+
+		case JitOperation::start:
+			startLocal((reader::UniversalReader*)operation);
+			break;
+		case JitOperation::localend:
+			localEnd((reader::UniversalReader*)operation);
+			break;
+
+		case JitOperation::lower:
+			lowerOperation();
+			break;
+		case JitOperation::ifop:
+			ifujmp((reader::UniversalReader*)operation);
+			break;
+
 		}
 
 		line++;

@@ -1,5 +1,5 @@
-﻿  StaticAssemblyRuntime.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
+﻿  RuntimeEnviroment.cpp
+C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(37,1): warning C4005: 'read_only_prop': macro redefinition
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(11,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
@@ -14,7 +14,10 @@ C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(13,3): warning C4003: not e
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(15,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.h(20,3): warning C4002: too many arguments for function-like macro invocation 'read_only_prop_ref'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\StaticAssemblyRuntime.cpp(32,105): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(27,162): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(27,48): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(56,148): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(56,43): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
 x64\Release\External.obj : warning LNK4042: object specified more than once; extras ignored
   Generating code
   0 of 1373 functions ( 0.0%) were compiled, the rest were copied from previous compilation.

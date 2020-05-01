@@ -7,7 +7,7 @@
 
 namespace gcew::commons
 {
-	enum class Operations: ull {
+	enum class Operations : ull {
 		FieldSet = 0,
 		Convert = 1,
 		FieldGet = 2,
@@ -33,7 +33,7 @@ namespace gcew::commons
 		ExtCall = 2001,
 	};
 
-	enum class RegexResult: ull {
+	enum class RegexResult : ull {
 		Include,
 		Type,
 		For,
@@ -58,7 +58,7 @@ namespace gcew::commons
 		Block
 	};
 
-	enum class JitOperation: ull {
+	enum class JitOperation : ull {
 		func = 428,
 		proc = 436,
 		init = 1306,
@@ -73,6 +73,17 @@ namespace gcew::commons
 		end = 311,
 		exit = 442,
 		assign = 645,
-		stack = 534
+		stack = 534,
+		localend = 535,
+		jmp = 536,
+		lower = 537,
+		greater = 538,
+		lequal = 539,
+		gequal = 540,
+		notequal = 542,
+		andop = 543,
+		orop = 544,
+		ifop = 545,
+		jump = 546
 	};
 }

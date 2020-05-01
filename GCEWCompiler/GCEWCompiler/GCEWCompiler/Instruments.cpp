@@ -248,6 +248,10 @@ bool gcew::commons::isString(std::string str)
 	return str.length() > 3 && str[0] == '\'' && str[str.length() - 1] == '\'';
 }
 
+bool gcew::commons::isSimple(std::string str) {
+	return isNumber(str) || isString(str);
+}
+
 
 bool gcew::commons::isBracketCorrect(const std::string& str)
 {
