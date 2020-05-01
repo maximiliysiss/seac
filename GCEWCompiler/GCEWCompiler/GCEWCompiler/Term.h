@@ -19,7 +19,7 @@ namespace gcew::trees::parser
 		inline bool isTempValue() const { return isTemp; }
 		inline std::string getValue() const { return value; }
 		inline std::string getType() const { return type; }
-		Term(std::string value, std::string type);
+		Term(std::string value, std::string type, void*);
 		~Term();
 		// Inherited via BaseNode
 		virtual void toCode(gcew::commons::CodeStream& code) override;

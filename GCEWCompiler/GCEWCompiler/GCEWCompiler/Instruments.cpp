@@ -284,7 +284,7 @@ std::string gcew::commons::createUniqueGUID()
 	}
 	guid.erase(std::remove(guid.begin(), guid.end(), '-'), guid.end());
 	if (std::isdigit(guid[0]))
-		guid = 'a' + guid;
+		guid = (char)('a' + (rand() % ('z' - 'a'))) + guid;
 	return guid;
 }
 

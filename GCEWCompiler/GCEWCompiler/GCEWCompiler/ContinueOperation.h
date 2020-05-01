@@ -10,12 +10,12 @@ namespace gcew::trees::elements::operations
 	class ContinueOperation :
 		public Operation
 	{
-		gcew::trees::structural::CycleTree * cycleTree;
+		gcew::trees::structural::CycleTree* cycleTree;
 	public:
-		ContinueOperation(int index, std::string line);
+		ContinueOperation(int index, std::string line, void*);
 		~ContinueOperation();
 
-		inline void setCycleTree(gcew::trees::structural::CycleTree * cycleTree) {
+		inline void setCycleTree(gcew::trees::structural::CycleTree* cycleTree) {
 			this->cycleTree = cycleTree;
 		}
 

@@ -47,33 +47,29 @@ Tree* generateTree(std::string path) {
 	std::ifstream fileRead(path);
 	std::string line;
 	int index = 0;
-	Tree* root = new Tree(0, "", RegexResult::NotClassic);
+	Tree* root = new Tree(0, "", RegexResult::NotClassic, nullptr);
 	Tree::currentTree = &root;
 	while (std::getline(fileRead, line)) {
 		line = trim(line);
 		RegexResult reg = gcew::regulars::TreeRegularBuilder::regex(line);
-		if (dynamic_cast<PureAsmTree*>(root) && reg != gcew::regulars::RegexResult::FigureClose) {
-			((PureAsmTree*)root)->addLine(line);
-			continue;
-		}
 		switch (reg) {
 		case RegexResult::Type:
 		case RegexResult::Assigment:
 		case RegexResult::Break:
 		case RegexResult::Continue:
-			root->addOperation(gcew::trees::construct_elements(reg, index, line));
+			root->addOperation(gcew::trees::construct_elements(reg, index, line, root));
 			break;
 		case RegexResult::ExternalCall:
 		case RegexResult::Call:
 		{
-			CallOperation* call = (CallOperation*)gcew::trees::construct_elements(reg, index, line);
+			CallOperation* call = (CallOperation*)gcew::trees::construct_elements(reg, index, line, root);
 			root->addOperation(call);
 			call->setTree(root);
 			break;
 		}
 		case RegexResult::Else:
 		{
-			ElseTree* elseTree = (ElseTree*)gcew::trees::construct_elements(reg, index, line);
+			ElseTree* elseTree = (ElseTree*)gcew::trees::construct_elements(reg, index, line, root);
 			std::getline(fileRead, line);
 			auto prevIf = dynamic_cast<IfTree*>(*(root->getChildren().end() - 1));
 			if (prevIf) {
@@ -86,20 +82,19 @@ Tree* generateTree(std::string path) {
 			root = root->getParent();
 			break;
 		case RegexResult::FigureOpen:
-			root = root->addChild(new Tree(index, "", RegexResult::Block));
+			root = root->addChild(new Tree(index, "", RegexResult::Block, root));
 			break;
 		case RegexResult::While:
 		case RegexResult::Function:
 		case RegexResult::Procedure:
 		case RegexResult::For:
 		case RegexResult::If:
-		case RegexResult::PureAsm:
-			root = root->addChild((Tree*)gcew::trees::construct_elements(reg, index, line));
+			root = root->addChild((Tree*)gcew::trees::construct_elements(reg, index, line, root));
 			std::getline(fileRead, line);
 			break;
 		case RegexResult::Return:
 		{
-			gcew::trees::elements::operations::ReturnOperation* ret = (ReturnOperation*)gcew::trees::construct_elements(reg, index, line);
+			gcew::trees::elements::operations::ReturnOperation* ret = (ReturnOperation*)gcew::trees::construct_elements(reg, index, line, root);
 			ret->setFunctionTree((FunctionTree*)root->findFunctionTreeUp());
 			root->addOperation(ret);
 			break;

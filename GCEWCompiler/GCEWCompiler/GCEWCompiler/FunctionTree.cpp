@@ -44,8 +44,8 @@ void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& co
 	VM.unregisterTree();
 }
 
-gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg)
-	:Tree(index, line, reg)
+gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg, void*root)
+	:Tree(index, line, reg, root)
 {
 	auto parts = gcew::commons::splitter(line, ' ');
 	outputType = parts[0];
@@ -54,7 +54,7 @@ gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line,
 	auto indexClose = line.find(')');
 	parts = gcew::commons::splitter(line.substr(indexOpen + 1, indexClose - indexOpen - 1), ',');
 	std::for_each(parts.begin(), parts.end(), [](std::string str) {str = gcew::commons::trim(str); });
-	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [](std::string arg) {return new gcew::trees::elements::Variable(0, arg); });
+	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [&root](std::string arg) {return new gcew::trees::elements::Variable(0, arg, root); });
 	isMainFunction = this->functionName == "main";
 	FM.registerTree(getFMName());
 }

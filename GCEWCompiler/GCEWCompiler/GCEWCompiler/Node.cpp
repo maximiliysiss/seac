@@ -14,8 +14,8 @@ namespace gcew::trees::parser
 		this->right->postWork(tree);
 	}
 
-	Node::Node(std::string operation, BaseNode* left, BaseNode* right)
-		:operation(operation), left(left), right(right)
+	Node::Node(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		: BaseNode(root), operation(operation), left(left), right(right)
 	{
 	}
 
@@ -38,8 +38,8 @@ namespace gcew::trees::parser
 		return this->left->isCallFunction(name) || this->right->isCallFunction(name);
 	}
 
-	OperatorGreater::OperatorGreater(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("greater")
+	OperatorGreater::OperatorGreater(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("greater")
 	{
 	}
 
@@ -60,8 +60,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorLower::OperatorLower(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("lower")
+	OperatorLower::OperatorLower(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("lower")
 	{
 	}
 
@@ -82,8 +82,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorEqual::OperatorEqual(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("equal")
+	OperatorEqual::OperatorEqual(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("equal")
 	{
 	}
 
@@ -104,8 +104,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorNotEqual::OperatorNotEqual(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("notequal")
+	OperatorNotEqual::OperatorNotEqual(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("notequal")
 	{
 	}
 
@@ -126,8 +126,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorAnd::OperatorAnd(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("and")
+	OperatorAnd::OperatorAnd(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("and")
 	{
 	}
 
@@ -156,8 +156,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorOr::OperatorOr(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right), BoolNode("or")
+	OperatorOr::OperatorOr(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root), BoolNode("or")
 	{
 	}
 
@@ -186,8 +186,8 @@ namespace gcew::trees::parser
 		return getReturn();
 	}
 
-	OperatorPlus::OperatorPlus(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right)
+	OperatorPlus::OperatorPlus(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root)
 	{
 	}
 
@@ -197,8 +197,8 @@ namespace gcew::trees::parser
 		code << StreamData((ull)gcew::commons::Operations::Plus);
 	}
 
-	OperatorMinus::OperatorMinus(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right)
+	OperatorMinus::OperatorMinus(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root)
 	{
 	}
 
@@ -208,8 +208,8 @@ namespace gcew::trees::parser
 		code << StreamData((ull)gcew::commons::Operations::Minus);
 	}
 
-	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right)
+	OperatorMultiply::OperatorMultiply(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root)
 	{
 	}
 
@@ -219,8 +219,8 @@ namespace gcew::trees::parser
 		code << StreamData((ull)gcew::commons::Operations::Multiply);
 	}
 
-	OperatorDivide::OperatorDivide(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right)
+	OperatorDivide::OperatorDivide(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root)
 	{
 	}
 
@@ -230,8 +230,8 @@ namespace gcew::trees::parser
 		code << StreamData((ull)gcew::commons::Operations::Divide);
 	}
 
-	OperatorMod::OperatorMod(std::string operation, BaseNode* left, BaseNode* right)
-		:Node(operation, left, right)
+	OperatorMod::OperatorMod(std::string operation, BaseNode* left, BaseNode* right, void* root)
+		:Node(operation, left, right, root)
 	{
 	}
 

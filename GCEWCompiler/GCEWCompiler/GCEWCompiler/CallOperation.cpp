@@ -12,18 +12,19 @@ void gcew::trees::elements::operations::CallOperation::postWork(void* tree)
 		arg->postWork(tree);
 }
 
-gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::string line, RegexResult reg)
-	:Operation(index, line, reg)
+gcew::trees::elements::operations::CallOperation::CallOperation(int index, std::string line, RegexResult reg, void* root)
+	:Operation(index, line, reg, root)
 {
 	name = splitter(line, '(')[0];
 	auto startBracket = line.find('(');
 	auto endBracket = line.find_last_of(')');
 	auto arg = getArguments(line.substr(startBracket + 1, endBracket - startBracket - 1));
-	std::for_each(arg.begin(), arg.end(), [this](std::string& str)
+	std::for_each(arg.begin(), arg.end(), [this, &root](std::string& str)
 		{
 			str = trim(str);
-			if (str.length() > 0)
-				arguments.push_back(gcew::commons::Parser::preParser(str));
+			if (str.length() > 0) {
+				arguments.push_back(gcew::commons::Parser::preParser(str, root));
+			}
 		});
 }
 

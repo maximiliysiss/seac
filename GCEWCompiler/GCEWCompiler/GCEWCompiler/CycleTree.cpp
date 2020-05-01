@@ -18,8 +18,8 @@ namespace gcew::trees::structural
 		return Tree::isInActiveTree(name) || this->condition->isInActiveTree(name);
 	}
 
-	CycleTree::CycleTree(int index, std::string line, gcew::commons::RegexResult reg)
-		:Tree(index, line, reg)
+	CycleTree::CycleTree(int index, std::string line, gcew::commons::RegexResult reg, void*root)
+		:Tree(index, line, reg, root)
 	{
 	}
 

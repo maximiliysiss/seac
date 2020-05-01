@@ -9,13 +9,14 @@ namespace gcew::trees::parser
 	{
 	protected:
 		std::string name;
+		void* root;
 	public:
 		virtual void postWork(void * tree) {}
 		virtual void toCode(gcew::commons::CodeStream& code) = 0;
 		virtual bool isCallFunction(std::string name) = 0;
 		virtual std::string tryGetType();
 		inline std::string getName() const { return name; }
-		BaseNode();
+		BaseNode(void*);
 		virtual bool isInActiveTree(std::string name) { return false; }
 		virtual ~BaseNode();
 	};

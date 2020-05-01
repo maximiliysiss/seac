@@ -10,7 +10,7 @@ namespace gcew::trees::elements
 		public Element
 	{
 	public:
-		CustomTypes(int index, std::string line, RegexResult reg);
+		CustomTypes(int index, std::string line, RegexResult reg, void*);
 		~CustomTypes();
 	};
 }

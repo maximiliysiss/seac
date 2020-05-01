@@ -42,8 +42,8 @@ namespace gcew::trees::structural
 			elem->postWork(this);
 	}
 
-	Tree::Tree(int index, std::string line, gcew::commons::RegexResult reg)
-		: gcew::trees::elements::Element(index, line, reg)
+	Tree::Tree(int index, std::string line, gcew::commons::RegexResult reg, void* root)
+		: gcew::trees::elements::Element(index, line, reg, root)
 	{
 		name = gcew::commons::createUniqueGUID();
 	}

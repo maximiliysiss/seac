@@ -4,7 +4,7 @@ namespace gcew::trees::elements::operations
 {
 
 	IncludeOperation::IncludeOperation(int index, std::string line)
-		: Operation(index, line, RegexResult::Include)
+		: Operation(index, line, RegexResult::Include, nullptr)
 	{
 		auto parts = splitter(line.substr(0, line.length() - 1), ' ');
 

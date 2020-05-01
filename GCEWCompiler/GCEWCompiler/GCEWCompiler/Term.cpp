@@ -3,8 +3,8 @@
 
 namespace gcew::trees::parser
 {
-	Term::Term(std::string value, std::string type)
-		:value(value), BoolNode("")
+	Term::Term(std::string value, std::string type, void* root)
+		:value(value), BaseNode(root), BoolNode("")
 	{
 		if (gcew::commons::isNumber(this->value) || gcew::commons::isString(this->value)) {
 			this->type = gcew::commons::CompileConfiguration::getTypeInitializeByValue(this->value);

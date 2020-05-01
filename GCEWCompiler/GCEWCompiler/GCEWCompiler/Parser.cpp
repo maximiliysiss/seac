@@ -15,28 +15,28 @@ namespace gcew::commons
 		{OperationParser((char)Operations::Mod)}
 	};
 
-	Node* getOperation(std::string oper, BaseNode* l, BaseNode* r) {
+	Node* getOperation(std::string oper, BaseNode* l, BaseNode* r, void* root) {
 		switch ((Operations)oper[0]) {
 		case Operations::Plus:
-			return new OperatorPlus(oper, l, r);
+			return new OperatorPlus(oper, l, r, root);
 		case Operations::Minus:
-			return new OperatorMinus(oper, l, r);
+			return new OperatorMinus(oper, l, r, root);
 		case Operations::And:
-			return new OperatorAnd(oper, l, r);
+			return new OperatorAnd(oper, l, r, root);
 		case Operations::Divide:
-			return new OperatorDivide(oper, l, r);
+			return new OperatorDivide(oper, l, r, root);
 		case Operations::Equal:
-			return new OperatorEqual(oper, l, r);
+			return new OperatorEqual(oper, l, r, root);
 		case Operations::Greater:
-			return new OperatorGreater(oper, l, r);
+			return new OperatorGreater(oper, l, r, root);
 		case Operations::Lower:
-			return new OperatorLower(oper, l, r);
+			return new OperatorLower(oper, l, r, root);
 		case Operations::Multiply:
-			return new OperatorMultiply(oper, l, r);
+			return new OperatorMultiply(oper, l, r, root);
 		case Operations::Or:
-			return new OperatorOr(oper, l, r);
+			return new OperatorOr(oper, l, r, root);
 		case Operations::Mod:
-			return new OperatorMod(oper, l, r);
+			return new OperatorMod(oper, l, r, root);
 		}
 		return nullptr;
 	}
@@ -52,7 +52,7 @@ namespace gcew::commons
 		return OperationParser();
 	}
 
-	BaseNode* step(int type, std::string str, int& level) {
+	BaseNode* step(int type, std::string str, int& level, void* root) {
 		for (int i = static_cast<int>(str.length()) - 1; i >= 0; i--) {
 			char c = str[i];
 			if (c == '(') {
@@ -69,31 +69,66 @@ namespace gcew::commons
 			if (oper.symbol != 0 && i != 0) {
 				std::string left = str.substr(0, i - oper.type);
 				std::string right = str.substr(i + 1);
-				return getOperation(oper.getOperation(), gcew::commons::Parser::parser(left), gcew::commons::Parser::parser(right));
+				return getOperation(oper.getOperation(), gcew::commons::Parser::parser(left, root), gcew::commons::Parser::parser(right, root), root);
 			}
 		}
 		return nullptr;
 	}
 
-	BaseNode* Parser::preParser(std::string str)
+	BaseNode* Parser::preParser(std::string str, void* root)
 	{
 		try {
-			str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+			std::map<std::string, std::string> nicknames;
+			bool isIgnore = false;
+			std::string tmp;
+			for (int i = 0; i < str.length(); i++) {
+				if (str[i] == '\'') {
+					if (isIgnore) {
+						auto name = commons::createUniqueGUID();
+						nicknames[name] = tmp;
+						str.replace(str.begin() + (i - tmp.length()) - 1, str.begin() + i + 1, name);
+					}
+					tmp = "";
+					isIgnore = !isIgnore;
+					continue;
+				}
+				if (isIgnore) {
+					tmp += str[i];
+					continue;
+				}
+
+				if (str[i] == ' ') {
+					str.erase(str.begin() + i);
+					i--;
+				}
+			}
+			if (isIgnore) {
+				throw commons::compiler_exception("string error \'");
+			}
 			if (str.length() == 0)
 				return nullptr;
-			return parser(str);
+
+			for (auto& nickname : nicknames) {
+				auto res = (*trees::structural::Tree::currentTree);
+				std::cout << 1;
+			}
+
+			return parser(str, root);
+		}
+		catch (commons::compiler_exception ex) {
+			throw ex;
 		}
 		catch (std::exception ex) {
 			return nullptr;
 		}
 	}
 
-	BaseNode* gcew::commons::Parser::parser(std::string str)
+	BaseNode* gcew::commons::Parser::parser(std::string str, void* root)
 	{
 		int level = 0;
 		BaseNode* result = nullptr;
 		for (short i = 0; i < 2; ++i) {
-			result = step(i, str, level);
+			result = step(i, str, level, root);
 			if (result)
 				return result;
 		}
@@ -107,19 +142,19 @@ namespace gcew::commons
 					--level;
 					if (level == 0) {
 						std::string exp(str.substr(1, i - 1));
-						return parser(exp);
+						return parser(exp, root);
 					}
 					continue;
 				}
 			}
 		}
 		else if (gcew::regulars::TreeRegularBuilder::isFunctionInExpression(str) == gcew::regulars::RegexResult::Call) {
-			return new CallNode(str);
+			return new CallNode(str, root);
 		}
-		else if (str[0] ==(char)Operations::Not)
-			return new OperatorNot(std::string(1, (char)Operations::Not), parser(str.substr(1)));
+		else if (str[0] == (char)Operations::Not)
+			return new OperatorNot(std::string(1, (char)Operations::Not), parser(str.substr(1), root), root);
 		else
-			return new Term(str, "");
+			return new Term(str, "", root);
 		return result;
 	}
 }

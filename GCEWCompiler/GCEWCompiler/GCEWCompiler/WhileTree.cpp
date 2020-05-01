@@ -1,13 +1,13 @@
 #include "WhileTree.h"
 
-gcew::trees::structural::WhileTree::WhileTree(int index, std::string line)
-	:CycleTree(index, line, gcew::commons::RegexResult::While)
+gcew::trees::structural::WhileTree::WhileTree(int index, std::string line, void* root)
+	:CycleTree(index, line, gcew::commons::RegexResult::While, root)
 {
 	this->breakOperation = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::End] + name;
 	this->continueOperation = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::Start] + name;
 	auto startBrk = line.find('(');
 	auto endBrk = line.find(')');
-	this->condition = gcew::commons::Parser::preParser(line.substr(startBrk + 1, endBrk - startBrk - 1));
+	this->condition = gcew::commons::Parser::preParser(line.substr(startBrk + 1, endBrk - startBrk - 1), root);
 }
 
 void gcew::trees::structural::WhileTree::toCode(gcew::commons::CodeStream& code)

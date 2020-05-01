@@ -11,14 +11,14 @@ namespace gcew::trees::structural
 		public CycleTree
 	{
 		std::vector<std::string> parts;
-		Element * iteration{ nullptr };
-		Element * startAction{ nullptr };
+		Element* iteration{ nullptr };
+		Element* startAction{ nullptr };
 	public:
 		virtual bool isCallFunction(std::string name) override;
-		virtual gcew::trees::elements::Variable * findVariableByName(std::string name) override;
-		virtual void postWork(void * tree) override;
+		virtual gcew::trees::elements::Variable* findVariableByName(std::string name) override;
+		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name);
-		ForTree(int index, std::string & line);
+		ForTree(int index, std::string& line, void*);
 		~ForTree();
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};

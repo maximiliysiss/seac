@@ -5,15 +5,15 @@ bool gcew::trees::elements::operations::ReturnOperation::isCallFunction(std::str
 	return this->ret->isCallFunction(name);
 }
 
-gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line)
-	:Operation(index, line, RegexResult::Return)
+gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line, void*root)
+	:Operation(index, line, RegexResult::Return, root)
 {
 	auto parts = gcew::commons::splitter(line.substr(0, line.length() - 1), ' ');
 	if (parts.size() > 1) {
 		std::string tmp;
 		for (int i = 1; i < parts.size(); i++)
 			tmp += parts[i];
-		ret = gcew::commons::Parser::preParser(tmp);
+		ret = gcew::commons::Parser::preParser(tmp, root);
 	}
 }
 

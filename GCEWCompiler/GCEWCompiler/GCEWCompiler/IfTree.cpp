@@ -35,12 +35,12 @@ namespace gcew::trees::structural
 		//code << breakOperation + ":\n";
 	}
 
-	IfTree::IfTree(int index, std::string line)
-		:Tree(index, line, gcew::commons::RegexResult::If)
+	IfTree::IfTree(int index, std::string line,void*root)
+		:Tree(index, line, gcew::commons::RegexResult::If, root)
 	{
 		auto bracketOpen = line.find('(');
 		auto bracketClose = line.find(')');
-		expression = gcew::commons::Parser::preParser(line.substr(bracketOpen + 1, bracketClose - bracketOpen - 1));
+		expression = gcew::commons::Parser::preParser(line.substr(bracketOpen + 1, bracketClose - bracketOpen - 1), root);
 	}
 
 	bool IfTree::isInActiveTree(std::string name)

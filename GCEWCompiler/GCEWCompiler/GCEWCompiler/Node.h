@@ -15,12 +15,12 @@ namespace gcew::trees::parser
 	{
 	protected:
 		std::string operation;
-		BaseNode * left;
-		BaseNode * right;
+		BaseNode* left;
+		BaseNode* right;
 	public:
 		virtual std::string tryGetType() override;
-		virtual void postWork(void * tree) override;
-		Node(std::string operation, BaseNode * left, BaseNode * right);
+		virtual void postWork(void* tree) override;
+		Node(std::string operation, BaseNode* left, BaseNode* right, void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 		~Node();
 
@@ -30,7 +30,7 @@ namespace gcew::trees::parser
 
 	class OperatorGreater : public Node, public BoolNode {
 	public:
-		OperatorGreater(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorGreater(std::string operation, BaseNode* left, BaseNode* right, void* root);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -39,7 +39,7 @@ namespace gcew::trees::parser
 
 	class OperatorLower : public Node, public BoolNode {
 	public:
-		OperatorLower(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorLower(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -48,7 +48,7 @@ namespace gcew::trees::parser
 
 	class OperatorEqual : public Node, public BoolNode {
 	public:
-		OperatorEqual(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorEqual(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -57,7 +57,7 @@ namespace gcew::trees::parser
 
 	class OperatorNotEqual : public Node, public BoolNode {
 	public:
-		OperatorNotEqual(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorNotEqual(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -66,7 +66,7 @@ namespace gcew::trees::parser
 
 	class OperatorAnd : public Node, public BoolNode {
 	public:
-		OperatorAnd(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorAnd(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -75,7 +75,7 @@ namespace gcew::trees::parser
 
 	class OperatorOr : public Node, public BoolNode {
 	public:
-		OperatorOr(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorOr(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
@@ -84,31 +84,31 @@ namespace gcew::trees::parser
 
 	class OperatorPlus : public Node {
 	public:
-		OperatorPlus(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorPlus(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorMinus : public Node {
 	public:
-		OperatorMinus(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorMinus(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorMultiply : public Node {
 	public:
-		OperatorMultiply(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorMultiply(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorDivide : public Node {
 	public:
-		OperatorDivide(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorDivide(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorMod : public Node {
 	public:
-		OperatorMod(std::string operation, BaseNode * left, BaseNode * right);
+		OperatorMod(std::string operation, BaseNode* left, BaseNode* right,void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 }

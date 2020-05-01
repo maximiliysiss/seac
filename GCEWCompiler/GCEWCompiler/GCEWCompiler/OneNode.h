@@ -17,7 +17,7 @@ namespace gcew::trees::parser
 		BaseNode* node;
 	public:
 		virtual void toCode(gcew::commons::CodeStream& code) = 0;
-		OneNode(BaseNode* node, std::string operation);
+		OneNode(BaseNode* node, std::string operation, void*);
 		~OneNode();
 
 		// Inherited via BaseNode
@@ -26,7 +26,7 @@ namespace gcew::trees::parser
 
 	class OperatorNot : public OneNode {
 	public:
-		OperatorNot(std::string operation, BaseNode* node);
+		OperatorNot(std::string operation, BaseNode* node, void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
@@ -37,7 +37,7 @@ namespace gcew::trees::parser
 		virtual bool isCallFunction(std::string name) override;
 		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name) override;
-		CallNode(std::string operation);
+		CallNode(std::string operation, void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 }

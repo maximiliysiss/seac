@@ -9,7 +9,6 @@
 #include "ForTree.h"
 #include "IfTree.h"
 #include "FunctionTree.h"
-#include "PureAsmTree.h"
 #include "ReturnOperation.h"
 #include "WhileTree.h"
 
@@ -27,6 +26,6 @@ namespace gcew::trees
 	using namespace gcew::trees::elements::operations;
 	using namespace gcew::trees::structural;
 
-	Element * construct_elements(RegexResult reg, int index, std::string line);
+	Element * construct_elements(RegexResult reg, int index, std::string line, Tree* root);
 }
 

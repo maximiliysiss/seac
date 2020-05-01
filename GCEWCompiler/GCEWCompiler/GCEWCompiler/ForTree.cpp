@@ -13,22 +13,22 @@ namespace gcew::trees::structural
 		return result;
 	}
 
-	gcew::trees::elements::Variable * ForTree::findVariableByName(std::string name)
+	gcew::trees::elements::Variable* ForTree::findVariableByName(std::string name)
 	{
-		auto * var = dynamic_cast<Variable*>(startAction);
+		auto* var = dynamic_cast<Variable*>(startAction);
 		if (var && var->getName() == name)
 			return var;
 		return Tree::findVariableByName(name);
 	}
 
-	void ForTree::postWork(void * tree)
+	void ForTree::postWork(void* tree)
 	{
-		auto * tr = dynamic_cast<Tree*>(this);
+		auto* tr = dynamic_cast<Tree*>(this);
 		Tree::currentTree = &tr;
 		if (parts.size() > 1 && parts[1].length() > 1)
-			this->condition = gcew::commons::Parser::preParser(parts[1].substr(0, parts[1].length() - 1));
+			this->condition = gcew::commons::Parser::preParser(parts[1].substr(0, parts[1].length() - 1), root);
 		if (parts.size() > 2 && parts[2].length() > 1) {
-			this->iteration = gcew::trees::construct_elements(gcew::regulars::TreeRegularBuilder::regex(parts[2]), 0, parts[2]);
+			this->iteration = gcew::trees::construct_elements(gcew::regulars::TreeRegularBuilder::regex(parts[2]), 0, parts[2], (gcew::trees::Tree*)root);
 			this->iteration->postWork(this);
 		}
 		if (this->startAction)
@@ -42,8 +42,8 @@ namespace gcew::trees::structural
 			|| this->startAction->isInActiveTree(name);
 	}
 
-	ForTree::ForTree(int index, std::string & line)
-		:CycleTree(index, line, RegexResult::For)
+	ForTree::ForTree(int index, std::string& line, void* root)
+		:CycleTree(index, line, RegexResult::For, root)
 	{
 		this->breakOperation = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::End] + name;
 		this->continueOperation = gcew::commons::CompileConfiguration::typeOperation["for"][gcew::commons::Operations::Iter] + name;
@@ -52,7 +52,7 @@ namespace gcew::trees::structural
 		parts = gcew::commons::leftSplitter(line.substr(startBreak + 1, endBreak - startBreak - 1), ';');
 		if (parts.size() > 0 && parts[0].length() > 1) {
 			gcew::regulars::RegexResult reg = gcew::regulars::TreeRegularBuilder::regex(parts[0]);
-			this->startAction = gcew::trees::construct_elements(reg, 0, parts[0]);
+			this->startAction = gcew::trees::construct_elements(reg, 0, parts[0], (gcew::trees::Tree*)root);
 		}
 	}
 
@@ -72,20 +72,20 @@ namespace gcew::trees::structural
 		std::string end = breakOperation;
 		if (startAction)
 			startAction->toCode(code);
-	/*	code << start + ":\n";
-		code << "finit\n";*/
-		/*auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
-		auto index = code.find(cond[1]);
-		code.insert(index + cond[1].length(), "\njmp " + body + "\n");
-		index = code.find(cond[2]);
-		code.insert(index + cond[2].length(), "\njmp " + end + "\n");
-		code += iter + ":\n";
-		iteration->toCode(code);
-		code += "jmp " + start + "\n";
-		code += body + ":\n";*/
-		/*Tree::toCode(code);
-		code << "jmp " + iter + "\n";
-		code << end + ":\n";*/
+		/*	code << start + ":\n";
+			code << "finit\n";*/
+			/*auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
+			auto index = code.find(cond[1]);
+			code.insert(index + cond[1].length(), "\njmp " + body + "\n");
+			index = code.find(cond[2]);
+			code.insert(index + cond[2].length(), "\njmp " + end + "\n");
+			code += iter + ":\n";
+			iteration->toCode(code);
+			code += "jmp " + start + "\n";
+			code += body + ":\n";*/
+			/*Tree::toCode(code);
+			code << "jmp " + iter + "\n";
+			code << end + ":\n";*/
 	}
 
 }

@@ -12,8 +12,8 @@ namespace gcew::trees::structural
 		Tree::toCode(code);
 	}
 
-	ElseTree::ElseTree(int index, std::string line)
-		:Tree(index, line, gcew::commons::RegexResult::Else)
+	ElseTree::ElseTree(int index, std::string line, void * root)
+		:Tree(index, line, gcew::commons::RegexResult::Else, root)
 	{
 	}
 

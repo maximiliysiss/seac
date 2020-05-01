@@ -1,42 +1,4 @@
-﻿  Call.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(11,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(20,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(21,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(31,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(32,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(12,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(15,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-  Logger.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-  RuntimeEnviroment.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(11,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(20,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(21,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(31,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(32,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(12,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(15,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.h(20,3): warning C4002: too many arguments for function-like macro invocation 'read_only_prop_ref'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(24,162): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(24,48): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(53,148): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.cpp(53,43): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-  StaticAssemblyRuntime.cpp
+﻿  StaticAssemblyRuntime.cpp
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
@@ -53,55 +15,11 @@ C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(14,3): warning C4003: not e
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(15,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.h(20,3): warning C4002: too many arguments for function-like macro invocation 'read_only_prop_ref'
 C:\Repositories\seac\GCEWCompiler\SeacRuntime\StaticAssemblyRuntime.cpp(32,105): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-  VirtualPageMemory.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(11,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(20,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(21,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(31,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(32,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(12,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.h(8,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.h(9,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.cpp(67,47): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  bitset.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.h(8,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.h(9,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(120,21): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(132,21): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(144,21): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(156,21): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(196,32): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(202,37): warning C4018: '>': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(211,21): warning C4018: '<': signed/unsigned mismatch
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\bitset.cpp(226,21): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(25,1): warning C4005: 'read_only_prop': macro redefinition
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Defines.h(16): message : see previous definition of 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(10,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(11,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(20,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(21,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(31,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Reader.h(32,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(12,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\VirtualPageMemory.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(13,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(14,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\Call.h(15,3): warning C4003: not enough arguments for function-like macro invocation 'read_only_prop'
-C:\Repositories\seac\GCEWCompiler\SeacRuntime\RuntimeEnviroment.h(20,3): warning C4002: too many arguments for function-like macro invocation 'read_only_prop_ref'
 x64\Release\External.obj : warning LNK4042: object specified more than once; extras ignored
   Generating code
-  146 of 1373 functions (10.6%) were compiled, the rest were copied from previous compilation.
-    109 functions were new in current compilation
-    159 functions had inline decision re-evaluated but remain unchanged
+  0 of 1373 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SeacRuntime.vcxproj -> C:\Repositories\seac\GCEWCompiler\x64\SeacRuntime\Release\SeacRuntime.exe
   C:\Repositories\seac\GCEWCompiler\x64\SeacRuntime\Release\

@@ -14,8 +14,8 @@ namespace gcew::trees::elements
 			exp->postWork(tree);
 	}
 
-	Variable::Variable(int index, std::string line)
-		:Element(index, line, RegexResult::Type)
+	Variable::Variable(int index, std::string line, void* root)
+		:Element(index, line, RegexResult::Type, root)
 	{
 		auto parts = splitter(line, ' ');
 		bool breakOperation = line[line.length() - 1] == ';';
@@ -24,7 +24,7 @@ namespace gcew::trees::elements
 		codeName = name + gcew::commons::createUniqueGUID();
 		if (line.find('=') != std::string::npos) {
 			parts = splitter(line, '=');
-			this->exp = Parser::preParser(trim(parts[1]).substr(0, parts[1].length() - breakOperation));
+			this->exp = Parser::preParser(trim(parts[1]).substr(0, parts[1].length() - breakOperation), root);
 		}
 		else
 			name = name.substr(0, name.length() - breakOperation);

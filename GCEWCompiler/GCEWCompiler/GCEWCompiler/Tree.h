@@ -37,7 +37,7 @@ namespace gcew::trees::structural
 		static Tree** currentTree;
 		inline std::vector<Element*> getElements() const { return operations; }
 		Tree() = delete;
-		Tree(int index, std::string line, gcew::commons::RegexResult reg);
+		Tree(int index, std::string line, gcew::commons::RegexResult reg, void*);
 		virtual ~Tree();
 		void treeChildrenPrinter(std::ostream& out, int level = 0);
 		void variableInfoPrinter(std::ostream& out, int level = 0);
