@@ -23,7 +23,7 @@ namespace gcew::trees::structural
 		VirtualCodeStream vs(code);
 		vs << StreamData((ull)commons::JitOperation::ifop, sizeof(ull), &ifBody, sizeof(ull));
 		auto* ifCode = (StreamData*)vs.findByCodeLast((ull)commons::JitOperation::ifop);
-		code << StreamData((ull)commons::JitOperation::start);
+		vs << StreamData((ull)commons::JitOperation::start);
 		Tree::toCode(vs);
 		if (elseTree) {
 			vs << StreamData((ull)commons::JitOperation::localend);

@@ -1,5 +1,6 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
+#include "External.cpp"
 
 namespace seac::runtime {
 

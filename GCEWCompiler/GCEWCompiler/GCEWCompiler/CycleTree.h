@@ -12,8 +12,10 @@ namespace gcew::trees::structural
 	protected:
 		BaseNode* condition{ nullptr };
 		std::vector<ull> breakers;
+		std::vector<ull> continues;
 	public:
 		std::vector<ull>& get_breakers() { return breakers; }
+		std::vector<ull>& get_continues() { return continues; }
 		virtual bool isCallFunction(std::string name) override;
 		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name);

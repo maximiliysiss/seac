@@ -46,7 +46,6 @@ namespace seac::common {
 		call = 2000,
 		extcall = 2001,
 		localend = 535,
-		jmp = 536,
 		lower = 537,
 		greater = 538,
 		lequal = 539,

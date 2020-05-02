@@ -5,7 +5,7 @@ bool gcew::trees::elements::operations::ReturnOperation::isCallFunction(std::str
 	return this->ret->isCallFunction(name);
 }
 
-gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line, void*root)
+gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line, void* root)
 	:Operation(index, line, RegexResult::Return, root)
 {
 	auto parts = gcew::commons::splitter(line.substr(0, line.length() - 1), ' ');
@@ -28,7 +28,7 @@ gcew::trees::elements::operations::ReturnOperation::~ReturnOperation()
 		delete functionTree;
 }
 
-void gcew::trees::elements::operations::ReturnOperation::postWork(void * tree)
+void gcew::trees::elements::operations::ReturnOperation::postWork(void* tree)
 {
 	functionTree = ((gcew::trees::structural::Tree*)tree)->findFunctionTreeUp();
 	if (ret)
@@ -39,5 +39,6 @@ void gcew::trees::elements::operations::ReturnOperation::toCode(gcew::commons::C
 {
 	if (ret)
 		ret->toCode(code);
-	//code << "jmp " + gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + functionTree->getName() + "\n";
+	functionTree->get_returnLines().push_back(code.getLine());
+	code << StreamData((ull)JitOperation::jump, sizeof(ull));
 }

@@ -81,7 +81,10 @@ namespace gcew::trees::structural
 
 		for (auto& line : breakers) {
 			((StreamData*)vs.ops()[line])->operand_first = new ull(*(ull*)tmpIf->operand_second);
-			((StreamData*)vs.ops()[line])->code = (ull)commons::JitOperation::jump;
+		}
+
+		for (auto& line : continues) {
+			((StreamData*)vs.ops()[line])->operand_first = new ull(preCondition);
 		}
 
 		code << vs;

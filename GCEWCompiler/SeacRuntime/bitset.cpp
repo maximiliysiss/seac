@@ -165,9 +165,13 @@ namespace seac::helper {
 	}
 
 	bool bitset::operator<(const bitset& b) {
-		for (int i = size * 8 - 1; i >= 0; i--) {
-			if ((*this)[i] > b[i])
+		for (int i = 0; i < size; i++) {
+			if (this->data[i] < b.data[i]) {
+				return true;
+			}
+			else {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -177,11 +181,15 @@ namespace seac::helper {
 	}
 
 	bool bitset::operator>(const bitset& b) {
-		for (int i = size * 8 - 1; i >= 0; i--) {
-			if ((*this)[i] < b[i])
+		for (int i = 0; i < size; i++) {
+			if (this->data[i] > b.data[i]) {
+				return true;
+			}
+			else {
 				return false;
+			}
 		}
-		return true;
+		return false;
 	}
 
 	bool bitset::operator>=(const bitset& b) {

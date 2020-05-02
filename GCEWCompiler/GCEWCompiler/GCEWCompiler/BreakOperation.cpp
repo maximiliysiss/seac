@@ -8,5 +8,5 @@ gcew::trees::elements::operations::BreakOperation::BreakOperation(int index, std
 void gcew::trees::elements::operations::BreakOperation::toCode(gcew::commons::CodeStream& code)
 {
 	cycleTree->get_breakers().push_back(code.getLine());
-	code << StreamData((ull)JitOperation::breakop, sizeof(ull));
+	code << StreamData((ull)commons::JitOperation::jump, sizeof(ull));
 }

@@ -75,7 +75,6 @@ namespace gcew::commons
 		assign = 645,
 		stack = 534,
 		localend = 535,
-		jmp = 536,
 		lower = 537,
 		greater = 538,
 		lequal = 539,

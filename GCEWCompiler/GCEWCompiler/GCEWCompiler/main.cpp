@@ -53,16 +53,21 @@ Tree* generateTree(std::string path) {
 		line = trim(line);
 		RegexResult reg = gcew::regulars::TreeRegularBuilder::regex(line);
 		switch (reg) {
-		case RegexResult::Break:
-		{
+		case RegexResult::Break: {
 			gcew::trees::elements::operations::BreakOperation* brOp = (gcew::trees::elements::operations::BreakOperation*)gcew::trees::construct_elements(reg, index, line, root);
 			brOp->setCycleTree(root->findCycleTreeUp());
 			root->addOperation(brOp);
 			break;
 		}
+		case RegexResult::Continue: {
+			gcew::trees::elements::operations::ContinueOperation* cOp = (gcew::trees::elements::operations::ContinueOperation*)gcew::trees::construct_elements(reg, index, line, root);
+			cOp->setCycleTree(root->findCycleTreeUp());
+			root->addOperation(cOp);
+			break;
+			break;
+		}
 		case RegexResult::Type:
 		case RegexResult::Assigment:
-		case RegexResult::Continue:
 			root->addOperation(gcew::trees::construct_elements(reg, index, line, root));
 			break;
 		case RegexResult::ExternalCall:

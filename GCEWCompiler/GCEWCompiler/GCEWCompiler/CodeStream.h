@@ -47,9 +47,11 @@ namespace gcew::commons {
 				out.write((char*)&memory_operation, sizeof(ull));
 				out.write((char*)&memory_agrument, sizeof(ull));
 				out.write((char*)&operand_first_length, sizeof(ull));
-				out.write((char*)operand_first, operand_first_length);
+				if (operand_first_length)
+					out.write((char*)operand_first, operand_first_length);
 				out.write((char*)&operand_second_length, sizeof(ull));
-				out.write((char*)operand_second, operand_second_length);
+				if (operand_second_length)
+					out.write((char*)operand_second, operand_second_length);
 			}
 		protected:
 			StreamData(ull stream_code, ull code, ull operand_first_length, void* operand_first, ull operand_second_length, void* operand_second,

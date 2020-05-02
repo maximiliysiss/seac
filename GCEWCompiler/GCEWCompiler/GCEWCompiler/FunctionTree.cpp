@@ -39,12 +39,23 @@ void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& co
 		ull id = gcew::commons::VariableManager::manager().getVariable((*i)->getName()).id;
 		code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &id);
 	}
-	Tree::toCode(code);
-	code << StreamData((ull)gcew::commons::JitOperation::end);
+
+
+	VirtualCodeStream vs(code);
+	Tree::toCode(vs);
+
+	auto endLine = vs.getLine() - 1;
+	vs << StreamData((ull)gcew::commons::JitOperation::end);
+
+	for (auto ret : returnLines) {
+		((StreamData*)vs.ops()[ret])->operand_first = new ull(endLine);
+	}
+
+	code << vs;
 	VM.unregisterTree();
 }
 
-gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg, void*root)
+gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line, gcew::regulars::RegexResult reg, void* root)
 	:Tree(index, line, reg, root)
 {
 	auto parts = gcew::commons::splitter(line, ' ');
