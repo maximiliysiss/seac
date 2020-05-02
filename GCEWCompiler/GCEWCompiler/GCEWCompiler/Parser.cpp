@@ -153,6 +153,8 @@ namespace gcew::commons
 		}
 		else if (str[0] == (char)Operations::Not)
 			return new OperatorNot(std::string(1, (char)Operations::Not), parser(str.substr(1), root), root);
+		else if (str[0] == '&')
+			return new AddressNode(str.substr(1), root);
 		else
 			return new Term(str, "", root);
 		return result;

@@ -54,7 +54,8 @@ namespace seac::common {
 		andop = 543,
 		orop = 544,
 		ifop = 545,
-		jump = 546
+		jump = 546,
+		ref = 547
 	};
 
 }

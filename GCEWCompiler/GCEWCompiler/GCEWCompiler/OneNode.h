@@ -40,5 +40,12 @@ namespace gcew::trees::parser
 		CallNode(std::string operation, void*);
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
+
+	class AddressNode : public OneNode {
+		std::string varName;
+	public:
+		AddressNode(std::string operation, void*);
+		virtual void toCode(gcew::commons::CodeStream& code) override;
+	};
 }
 

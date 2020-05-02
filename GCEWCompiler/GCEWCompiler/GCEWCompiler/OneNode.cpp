@@ -64,4 +64,13 @@ namespace gcew::trees::parser
 		call->toCode(code);
 	}
 
+	AddressNode::AddressNode(std::string operation, void* root)
+		:OneNode(nullptr, operation, root), varName(operation) {
+	}
+
+	void AddressNode::toCode(gcew::commons::CodeStream& code) {
+		auto vr = VM.getVariable(varName);
+		code << StreamData((ull)commons::JitOperation::ref, sizeof(ull), &vr.id);
+	}
+
 }

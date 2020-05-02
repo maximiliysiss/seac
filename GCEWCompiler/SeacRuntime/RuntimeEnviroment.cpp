@@ -1,6 +1,6 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
-#include "External.cpp"
+
 
 namespace seac::runtime {
 
@@ -133,11 +133,11 @@ namespace seac::runtime {
 		delete second;
 	}
 
-	void RuntimeEnviroment::greaterOperation(){
+	void RuntimeEnviroment::greaterOperation() {
 		logger.logInformation("greater operation");
 		auto* first = stack.pop();
 		auto* second = stack.pop();
-		stack.push(&(*second > *first));
+		stack.push(&(*second > * first));
 		delete first;
 		delete second;
 	}
@@ -152,6 +152,13 @@ namespace seac::runtime {
 	void RuntimeEnviroment::jump(reader::UniversalReader* reader) {
 		logger.logInformation("jmp operation");
 		jump_to(*(ull*)reader->get_clean_operand_first());
+	}
+
+	void RuntimeEnviroment::ref(reader::UniversalReader* reader) {
+		logger.logInformation("ref operation");
+		auto var = findVariableStorage(*(ull*)reader->get_clean_operand_first());
+		// TODO hard code
+		stack.push(new Storage(-1, var->get<void>(), 4));
 	}
 
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
@@ -217,6 +224,11 @@ namespace seac::runtime {
 		case JitOperation::jump:
 			jump((reader::UniversalReader*)operation);
 			break;
+
+		case JitOperation::ref:
+			ref((reader::UniversalReader*)operation);
+			break;
+
 		default:
 			throw helpers::runtime("not found operation");
 		}

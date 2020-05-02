@@ -46,6 +46,18 @@ namespace seac::runtime::external {
 			vprintf((const char*)data[0].data, arg);
 			delete[] arg;
 		} elif(name == "scanf") {
+			uint size = 0;
+			for (int i = 1; i < data.size(); i++) {
+				size += data[i].size;
+			}
+			va_list arg = new char[size];
+			size = 0;
+			for (int i = 1; i < data.size(); i++) {
+				memcpy(arg + size, data[i].data, data[i].size);
+				size += data[i].size;
+			}
+			vscanf((const char*)data[0].data, arg);
+			//delete[] arg;
 		}
 	}
 

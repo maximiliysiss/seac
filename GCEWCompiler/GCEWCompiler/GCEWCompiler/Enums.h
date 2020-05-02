@@ -31,6 +31,7 @@ namespace gcew::commons
 		Mod = '%',
 		Call = 2000,
 		ExtCall = 2001,
+		Addr = 2002
 	};
 
 	enum class RegexResult : ull {
@@ -84,6 +85,6 @@ namespace gcew::commons
 		orop = 544,
 		ifop = 545,
 		jump = 546,
-		breakop = 547
+		ref = 547
 	};
 }
