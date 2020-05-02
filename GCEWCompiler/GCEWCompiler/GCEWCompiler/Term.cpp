@@ -45,10 +45,9 @@ namespace gcew::trees::parser
 		}
 	}
 
-	std::vector<std::string> Term::toBoolCode(gcew::commons::CodeStream& code)
+	void Term::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		toCode(code);
-		return { name };
 	}
 
 	bool Term::isCallFunction(std::string name)

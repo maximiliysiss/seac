@@ -34,7 +34,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorLower : public Node, public BoolNode {
@@ -43,7 +43,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorEqual : public Node, public BoolNode {
@@ -52,7 +52,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorNotEqual : public Node, public BoolNode {
@@ -61,7 +61,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorAnd : public Node, public BoolNode {
@@ -70,7 +70,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorOr : public Node, public BoolNode {
@@ -79,7 +79,7 @@ namespace gcew::trees::parser
 		virtual void toCode(gcew::commons::CodeStream& code) override;
 
 		// Inherited via BoolNode
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) override;
+		virtual void toBoolCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class OperatorPlus : public Node {

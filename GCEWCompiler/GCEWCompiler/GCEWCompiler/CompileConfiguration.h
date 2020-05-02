@@ -22,7 +22,6 @@ namespace gcew::commons
 		static std::string path;
 		static std::string workPath;
 		static CompileConfiguration & instance();
-		static std::map<std::string, std::map<Operations, std::string>> typeOperation;
 		static std::map<std::string, int> jitTypes;
 		static std::map<std::string, char> specSymbols;
 		static unsigned int typeProp(std::string type);

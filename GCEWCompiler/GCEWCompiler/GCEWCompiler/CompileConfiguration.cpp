@@ -69,7 +69,6 @@ namespace gcew::commons
 	CompileConfiguration::CompileConfiguration() {
 	}
 
-	std::map<std::string, std::map<Operations, std::string>> CompileConfiguration::typeOperation;
 	std::map<std::string, int> CompileConfiguration::jitTypes;
 	std::map<std::string, char> CompileConfiguration::specSymbols;
 
@@ -97,19 +96,6 @@ namespace gcew::commons
 			TiXmlElement* global = doc.FirstChildElement();
 			libsPath = global->Attribute("Libs");
 			pathForCompile = global->Attribute("Compile");
-
-			auto typeOpers = global->FirstChild("typeOperations");
-
-			for (auto tag = typeOpers->FirstChildElement(); tag != nullptr; tag = tag->NextSiblingElement()) {
-				std::string name = tag->Attribute("name");
-				std::map<Operations, std::string> operations;
-				for (auto tagInner = tag->FirstChildElement(); tagInner != nullptr; tagInner = tagInner->NextSiblingElement()) {
-					std::string value = tagInner->Attribute("value");
-					Operations oper = (Operations)std::stoi(tagInner->Attribute("type"));
-					operations[oper] = value;
-				}
-				typeOperation[name] = operations;
-			}
 
 			jitTypes = {
 				{ "int", sizeof(int) },

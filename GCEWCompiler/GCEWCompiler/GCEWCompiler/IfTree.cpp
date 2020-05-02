@@ -17,7 +17,7 @@ namespace gcew::trees::structural
 
 	void IfTree::toCode(gcew::commons::CodeStream& code)
 	{
-		auto cond = dynamic_cast<gcew::trees::parser::BoolNode*>(expression)->toBoolCode(code);
+		dynamic_cast<gcew::trees::parser::BoolNode*>(expression)->toBoolCode(code);
 		auto ifBody = code.getLine();
 
 		VirtualCodeStream vs(code);

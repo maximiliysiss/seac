@@ -47,12 +47,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorGreater::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorGreater::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::greater);
-		return getReturn();
+
 	}
 
 	OperatorLower::OperatorLower(std::string operation, BaseNode* left, BaseNode* right, void* root)
@@ -64,12 +64,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorLower::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorLower::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::lower);
-		return getReturn();
+
 	}
 
 	OperatorEqual::OperatorEqual(std::string operation, BaseNode* left, BaseNode* right, void* root)
@@ -81,12 +81,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorEqual::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorEqual::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::equal);
-		return getReturn();
+
 	}
 
 	OperatorNotEqual::OperatorNotEqual(std::string operation, BaseNode* left, BaseNode* right, void* root)
@@ -98,12 +98,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorNotEqual::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorNotEqual::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::notequal);
-		return getReturn();
+
 	}
 
 	OperatorAnd::OperatorAnd(std::string operation, BaseNode* left, BaseNode* right, void* root)
@@ -115,12 +115,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorAnd::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorAnd::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::andop);
-		return getReturn();
+
 	}
 
 	OperatorOr::OperatorOr(std::string operation, BaseNode* left, BaseNode* right, void* root)
@@ -132,12 +132,12 @@ namespace gcew::trees::parser
 	{
 	}
 
-	std::vector<std::string> OperatorOr::toBoolCode(gcew::commons::CodeStream& code)
+	void OperatorOr::toBoolCode(gcew::commons::CodeStream& code)
 	{
 		dynamic_cast<BoolNode*>(left)->toBoolCode(code);
 		dynamic_cast<BoolNode*>(right)->toBoolCode(code);
 		code << StreamData((ull)commons::JitOperation::orop);
-		return getReturn();
+
 	}
 
 	OperatorPlus::OperatorPlus(std::string operation, BaseNode* left, BaseNode* right, void* root)

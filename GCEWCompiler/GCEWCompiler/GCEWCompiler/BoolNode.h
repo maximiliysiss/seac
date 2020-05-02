@@ -12,14 +12,7 @@ namespace gcew::trees::parser {
 	public:
 		inline std::string getBoolOperationName() const { return boolOperationName; }
 		BoolNode(std::string operationType);
-		virtual std::vector<std::string> toBoolCode(gcew::commons::CodeStream& code) = 0;
-		inline std::vector<std::string> getReturn() {
-			return {
-				gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::Start] + boolOperationName + ":",
-				gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::BoolTrue] + boolOperationName + ":",
-				gcew::commons::CompileConfiguration::typeOperation["bool"][gcew::commons::Operations::BoolFalse] + boolOperationName + ":"
-			};
-		}
+		virtual void toBoolCode(gcew::commons::CodeStream& code) = 0;
 		virtual ~BoolNode();
 	};
 }
