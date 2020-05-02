@@ -17,3 +17,4 @@ GCEWCompiler/GCEWCompiler/x64/
 Debug/
 *.gcew
 TestProject/
+Release/
