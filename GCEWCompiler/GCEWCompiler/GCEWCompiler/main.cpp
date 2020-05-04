@@ -192,9 +192,11 @@ int main(int argc, char** argv)
 		compile(parentPath, arguments);
 	}
 	catch (std::exception ex) {
+		system("pause");
 		return EXIT_FAILURE;
 	}
 	catch (...) {
+		system("pause");
 		return EXIT_FAILURE;
 	}
 

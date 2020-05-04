@@ -295,26 +295,42 @@ std::string gcew::commons::createUniqueGUID()
 std::vector<std::string> gcew::commons::getArguments(std::string line)
 {
 	std::vector<std::string> arguments;
-	std::stack<bool> isInArgument;
-	int prev = 0;
-	for (int i = 0; i < line.length(); i++) {
-		char c = line[i];
-		if (c == '(') {
-			isInArgument.push(true);
-			continue;
-		}
-		if (c == ')') {
-			if (isInArgument.top())
-				isInArgument.pop();
-			else
-				isInArgument.push(false);
-			continue;
-		}
-		if (c == ',' && isInArgument.empty()) {
-			arguments.push_back(line.substr(prev, i - prev));
-			prev = i + 1;
-		}
+	bool inString = false;
+	std::string tmp;
+	std::stack<bool> inTemp;
+
+	if (!commons::isBracketCorrect(line)) {
+		throw commons::compiler_exception("bracket error in '" + line + "'");
 	}
-	arguments.push_back(line.substr(prev, line.length() - prev));
+
+	for (int i = 0; i < line.length(); i++) {
+		if (line[i] == '\'') {
+			inString = !inString;
+		}
+		if (inString) {
+			tmp += line[i];
+			continue;
+		}
+
+		if (line[i] == '(') {
+			inTemp.push(true);
+		}
+		else if (line[i] == ')') {
+			inTemp.pop();
+		}
+
+		if (line[i] == ',' && inTemp.empty()) {
+			arguments.push_back(tmp);
+			tmp = "";
+			continue;
+		}
+
+		tmp += line[i];
+	}
+
+	if (tmp.length() > 0) {
+		arguments.push_back(tmp);
+	}
+
 	return arguments;
 }
