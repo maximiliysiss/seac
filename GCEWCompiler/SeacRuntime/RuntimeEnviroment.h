@@ -43,8 +43,10 @@ namespace seac::runtime {
 		void jump(reader::UniversalReader* reader);
 		void ref(reader::UniversalReader* reader);
 
-		inline void jump_to(ull index) {
+		inline void jump_to(ull index, bool isLined) {
 			this->line = index;
+			if (isLined)
+				this->callStack.top()->set_line(index);
 		}
 	public:
 		static RuntimeEnviroment& runtimeManager();

@@ -49,12 +49,6 @@
     <Filter Include="Source Files\regulars">
       <UniqueIdentifier>{494edd31-f3c7-4a3f-8496-cbfe5484557d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\libs">
-      <UniqueIdentifier>{e0d8acff-2949-40dd-86da-549958533a2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\libs">
-      <UniqueIdentifier>{87e9a8ab-621f-457d-a6b2-fe90e6d511b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\trees\elements\operations">
       <UniqueIdentifier>{500dfd5b-76a3-46a1-87e0-63563ae4022f}</UniqueIdentifier>
     </Filter>
@@ -120,12 +114,6 @@
     <ClInclude Include="CompileConfiguration.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>Header Files\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>Header Files\libs</Filter>
-    </ClInclude>
     <ClInclude Include="IncludeOperation.h">
       <Filter>Header Files\trees\elements\operations</Filter>
     </ClInclude>
@@ -176,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Appenders.h">
       <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -229,18 +220,6 @@
     </ClCompile>
     <ClCompile Include="CompileConfiguration.cpp">
       <Filter>Source Files\commons</Filter>
-    </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>Source Files\libs</Filter>
     </ClCompile>
     <ClCompile Include="IncludeOperation.cpp">
       <Filter>Source Files\trees\elements\operations</Filter>

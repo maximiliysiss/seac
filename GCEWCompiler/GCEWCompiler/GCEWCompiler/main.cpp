@@ -1,15 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <filesystem>
-#include "PreProcessor.h"
-#include "ElementsContrustor.h"
-
-using std::cout;
-using namespace std::filesystem;
-using namespace gcew::trees::structural;
-using namespace gcew::trees::elements::operations;
-using namespace gcew::trees::elements;
+#include "main.h"
 
 std::string correctFiles(std::string path, std::string pathTo) {
 	std::ifstream inFile(path);
@@ -127,32 +116,9 @@ std::string help = "\n"
 "  version                program version\n"
 "  help                   help";
 
-int main(int argc, char** argv)
-{
-	gcew::commons::Logger<Tree> log = gcew::commons::Logger<Tree>::getInstance();
+void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
-	if (argc < 2) {
-		log.logError("Not found arguments");
-		return EXIT_FAILURE;
-	}
-
-	std::map<std::string, std::string> arguments;
-	for (int i = 1; i < argc; i++) {
-		if (argv[i][0] == '-') {
-			arguments[argv[i]] = argv[i + 1];
-			i++;
-		}
-		else {
-			arguments["cmd"] = argv[i];
-		}
-	}
-
-	if (arguments["cmd"] == "help") {
-		std::cout << help << std::endl;
-		return EXIT_SUCCESS;
-	}
-
-	auto parentPath = path(argv[0]).parent_path();
+	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
 
 	try {
 		gcew::commons::CompileConfiguration::path = parentPath.string() + "\\configuration.xml";
@@ -188,11 +154,50 @@ int main(int argc, char** argv)
 	}
 	catch (std::exception ex) {
 		log.logError(ex.what());
-		return EXIT_FAILURE;
+		throw std::exception();
 	}
 	catch (...) {
 		log.logError("compiler error");
+		throw std::exception();
 	}
+}
+
+int main(int argc, char** argv)
+{
+	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
+
+	if (argc < 2) {
+		log.logError("Not found arguments");
+		return EXIT_FAILURE;
+	}
+
+	std::map<std::string, std::string> arguments;
+	for (int i = 1; i < argc; i++) {
+		if (argv[i][0] == '-') {
+			arguments[argv[i]] = argv[i + 1];
+			i++;
+		}
+		else {
+			arguments["cmd"] = argv[i];
+		}
+	}
+
+	if (arguments["cmd"] == "help") {
+		std::cout << help << std::endl;
+		return EXIT_SUCCESS;
+	}
+
+	auto parentPath = path(argv[0]).parent_path();
+	try {
+		compile(parentPath, arguments);
+	}
+	catch (std::exception ex) {
+		return EXIT_FAILURE;
+	}
+	catch (...) {
+		return EXIT_FAILURE;
+	}
+
 
 	std::cout << "Press Enter to Continue";
 	std::cin.ignore();

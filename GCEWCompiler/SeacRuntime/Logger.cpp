@@ -5,7 +5,7 @@
 namespace seac::logger {
 
 	template<typename T>
-	Logger<T>* Logger<T>::logger = nullptr;
+	typename Logger<T>* Logger<T>::logger = nullptr;
 
 	template<typename T>
 	Logger<T>::Logger() {
@@ -28,7 +28,7 @@ namespace seac::logger {
 	}
 
 	template<typename T>
-	Logger<T>& Logger<T>::getInstance() {
+	typename Logger<T>& Logger<T>::getInstance() {
 		if (logger)
 			return *logger;
 		logger = new Logger<T>();

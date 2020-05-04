@@ -39,6 +39,7 @@ namespace seac::runtime {
 		}
 		else {
 			line = callStack.top()->get_line() - 1;
+			callStack.top()->set_line(line);
 		}
 
 		delete top;
@@ -111,7 +112,7 @@ namespace seac::runtime {
 
 	void RuntimeEnviroment::execCall(seac::reader::StringReader* reader) {
 		logger.logInformation("call " + reader->get_operand_first());
-		jump_to(functionFinder[reader->get_memory_agrument()] - 1);
+		jump_to(functionFinder[reader->get_memory_agrument()] - 1, false);
 	}
 
 	void RuntimeEnviroment::startLocal(reader::UniversalReader* reader) {
@@ -142,23 +143,32 @@ namespace seac::runtime {
 		delete second;
 	}
 
+	void RuntimeEnviroment::equalOperation() {
+		logger.logInformation("equal operation");
+		auto* first = stack.pop();
+		auto* second = stack.pop();
+		stack.push(&(*second == *first));
+		delete first;
+		delete second;
+	}
+
 	void RuntimeEnviroment::ifujmp(reader::UniversalReader* reader) {
 		logger.logInformation("if operation");
 		auto stTop = stack.pop();
-		jump_to(stTop->getValue<bool>() ? *(ull*)reader->get_clean_operand_first() : *(ull*)reader->get_clean_operand_second());
+		jump_to(stTop->getValue<bool>() ? *(ull*)reader->get_clean_operand_first() : *(ull*)reader->get_clean_operand_second(), true);
 		delete stTop;
 	}
 
 	void RuntimeEnviroment::jump(reader::UniversalReader* reader) {
 		logger.logInformation("jmp operation");
-		jump_to(*(ull*)reader->get_clean_operand_first());
+		jump_to(*(ull*)reader->get_clean_operand_first(), true);
 	}
 
 	void RuntimeEnviroment::ref(reader::UniversalReader* reader) {
 		logger.logInformation("ref operation");
 		auto var = findVariableStorage(*(ull*)reader->get_clean_operand_first());
-		// TODO hard code
-		stack.push(new Storage(-1, var->get<void>(), 4));
+		char** pptr = new char* ((char*)var->get_data());
+		stack.push(new Storage(-1, pptr, sizeof(int*)));
 	}
 
 	RuntimeEnviroment& seac::runtime::RuntimeEnviroment::runtimeManager() {
@@ -217,6 +227,9 @@ namespace seac::runtime {
 			break;
 		case JitOperation::lower:
 			lowerOperation();
+			break;
+		case JitOperation::equal:
+			equalOperation();
 			break;
 		case JitOperation::ifop:
 			ifujmp((reader::UniversalReader*)operation);

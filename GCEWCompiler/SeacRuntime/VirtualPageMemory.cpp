@@ -145,7 +145,7 @@ namespace seac::runtime {
 		bitset y(s2.getCpy(), s2.size);
 		auto res = bitset::create_bitset(x < y);
 
-		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		Storage* newStorage = new Storage(-1, res.cpy(), res.get_size());
 		return *newStorage;
 	}
 
@@ -160,7 +160,22 @@ namespace seac::runtime {
 		bitset y(s2.getCpy(), s2.size);
 		auto res = bitset::create_bitset(x > y);
 
-		Storage* newStorage = new Storage(-1, res.cpy(), resSize);
+		Storage* newStorage = new Storage(-1, res.cpy(), res.get_size());
+		return *newStorage;
+	}
+
+	Storage& Storage::operator==(Storage&& s2) {
+		return (*this) == s2;
+	}
+
+	Storage& Storage::operator==(Storage& s2) {
+		auto resSize = std::max(size, s2.size);
+
+		bitset x(getCpy(), size);
+		bitset y(s2.getCpy(), s2.size);
+		auto res = bitset::create_bitset(x == y);
+
+		Storage* newStorage = new Storage(-1, res.cpy(), res.get_size());
 		return *newStorage;
 	}
 

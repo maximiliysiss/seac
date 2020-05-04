@@ -8,7 +8,7 @@ namespace seac::runtime {
 
 	struct Storage {
 	private:
-		void* data;
+		read_only_prop(void*, data);
 		read_only_prop(ull, id);
 		read_only_prop(uint, size);
 		read_only_prop(uint, prop);
@@ -36,6 +36,8 @@ namespace seac::runtime {
 		virtual Storage& operator<(Storage& s2);
 		virtual Storage& operator>(Storage&& s2);
 		virtual Storage& operator>(Storage& s2);
+		virtual Storage& operator==(Storage&& s2);
+		virtual Storage& operator==(Storage& s2);
 	};
 
 	class VirtualStack {

@@ -215,6 +215,26 @@ namespace seac::helper {
 		}
 	}
 
+	bool bitset::operator==(const bitset&& b) {
+		return (*this) == b;;
+	}
+
+	bool bitset::operator==(const bitset& b) {
+		for (int i = 0; i < size; i++) {
+			if ((*this)[i] != b[i])
+				return false;
+		}
+		return true;
+	}
+
+	bool bitset::operator!=(const bitset&& b) {
+		return (*this) != b;
+	}
+
+	bool bitset::operator!=(const bitset& b) {
+		return !((*this) == b);
+	}
+
 	bool bitset::is() const {
 		for (int i = 0; i < size; i++) {
 			if (data[i])

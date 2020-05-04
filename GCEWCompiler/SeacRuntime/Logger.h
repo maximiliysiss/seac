@@ -16,11 +16,11 @@ namespace seac::logger {
 		std::vector<IAppender*> appenders;
 		std::string loggerName{ typeid(T).name() };
 		Logger();
-		static Logger* logger;
+		static typename Logger* logger;
 		void writeAll(Level, std::string);
 		std::string formatLog(std::string type);
 	public:
-		static Logger& getInstance();
+		static typename Logger& getInstance();
 		void logTrace(std::string);
 		void logInformation(std::string);
 		void logWarning(std::string);

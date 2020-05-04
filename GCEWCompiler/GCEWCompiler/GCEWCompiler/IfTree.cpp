@@ -34,8 +34,8 @@ namespace gcew::trees::structural
 			ifEnd->operand_first = new ull(vs.getLine() - 1);
 		}
 		else {
-			ifCode->operand_second = new ull(vs.getLine() - 1);
 			vs << StreamData((ull)commons::JitOperation::localend);
+			ifCode->operand_second = new ull(vs.getLine() - 1);
 		}
 		code << vs;
 	}

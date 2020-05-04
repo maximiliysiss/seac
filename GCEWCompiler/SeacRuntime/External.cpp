@@ -57,7 +57,7 @@ namespace seac::runtime::external {
 				size += data[i].size;
 			}
 			vscanf((const char*)data[0].data, arg);
-			//delete[] arg;
+			delete[] arg;
 		}
 	}
 

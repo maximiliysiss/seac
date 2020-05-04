@@ -56,13 +56,18 @@ namespace seac::helper {
 		void operator>>=(int s);
 		void operator<<=(int s);
 
+		bool operator==(const bitset&& b);
+		bool operator==(const bitset& b);
+		bool operator!=(const bitset&& b);
+		bool operator!=(const bitset& b);
+
 		bool is() const;
 		void* cpy();
 		std::string str();
 	};
 
 	template<typename T>
-	inline bitset bitset::create_bitset(T data) {
+	inline typename bitset bitset::create_bitset(T data) {
 		return bitset(new T(data), sizeof(T));
 	}
 
