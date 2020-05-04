@@ -79,3 +79,4 @@
 	private:
 
 #define to_str(value) std::to_string(value)
+#define str_(value) #value

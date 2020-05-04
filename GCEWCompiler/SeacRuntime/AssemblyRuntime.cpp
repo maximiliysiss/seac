@@ -1,5 +1,6 @@
 #include "AssemblyRuntime.h"
 #include "StaticAssemblyRuntime.h"
+#include "RemoteAssemblyRuntime.h"
 
 namespace seac::runtime {
 
@@ -9,6 +10,8 @@ namespace seac::runtime {
 		{
 		case seac::common::ExecuteMode::Single:
 			return new StaticAssemblyRuntime();
+		case seac::common::ExecuteMode::Remote:
+			return new RemoteAssemblyRuntime();
 		default:
 			break;
 		}

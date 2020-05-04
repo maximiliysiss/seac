@@ -11,6 +11,12 @@ namespace seac::common {
 		FullRemote
 	};
 
+	static std::map<ExecuteMode, std::string> ExecuteConverter{
+		{ ExecuteMode::Single, str_(single) },
+		{ ExecuteMode::Remote, str_(remote) },
+		{ ExecuteMode::FullRemote, str_(fullremote) },
+	};
+
 	enum class Level {
 		Error,
 		Warning,

@@ -102,6 +102,9 @@
     <ClCompile Include="Helper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="RemoteAssemblyRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -150,6 +153,9 @@
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="AssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoteAssemblyRuntime.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
