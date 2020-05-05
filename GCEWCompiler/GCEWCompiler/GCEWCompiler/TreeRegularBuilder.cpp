@@ -4,6 +4,8 @@ namespace gcew::regulars
 {
 
 	std::list<TreeRegularBuilder::RegexValidate> TreeRegularBuilder::regexes = {
+		TreeRegularBuilder::isRegionStart,
+		TreeRegularBuilder::isRegionEnd,
 		TreeRegularBuilder::isAssigment,
 		TreeRegularBuilder::isBreak,
 		TreeRegularBuilder::isExternalCall,
@@ -135,6 +137,14 @@ namespace gcew::regulars
 	RegexResult TreeRegularBuilder::isReturn(std::string input, bool type)
 	{
 		return regex_matcher("^return *.*;$", input, type) ? RegexResult::Return : RegexResult::NotClassic;
+	}
+
+	RegexResult TreeRegularBuilder::isRegionStart(std::string input, bool type) {
+		return regex_matcher("^#regionstart$", input, type) ? RegexResult::RegionStart : RegexResult::NotClassic;
+	}
+
+	RegexResult TreeRegularBuilder::isRegionEnd(std::string input, bool type) {
+		return regex_matcher("^#regionend$", input, type) ? RegexResult::RegionEnd : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isFunctionInExpression(std::string input)

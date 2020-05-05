@@ -18,6 +18,7 @@ namespace SeacServer.Services
     public interface IRuntimeService
     {
         ExecuteResult Execute(string name, string platform, string mode);
+        ExecuteResult Next(string name, string platform, string mode, string next);
     }
 
 
@@ -41,12 +42,25 @@ namespace SeacServer.Services
             {
                 case ExecuteMode.Single:
                 case ExecuteMode.Remote:
-                    return RemoteExecute(application);
                 case ExecuteMode.FullRemote:
-                    break;
+                    return RemoteExecute(application);
             }
 
             return null;
+        }
+
+        public ExecuteResult Next(string name, string platform, string mode, string next)
+        {
+            var application = databaseContext.Applications.FirstOrDefault(x => x.Name == name && x.Platform == platform);
+            if (application == null || application.ExecuteMode != ExecuteMode.FullRemote)
+                return null;
+
+            var uri = Path.Combine(runtimeSettings.Repo, $"{application.Name}_{application.Platform}_{application.ExecuteMode.ToString().ToLower()}", $"{next}.seac");
+            FileStream fileStream = new FileStream(uri, FileMode.Open);
+            return new ExecuteResult
+            {
+                CodeStream = fileStream
+            };
         }
 
         private ExecuteResult RemoteExecute(Application application)

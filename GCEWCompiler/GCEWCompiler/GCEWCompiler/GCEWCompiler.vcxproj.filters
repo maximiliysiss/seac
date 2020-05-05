@@ -168,6 +168,9 @@
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RegionOperation.h">
+      <Filter>Header Files\trees\elements\operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tree.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Appenders.cpp">
       <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="RegionOperation.cpp">
+      <Filter>Source Files\trees\elements\operations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

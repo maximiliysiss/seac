@@ -14,6 +14,14 @@ namespace gcew::commons {
 		return *this;
 	}
 
+	CodeStream& CodeStream::operator<<(IStreamData& data) {
+		data.write(outStream);
+		if (!data.is_header()) {
+			line++;
+		}
+		return *this;
+	}
+
 	CodeStream& CodeStream::operator<<(VirtualCodeStream& codeStream) {
 		for (auto i = codeStream.ops().begin(); i != codeStream.ops().end(); i++) {
 			i->second->write(outStream);

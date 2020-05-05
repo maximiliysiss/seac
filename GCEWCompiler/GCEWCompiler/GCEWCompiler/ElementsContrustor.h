@@ -11,6 +11,7 @@
 #include "FunctionTree.h"
 #include "ReturnOperation.h"
 #include "WhileTree.h"
+#include "RegionOperation.h"
 
 namespace gcew::trees::structural
 {

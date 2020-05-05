@@ -27,6 +27,10 @@ gcew::trees::elements::Element* gcew::trees::construct_elements(gcew::regulars::
 		return new ReturnOperation(index, line, root);
 	case RegexResult::While:
 		return new WhileTree(index, line, root);
+	case RegexResult::RegionStart:
+		return new RegionStartOperation(index, line, root);
+	case RegexResult::RegionEnd:
+		return new RegionEndOperation(index, line, root);
 	}
 	return nullptr;
 }

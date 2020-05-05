@@ -15,13 +15,14 @@ namespace gcew::commons
 
 	class CompileConfiguration
 	{
-		static CompileConfiguration  * compileConfiguration;
+		static CompileConfiguration* compileConfiguration;
 		std::string pathForCompile;
 		std::string libsPath;
+		auto_property(bool, isPartial);
 	public:
 		static std::string path;
 		static std::string workPath;
-		static CompileConfiguration & instance();
+		static CompileConfiguration& instance();
 		static std::map<std::string, int> jitTypes;
 		static std::map<std::string, char> specSymbols;
 		static unsigned int typeProp(std::string type);

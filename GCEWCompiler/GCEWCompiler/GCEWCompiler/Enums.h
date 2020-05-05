@@ -4,6 +4,17 @@
 #include "CommonLogger.h"
 #define ull unsigned long long
 #define elif else if
+#define auto_property(type, name) \
+	protected: \
+		type name; \
+	public: \
+		type get_##name() { \
+			return this->##name; \
+		} \
+		void set_##name(type name){ \
+			this->##name = name; \
+		} \
+	private:
 
 namespace gcew::commons
 {
@@ -56,7 +67,9 @@ namespace gcew::commons
 		Class,
 		Struct,
 		Return,
-		Block
+		Block,
+		RegionStart,
+		RegionEnd,
 	};
 
 	enum class JitOperation : ull {
@@ -85,6 +98,9 @@ namespace gcew::commons
 		orop = 544,
 		ifop = 545,
 		jump = 546,
-		ref = 547
+		ref = 547,
+
+		startrg = 548,
+		endrg = 549
 	};
 }

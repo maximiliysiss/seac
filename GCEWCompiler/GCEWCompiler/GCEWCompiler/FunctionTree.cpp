@@ -40,7 +40,6 @@ void gcew::trees::structural::FunctionTree::toCode(gcew::commons::CodeStream& co
 		code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &id);
 	}
 
-
 	VirtualCodeStream vs(code);
 	Tree::toCode(vs);
 

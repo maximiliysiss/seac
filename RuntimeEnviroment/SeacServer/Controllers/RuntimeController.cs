@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SeacServer.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using SeacServer.Services;
 
 namespace SeacServer.Controllers
@@ -24,6 +18,15 @@ namespace SeacServer.Controllers
         public ActionResult Execute(string name, string platform, string mode)
         {
             var res = runtimeService.Execute(name, platform, mode);
+            if (res == null)
+                return NotFound();
+            return File(res.CodeStream, "application/octet-stream", $"{name}_{mode}_{platform}");
+        }
+
+        [HttpGet("{name}/{platform}/{mode}/{next}")]
+        public ActionResult Next(string name, string platform, string mode, string next)
+        {
+            var res = runtimeService.Next(name, platform, mode, next);
             if (res == null)
                 return NotFound();
             return File(res.CodeStream, "application/octet-stream", $"{name}_{mode}_{platform}");

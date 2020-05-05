@@ -105,6 +105,9 @@
     <ClCompile Include="RemoteAssemblyRuntime.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="FullRemoteAssemblyRuntime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="RemoteAssemblyRuntime.h">
       <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="FullRemoteAssemblyRuntime.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

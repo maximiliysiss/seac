@@ -116,6 +116,7 @@ namespace gcew::commons {
 
 		CodeStream(std::ostream& outStream);
 		virtual CodeStream& operator<<(IStreamData&& data);
+		virtual CodeStream& operator<<(IStreamData& data);
 		virtual CodeStream& operator<<(VirtualCodeStream& codeStream);
 		virtual ~CodeStream();
 	};
@@ -130,6 +131,14 @@ namespace gcew::commons {
 		virtual IStreamCodeData* findByCode(ull code);
 		virtual IStreamCodeData* findByCodeLast(ull code);
 		virtual CodeStream& operator<<(VirtualCodeStream& codeStream) override;
+
+		inline IStreamCodeData* operator[](size_t index) {
+			return operations[index];
+		}
+
+		inline size_t size() {
+			return operations.size();
+		}
 	};
 
 }

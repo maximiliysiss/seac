@@ -166,6 +166,7 @@
     <ClInclude Include="Operation.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="PreProcessor.h" />
+    <ClInclude Include="RegionOperation.h" />
     <ClInclude Include="ReturnOperation.h" />
     <ClInclude Include="RuntimeConfiguration.h" />
     <ClInclude Include="Term.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Operation.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PreProcessor.cpp" />
+    <ClCompile Include="RegionOperation.cpp" />
     <ClCompile Include="ReturnOperation.cpp" />
     <ClCompile Include="RuntimeConfiguration.cpp" />
     <ClCompile Include="Term.cpp" />

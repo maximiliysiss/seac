@@ -34,7 +34,7 @@ namespace SeacClient.ViewModels
         public Brush Color => executeColor[applicationModel.ExecuteMode];
         public Connected_Services.ClientsExtensions.ExecuteMode ExecuteMode => (Connected_Services.ClientsExtensions.ExecuteMode)applicationModel.ExecuteMode;
 
-        public async Task CreateShortCut() => CreateShortCut($"-n {Name} -m {(int)ExecuteMode} -p {Platform}");
+        public virtual async Task CreateShortCut() => CreateShortCut($"-n {Name} -m {(int)ExecuteMode} -p {Platform}");
         public abstract Task OnClickAsync();
 
         public static ApplicationViewModel CreateViewModel(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient)
@@ -58,14 +58,19 @@ namespace SeacClient.ViewModels
 
     public class SingleApplication : ApplicationViewModel
     {
+        private readonly string directory;
+        private readonly string file;
+
         public SingleApplication(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient) : base(applicationModel, seacRuntimeClient)
         {
+            this.directory = $"{App.RuntimeSettings.Repo}{Name}_{Platform}_{ExecuteMode.ToString().ToLower()}";
+            this.file = $"{directory}\\{Name}.seac";
         }
+
+        public override async Task CreateShortCut() => CreateShortCut($"-n {Name} -m {(int)ExecuteMode} -p {Platform} -f \"{file}\"");
 
         public override async Task OnClickAsync()
         {
-            var directory = $"{App.RuntimeSettings.Repo}{Name}_{Platform}_{ExecuteMode.ToString().ToLower()}";
-            var file = $"{directory}\\{Name}.seac";
             if (!File.Exists(file))
             {
                 var dialogResult = MessageBox.Show("Download application?", "Download", MessageBoxButton.YesNo);

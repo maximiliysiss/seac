@@ -1,4 +1,5 @@
 #include "main.h"
+#include <tuple>
 
 std::string correctFiles(std::string path, std::string pathTo) {
 	std::ifstream inFile(path);
@@ -36,12 +37,19 @@ Tree* generateTree(std::string path) {
 	std::ifstream fileRead(path);
 	std::string line;
 	int index = 0;
+	std::stack<std::string> regionStack;
 	Tree* root = new Tree(0, "", RegexResult::NotClassic, nullptr);
 	Tree::currentTree = &root;
 	while (std::getline(fileRead, line)) {
 		line = trim(line);
 		RegexResult reg = gcew::regulars::TreeRegularBuilder::regex(line);
 		switch (reg) {
+		case RegexResult::RegionEnd:
+		case RegexResult::RegionStart:
+			if (root->getParent() == nullptr)
+				throw gcew::commons::compiler_exception("incorrect #regionstart poistion (only in methods)");
+			root->addOperation(gcew::trees::construct_elements(reg, index, line, root));
+			break;
 		case RegexResult::Break: {
 			gcew::trees::elements::operations::BreakOperation* brOp = (gcew::trees::elements::operations::BreakOperation*)gcew::trees::construct_elements(reg, index, line, root);
 			brOp->setCycleTree(root->findCycleTreeUp());
@@ -116,6 +124,55 @@ std::string help = "\n"
 "  version                program version\n"
 "  help                   help";
 
+void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fileFolder) {
+
+	VirtualCodeStream vs(codeStream);
+	rootTree->createCode(vs);
+	codeStream << vs;
+
+	/*Splitting by regions*/
+	std::vector<std::tuple<std::string, std::vector<StreamData::IStreamCodeData*>>> regions;
+	std::stack<std::tuple<std::string, std::vector<StreamData::IStreamCodeData*>>> regionStack;
+	regionStack.push(std::make_tuple("", std::vector<StreamData::IStreamCodeData*>()));
+
+	for (int i = 0; i < vs.size(); i++) {
+		if (vs[i]->code == (ull)JitOperation::startrg) {
+			std::string partialGuid = createUniqueGUID();
+			std::get<1>(regionStack.top()).push_back(new StringStreamData((ull)JitOperation::startrg, partialGuid));
+			regionStack.push(std::make_tuple(partialGuid, std::vector<StreamData::IStreamCodeData*>()));
+			continue;
+		}
+		if (vs[i]->code == (ull)JitOperation::endrg) {
+			std::get<1>(regionStack.top()).push_back(new StringStreamData((ull)JitOperation::endrg, std::get<0>(regionStack.top())));
+			regions.push_back(regionStack.top());
+			regionStack.pop();
+		}
+		std::get<1>(regionStack.top()).push_back(vs[i]);
+	}
+
+	regions.insert(regions.begin(), regionStack.top());
+
+	std::ofstream* ofStream = nullptr;
+
+	for (int i = 0; i < regions.size(); i++) {
+		CodeStream* pCodeStream = &codeStream;
+		if (i != 0) {
+			ofStream = new std::ofstream(fileFolder + std::get<0>(regions[i]) + ".seac");
+			pCodeStream = new CodeStream(*ofStream);
+		}
+
+		for (auto* line : std::get<1>(regions[i])) {
+			(*pCodeStream) << *((StreamData::IStreamData*)line);
+		}
+
+		if (ofStream) {
+			ofStream->close();
+			ofStream = nullptr;
+		}
+	}
+
+}
+
 void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
 	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
@@ -124,6 +181,7 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 		gcew::commons::CompileConfiguration::path = parentPath.string() + "\\configuration.xml";
 
 		auto& conf = gcew::commons::CompileConfiguration::instance();
+		conf.set_isPartial(arguments["--type"] == "remote");
 
 		std::string fileExecute = arguments["cmd"];
 		path p = absolute(path(fileExecute));
@@ -150,7 +208,12 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
 		CodeStream codeStream(outFileCode);
 		codeStream << CodeStream::HeaderStreamData(arguments["--os"], arguments["--type"]);
-		rootTree->createCode(codeStream);
+		if (!conf.get_isPartial()) {
+			rootTree->createCode(codeStream);
+		}
+		else {
+			generatePartialCode(rootTree, codeStream, fileFolder.string());
+		}
 	}
 	catch (std::exception ex) {
 		log.logError(ex.what());
