@@ -1,0 +1,195 @@
+﻿{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Seac.application Server",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Application": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Runtime/{name}/{platform}/{mode}": {
+      "get": {
+        "tags": [
+          "Runtime"
+        ],
+        "operationId": "Runtime",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecuteResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecuteResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecuteResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExecuteMode": {
+        "type": "integer",
+        "format": "int32",
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "ApplicationModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "platform": {
+            "type": "string",
+            "nullable": true
+          },
+          "executeMode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ExecuteMode"
+              }
+            ]
+          }
+        }
+      },
+      "Stream": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "canRead": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "canSeek": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "canTimeout": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "canWrite": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "length": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int64"
+          },
+          "position": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "readTimeout": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "writeTimeout": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ExecuteResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codeStream": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Stream"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
