@@ -25,8 +25,9 @@ namespace SeacClient.Pages
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel(new SeacRuntimeClient("https://localhost:5001", new System.Net.Http.HttpClient()))));
-        }
+            => this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel(new SeacRuntimeClient("https://localhost:5001", new System.Net.Http.HttpClient()))));
+
+        private void RegisterClick(object sender, MouseButtonEventArgs e)
+            => this.NavigationService.Navigate(new RegisterPage());
     }
 }
