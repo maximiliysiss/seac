@@ -1,7 +1,9 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
-#include "External.cpp"
 
+#ifdef _DEBUG
+#include "External.cpp"
+#endif // _DEBUG
 
 namespace seac::runtime {
 
