@@ -119,9 +119,16 @@ namespace SeacClient.ViewModels
         {
         }
 
-        public override Task OnClickAsync()
+        public override async Task OnClickAsync()
         {
-            throw new NotImplementedException();
+            Process process = new Process
+            {
+                StartInfo = new ProcessStartInfo(App.RuntimeSettings.CLR, $"-n {Name} -m {(int)ExecuteMode} -p {Platform}")
+                {
+                    WorkingDirectory = Directory.GetParent(App.RuntimeSettings.CLR).ToString()
+                }
+            };
+            process.Start();
         }
     }
 }

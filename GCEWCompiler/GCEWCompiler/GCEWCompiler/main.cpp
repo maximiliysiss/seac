@@ -37,6 +37,7 @@ Tree* generateTree(std::string path) {
 	std::ifstream fileRead(path);
 	std::string line;
 	int index = 0;
+	auto& conf = gcew::commons::CompileConfiguration::instance();
 	std::stack<std::string> regionStack;
 	Tree* root = new Tree(0, "", RegexResult::NotClassic, nullptr);
 	Tree::currentTree = &root;
@@ -46,6 +47,8 @@ Tree* generateTree(std::string path) {
 		switch (reg) {
 		case RegexResult::RegionEnd:
 		case RegexResult::RegionStart:
+			if (!conf.get_isPartial())
+				break;
 			if (root->getParent() == nullptr)
 				throw gcew::commons::compiler_exception("incorrect #regionstart poistion (only in methods)");
 			root->addOperation(gcew::trees::construct_elements(reg, index, line, root));
