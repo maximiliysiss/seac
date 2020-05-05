@@ -106,7 +106,10 @@
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
     <ClCompile Include="FullRemoteAssemblyRuntime.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="RemotePartialContainer.cpp">
+      <Filter>Source Files\Runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +165,10 @@
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
     <ClInclude Include="FullRemoteAssemblyRuntime.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RemotePartialContainer.h">
+      <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

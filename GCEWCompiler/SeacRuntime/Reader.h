@@ -9,16 +9,18 @@ namespace seac::reader {
 	class IReader abstract {
 		read_only_prop(ull, stream_code);
 		read_only_prop(ull, code);
+		read_only_prop(ull, line_property);
 	protected:
 		seac::logger::Logger<IReader>& logger;
 	public:
 		IReader();
+		virtual ~IReader() {}
 		static IReader* nextRead(std::istream& in);
 	};
 
 	class HeaderReader : public IReader {
-		read_only_prop(std::string, os);
-		read_only_prop(std::string, type);
+		read_only_prop_ref(std::string, os);
+		read_only_prop_ref(std::string, type);
 	public:
 		HeaderReader(std::istream&);
 	};

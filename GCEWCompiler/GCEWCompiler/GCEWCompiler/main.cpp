@@ -128,7 +128,10 @@ void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fil
 
 	VirtualCodeStream vs(codeStream);
 	rootTree->createCode(vs);
-	codeStream << vs;
+
+	for (auto& line : vs.ops()) {
+		line.second->line_property = line.first;
+	}
 
 	/*Splitting by regions*/
 	std::vector<std::tuple<std::string, std::vector<StreamData::IStreamCodeData*>>> regions;
@@ -138,14 +141,19 @@ void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fil
 	for (int i = 0; i < vs.size(); i++) {
 		if (vs[i]->code == (ull)JitOperation::startrg) {
 			std::string partialGuid = createUniqueGUID();
-			std::get<1>(regionStack.top()).push_back(new StringStreamData((ull)JitOperation::startrg, partialGuid));
+			auto* tmpOperation = new StringStreamData((ull)JitOperation::startrg, partialGuid);
+			tmpOperation->line_property = vs[i]->line_property;
+			std::get<1>(regionStack.top()).push_back(tmpOperation);
 			regionStack.push(std::make_tuple(partialGuid, std::vector<StreamData::IStreamCodeData*>()));
 			continue;
 		}
 		if (vs[i]->code == (ull)JitOperation::endrg) {
-			std::get<1>(regionStack.top()).push_back(new StringStreamData((ull)JitOperation::endrg, std::get<0>(regionStack.top())));
+			auto* tmpOperation = new StringStreamData((ull)JitOperation::endrg, std::get<0>(regionStack.top()));
+			tmpOperation->line_property = vs[i]->line_property;
+			std::get<1>(regionStack.top()).push_back(tmpOperation);
 			regions.push_back(regionStack.top());
 			regionStack.pop();
+			continue;
 		}
 		std::get<1>(regionStack.top()).push_back(vs[i]);
 	}
@@ -157,7 +165,7 @@ void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fil
 	for (int i = 0; i < regions.size(); i++) {
 		CodeStream* pCodeStream = &codeStream;
 		if (i != 0) {
-			ofStream = new std::ofstream(fileFolder + std::get<0>(regions[i]) + ".seac");
+			ofStream = new std::ofstream(fileFolder + std::get<0>(regions[i]) + ".seac", std::ios::trunc | std::ios::binary);
 			pCodeStream = new CodeStream(*ofStream);
 		}
 

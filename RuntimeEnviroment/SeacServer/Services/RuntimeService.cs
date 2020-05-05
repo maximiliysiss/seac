@@ -35,10 +35,11 @@ namespace SeacServer.Services
 
         public ExecuteResult Execute(string name, string platform, string mode)
         {
-            var application = databaseContext.Applications.FirstOrDefault(x => x.Name == name && x.Platform == platform);
+            ExecuteMode executeMode = (ExecuteMode)Enum.Parse(typeof(ExecuteMode), mode, true);
+            var application = databaseContext.Applications.FirstOrDefault(x => x.Name == name && x.Platform == platform && x.ExecuteMode == executeMode);
             if (application == null)
                 return null;
-            switch ((ExecuteMode)Enum.Parse(typeof(ExecuteMode), mode, true))
+            switch (executeMode)
             {
                 case ExecuteMode.Single:
                 case ExecuteMode.Remote:
@@ -51,8 +52,9 @@ namespace SeacServer.Services
 
         public ExecuteResult Next(string name, string platform, string mode, string next)
         {
-            var application = databaseContext.Applications.FirstOrDefault(x => x.Name == name && x.Platform == platform);
-            if (application == null || application.ExecuteMode != ExecuteMode.FullRemote)
+            ExecuteMode executeMode = (ExecuteMode)Enum.Parse(typeof(ExecuteMode), mode, true);
+            var application = databaseContext.Applications.FirstOrDefault(x => x.Name == name && x.Platform == platform && x.ExecuteMode == executeMode);
+            if (application == null)
                 return null;
 
             var uri = Path.Combine(runtimeSettings.Repo, $"{application.Name}_{application.Platform}_{application.ExecuteMode.ToString().ToLower()}", $"{next}.seac");

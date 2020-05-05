@@ -42,6 +42,8 @@ namespace seac::runtime {
 		void ifujmp(reader::UniversalReader* reader);
 		void jump(reader::UniversalReader* reader);
 		void ref(reader::UniversalReader* reader);
+		void startRemoteRegion(reader::StringReader* reader);
+		void endRemoteRegion(reader::StringReader* reader);
 
 		inline void jump_to(ull index, bool isLined) {
 			this->line = index;

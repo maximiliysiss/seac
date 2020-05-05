@@ -171,6 +171,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reader.cpp" />
     <ClCompile Include="RemoteAssemblyRuntime.cpp" />
+    <ClCompile Include="RemotePartialContainer.cpp" />
     <ClCompile Include="runtime.cpp" />
     <ClCompile Include="RuntimeConfiguration.cpp" />
     <ClCompile Include="RuntimeEnviroment.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Reader.h" />
     <ClInclude Include="RemoteAssemblyRuntime.h" />
+    <ClInclude Include="RemotePartialContainer.h" />
     <ClInclude Include="runtime.h" />
     <ClInclude Include="RuntimeConfiguration.h" />
     <ClInclude Include="RuntimeEnviroment.h" />

@@ -1,5 +1,4 @@
 #include "RuntimeConfiguration.h"
-#include "External.cpp"
 
 namespace seac {
 

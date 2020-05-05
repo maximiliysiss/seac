@@ -44,6 +44,7 @@ namespace seac::reader {
 
 	UniversalReader::UniversalReader(std::istream& in) {
 
+		in.read((char*)&line_property, sizeof(ull));
 		in.read((char*)&code, sizeof(ull));
 		in.read((char*)&memory_operation, sizeof(ull));
 		in.read((char*)&memory_agrument, sizeof(ull));
@@ -67,6 +68,7 @@ namespace seac::reader {
 		operand_first = new std::string();
 		operand_second = new std::string();
 
+		in.read((char*)&line_property, sizeof(ull));
 		in.read((char*)&code, sizeof(ull));
 		in.read((char*)&memory_operation, sizeof(ull));
 		in.read((char*)&memory_agrument, sizeof(ull));

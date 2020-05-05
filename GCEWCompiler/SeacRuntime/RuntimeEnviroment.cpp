@@ -1,5 +1,6 @@
 #include "RuntimeEnviroment.h"
 #include "Logger.cpp"
+#include "External.cpp"
 
 
 namespace seac::runtime {
@@ -240,6 +241,10 @@ namespace seac::runtime {
 
 		case JitOperation::ref:
 			ref((reader::UniversalReader*)operation);
+			break;
+
+		case JitOperation::startrg:
+		case JitOperation::endrg:
 			break;
 
 		default:

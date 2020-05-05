@@ -27,6 +27,7 @@ namespace gcew::commons {
 
 		struct IStreamCodeData abstract : public IStreamData {
 			ull code;
+			ull line_property{ 0 };
 			IStreamCodeData(ull stream_code, ull code)
 				:IStreamData(stream_code), code(code) {}
 			virtual IStreamCodeData* cpy() = 0;
@@ -43,6 +44,7 @@ namespace gcew::commons {
 			}
 			virtual void write(std::ostream& out) {
 				out.write((char*)&stream_code, sizeof(ull));
+				out.write((char*)&line_property, sizeof(ull));
 				out.write((char*)&code, sizeof(ull));
 				out.write((char*)&memory_operation, sizeof(ull));
 				out.write((char*)&memory_agrument, sizeof(ull));
@@ -76,6 +78,7 @@ namespace gcew::commons {
 				ull f = operand_first.length(), s = operand_second.length();
 
 				out.write((char*)&stream_code, sizeof(ull));
+				out.write((char*)&line_property, sizeof(ull));
 				out.write((char*)&code, sizeof(ull));
 				out.write((char*)&memory_operation, sizeof(ull));
 				out.write((char*)&memory_agrument, sizeof(ull));
