@@ -28,12 +28,12 @@ namespace SeacClient.SeacRuntime
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ExecuteResult> ApiRuntimeAsync(string name, string platform, string mode);
+        System.Threading.Tasks.Task ApiRuntimeAsync(string name, string platform, string mode);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ExecuteResult> ApiRuntimeAsync(string name, string platform, string mode, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ApiRuntimeAsync(string name, string platform, string mode, System.Threading.CancellationToken cancellationToken);
     
     }
     
@@ -140,7 +140,7 @@ namespace SeacClient.SeacRuntime
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ExecuteResult> ApiRuntimeAsync(string name, string platform, string mode)
+        public System.Threading.Tasks.Task ApiRuntimeAsync(string name, string platform, string mode)
         {
             return ApiRuntimeAsync(name, platform, mode, System.Threading.CancellationToken.None);
         }
@@ -148,7 +148,7 @@ namespace SeacClient.SeacRuntime
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ExecuteResult> ApiRuntimeAsync(string name, string platform, string mode, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task ApiRuntimeAsync(string name, string platform, string mode, System.Threading.CancellationToken cancellationToken)
         {
             if (name == null)
                 throw new System.ArgumentNullException("name");
@@ -171,7 +171,6 @@ namespace SeacClient.SeacRuntime
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
     
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -193,8 +192,7 @@ namespace SeacClient.SeacRuntime
                         var status_ = ((int)response_.StatusCode).ToString();
                         if (status_ == "200") 
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ExecuteResult>(response_, headers_).ConfigureAwait(false);
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         if (status_ != "200" && status_ != "204")
@@ -202,8 +200,6 @@ namespace SeacClient.SeacRuntime
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
                             throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
-            
-                        return default(ExecuteResult);
                     }
                     finally
                     {
@@ -338,45 +334,6 @@ namespace SeacClient.SeacRuntime
     
         [Newtonsoft.Json.JsonProperty("executeMode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ExecuteMode ExecuteMode { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.11.0 (Newtonsoft.Json v12.0.0.2)")]
-    public partial class Stream 
-    {
-        [Newtonsoft.Json.JsonProperty("canRead", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanRead { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("canSeek", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanSeek { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("canTimeout", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanTimeout { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("canWrite", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanWrite { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("length", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public long Length { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("position", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public long Position { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("readTimeout", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int ReadTimeout { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("writeTimeout", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int WriteTimeout { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.11.0 (Newtonsoft.Json v12.0.0.2)")]
-    public partial class ExecuteResult 
-    {
-        [Newtonsoft.Json.JsonProperty("codeStream", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Stream CodeStream { get; set; }
     
     
     }

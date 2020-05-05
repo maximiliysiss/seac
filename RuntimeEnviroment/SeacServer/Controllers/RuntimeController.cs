@@ -21,7 +21,7 @@ namespace SeacServer.Controllers
         }
 
         [HttpGet("{name}/{platform}/{mode}")]
-        public ActionResult<ExecuteResult> Execute(string name, string platform, string mode)
+        public ActionResult Execute(string name, string platform, string mode)
         {
             var res = runtimeService.Execute(name, platform, mode);
             if (res == null)

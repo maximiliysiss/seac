@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeacClient.SeacRuntime;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace SeacClient.Pages
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new StorePage());
+            this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel(new SeacRuntimeClient("https://localhost:5001", new System.Net.Http.HttpClient()))));
         }
     }
 }

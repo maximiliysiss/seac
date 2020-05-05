@@ -1,17 +1,7 @@
-﻿using SeacClient.SeacRuntime;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MaterialDesignThemes.Wpf;
+using SeacClient.ViewModels;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SeacClient.Pages
 {
@@ -20,16 +10,17 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class StorePage : Page
     {
-        public StorePage()
+        private readonly StoreViewModel storeViewModel;
+
+        public StorePage(StoreViewModel storeViewModel)
         {
             InitializeComponent();
-            this.Loaded += async (s, e) => await StorePageLoaded();
+            this.DataContext = this.storeViewModel = storeViewModel;
+            this.Loaded += async (s, e) => await storeViewModel.Load();
         }
 
-        private async Task StorePageLoaded()
-        {
-            ISeacRuntimeClient seacRuntimeClient = new SeacRuntimeClient("https://localhost:5001", new System.Net.Http.HttpClient());
-            var tmps = await seacRuntimeClient.ApiApplicationAsync();
-        }
+        private async void Card_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => await ((ApplicationViewModel)((Card)sender).DataContext).OnClickAsync();
+
+        private async void CreateShortCut(object sender, System.Windows.RoutedEventArgs e) => await ((ApplicationViewModel)((MenuItem)sender).DataContext).CreateShortCut();
     }
 }

@@ -6,9 +6,44 @@
       xmlns:local="clr-namespace:SeacClient.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="StorePage">
 
     <Grid>
-        <Button></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Store">
+                <ItemsControl ItemsSource="{Binding StoreModels}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <md:Card Margin="10" Width="200px" Height="200px" Cursor="Hand" Foreground="{Binding Color}" MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock FontSize="12pt" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+                                    <TextBlock FontSize="10pt" FontStyle="Italic" Text="{Binding Platform}"></TextBlock>
+                                    <TextBlock FontSize="9pt" FontStyle="Italic" Text="{Binding Version}"></TextBlock>
+                                </StackPanel>
+                                <md:Card.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Create shortcat" Click="CreateShortCut"></MenuItem>
+                                    </ContextMenu>
+                                </md:Card.ContextMenu>
+                            </md:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </TabItem>
+            <TabItem Header="Library"></TabItem>
+        </TabControl>
+
     </Grid>
 </Page>

@@ -21,7 +21,7 @@ namespace SeacServer.Services
     }
 
 
-    public class RuntimeService: IRuntimeService
+    public class RuntimeService : IRuntimeService
     {
         private readonly DatabaseContext databaseContext;
         private readonly RuntimeSettings runtimeSettings;
@@ -40,7 +40,6 @@ namespace SeacServer.Services
             switch ((ExecuteMode)Enum.Parse(typeof(ExecuteMode), mode, true))
             {
                 case ExecuteMode.Single:
-                    throw new ExecuteException("Single not executed");
                 case ExecuteMode.Remote:
                     return RemoteExecute(application);
                 case ExecuteMode.FullRemote:
