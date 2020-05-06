@@ -7,43 +7,63 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Title="StorePage">
+      Background="#999999"
+      Title="StoreMainPage">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30px"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1">
-            <TabItem Header="Store">
-                <ItemsControl ItemsSource="{Binding StoreModels}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <md:Card Margin="10" Width="200px" Height="200px" Cursor="Hand" Foreground="{Binding Color}" MouseLeftButtonDown="Card_MouseLeftButtonDown">
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock FontSize="12pt" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
-                                    <TextBlock FontSize="10pt" FontStyle="Italic" Text="{Binding Platform}"></TextBlock>
-                                    <TextBlock FontSize="9pt" FontStyle="Italic" Text="{Binding Version}"></TextBlock>
-                                </StackPanel>
-                                <md:Card.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Create shortcat" Click="CreateShortCut"></MenuItem>
-                                    </ContextMenu>
-                                </md:Card.ContextMenu>
-                            </md:Card>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </TabItem>
-            <TabItem Header="Library"></TabItem>
-        </TabControl>
+        <StackPanel HorizontalAlignment="Right" Margin="5,5,10,0" Orientation="Horizontal">
+            <md:PackIcon Height="30" Width="30" Cursor="Hand" VerticalAlignment="Center" Margin="0,0,5,0" Kind="ReportProblem" Foreground="White">
+            </md:PackIcon>
+            <TextBlock HorizontalAlignment="Center" Cursor="Hand" FontSize="12pt" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" MouseLeftButtonDown="OpenUserSettings">
+                sdfsdfsdf
+            </TextBlock>
+        </StackPanel>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding MenuButtons}" Background="#646464" Padding="10,0,0,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Cursor="Hand" Foreground="White" Text="{Binding Text}" FontSize="14pt" FontWeight="Bold" Padding="10,6,10,0" MouseLeftButtonDown="MenuButtonClick">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#444444"></Setter>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="Background" Value="#444444"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Frame Grid.Row="2" Content="{Binding Source}"></Frame>
+
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.Row="3">
+            <md:PackIcon Kind="Information" Foreground="White" Height="30" Width="30"></md:PackIcon>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - standalone</TextBlock>
+
+            <md:PackIcon Kind="Information" Foreground="LightBlue" Height="30" Width="30"></md:PackIcon>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - remote</TextBlock>
+
+            <md:PackIcon Kind="Information" Foreground="LightGreen" Height="30" Width="30"></md:PackIcon>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - full remote</TextBlock>
+        </StackPanel>
 
     </Grid>
 </Page>

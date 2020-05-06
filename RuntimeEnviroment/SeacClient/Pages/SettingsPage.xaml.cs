@@ -1,5 +1,4 @@
-﻿using SeacClient.SeacRuntime;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -15,16 +14,13 @@ using System.Windows.Shapes;
 namespace SeacClient.Pages
 {
     /// <summary>
-    /// Interaction logic for AuthPage.xaml
+    /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class AuthPage : Page
+    public partial class SettingsPage : Page
     {
-        public AuthPage()
+        public SettingsPage()
         {
             InitializeComponent();
         }
-
-        private void LoginClick(object sender, RoutedEventArgs e) => this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel()));
-        private void RegisterClick(object sender, MouseButtonEventArgs e) => this.NavigationService.Navigate(new RegisterPage());
     }
 }

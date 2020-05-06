@@ -30,6 +30,9 @@ int main(int argn, char** argc) {
 	try {
 		auto factory = seac::runtime::IAssemblyRuntime::getAssemblyRuntime(execMode);
 		factory->execute(name, arguments);
+
+		std::cout << "Press enter to close runtime\n";
+		std::cin.get();
 	}
 	catch (std::exception ex) {
 		logger.logError(ex.what());

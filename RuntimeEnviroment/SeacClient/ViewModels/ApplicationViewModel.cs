@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using SeacClient.Connected_Services.ClientsExtensions;
-using System.Windows;
-using System.Diagnostics;
 using ShellLink;
 using System.IO;
+using SeacClient.Services;
+using SeacClient.ViewModels.Applications;
 
 namespace SeacClient.ViewModels
 {
@@ -22,10 +21,17 @@ namespace SeacClient.ViewModels
         protected readonly ApplicationModel applicationModel;
         protected readonly ISeacRuntimeClient seacRuntimeClient;
 
+        protected readonly INotificationService notificationService = App.InjectContainer.Resolve<INotificationService>();
+
         public ApplicationViewModel(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient)
         {
             this.applicationModel = applicationModel;
             this.seacRuntimeClient = seacRuntimeClient;
+
+            this.MenuContextButtons = new List<MenuContextViewModel>()
+            {
+                new MenuContextViewModel("Create shortcut", async ()=>await this.CreateShortCut())
+            };
         }
 
         public string Name => applicationModel.Name;
@@ -53,82 +59,10 @@ namespace SeacClient.ViewModels
             var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var lnk = Shortcut.CreateShortcut($"{App.RuntimeSettings.CLR}", cmd, Directory.GetParent(App.RuntimeSettings.CLR).ToString());
             lnk.WriteToFile($"{desktopDir}/{Name}.lnk");
-        }
-    }
 
-    public class SingleApplication : ApplicationViewModel
-    {
-        private readonly string directory;
-        private readonly string file;
-
-        public SingleApplication(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient) : base(applicationModel, seacRuntimeClient)
-        {
-            this.directory = $"{App.RuntimeSettings.Repo}{Name}_{Platform}_{ExecuteMode.ToString().ToLower()}";
-            this.file = $"{directory}\\{Name}.seac";
+            notificationService.NotifySuccess("Success create shortcut");
         }
 
-        public override async Task CreateShortCut() => CreateShortCut($"-n {Name} -m {(int)ExecuteMode} -p {Platform} -f \"{file}\"");
-
-        public override async Task OnClickAsync()
-        {
-            if (!File.Exists(file))
-            {
-                var dialogResult = MessageBox.Show("Download application?", "Download", MessageBoxButton.YesNo);
-                if (dialogResult != MessageBoxResult.Yes)
-                    return;
-                var res = await seacRuntimeClient.CallStream(seacRuntimeClient.ApiRuntimeAsync(Name, Platform, ExecuteMode.ToString().ToLower()));
-                Directory.CreateDirectory(directory);
-                File.Create(file).Close();
-                File.WriteAllBytes(file, res);
-            }
-
-            Process process = new Process
-            {
-                StartInfo = new ProcessStartInfo(App.RuntimeSettings.CLR, $"-n {Name} -m {(int)ExecuteMode} -p {Platform} -f \"{file}\"")
-                {
-                    WorkingDirectory = Directory.GetParent(App.RuntimeSettings.CLR).ToString()
-                }
-            };
-            process.Start();
-        }
-    }
-
-    public class RemoteApplication : ApplicationViewModel
-    {
-        public RemoteApplication(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient) : base(applicationModel, seacRuntimeClient)
-        {
-        }
-
-        public async override Task OnClickAsync()
-        {
-            Process process = new Process
-            {
-                StartInfo = new ProcessStartInfo(App.RuntimeSettings.CLR, $"-n {Name} -m {(int)ExecuteMode} -p {Platform}")
-                {
-                    WorkingDirectory = Directory.GetParent(App.RuntimeSettings.CLR).ToString()
-                }
-            };
-            process.Start();
-        }
-    }
-
-
-    public class FullRemoteApplication : ApplicationViewModel
-    {
-        public FullRemoteApplication(ApplicationModel applicationModel, ISeacRuntimeClient seacRuntimeClient) : base(applicationModel, seacRuntimeClient)
-        {
-        }
-
-        public override async Task OnClickAsync()
-        {
-            Process process = new Process
-            {
-                StartInfo = new ProcessStartInfo(App.RuntimeSettings.CLR, $"-n {Name} -m {(int)ExecuteMode} -p {Platform}")
-                {
-                    WorkingDirectory = Directory.GetParent(App.RuntimeSettings.CLR).ToString()
-                }
-            };
-            process.Start();
-        }
+        public virtual List<MenuContextViewModel> MenuContextButtons { get; protected set; }
     }
 }

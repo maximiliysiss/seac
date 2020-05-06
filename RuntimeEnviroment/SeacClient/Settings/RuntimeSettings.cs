@@ -9,6 +9,7 @@ namespace SeacClient.Settings
     {
         public string Repo { get; set; }
         public string CLR { get; set; }
+        public string ServerURL { get; set; }
 
         public void PreStartAction()
         {

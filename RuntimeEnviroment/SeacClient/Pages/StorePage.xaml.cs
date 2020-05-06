@@ -10,17 +10,17 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class StorePage : Page
     {
-        private readonly StoreViewModel storeViewModel;
+        private readonly StoreViewModel storageViewModel;
 
         public StorePage(StoreViewModel storeViewModel)
         {
             InitializeComponent();
-            this.DataContext = this.storeViewModel = storeViewModel;
+            this.DataContext = this.storageViewModel = storeViewModel;
             this.Loaded += async (s, e) => await storeViewModel.Load();
         }
 
-        private async void Card_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => await ((ApplicationViewModel)((Card)sender).DataContext).OnClickAsync();
+        private void MenuButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => ((IButtonViewModel)((TextBlock)sender).DataContext).OnClick();
 
-        private async void CreateShortCut(object sender, System.Windows.RoutedEventArgs e) => await ((ApplicationViewModel)((MenuItem)sender).DataContext).CreateShortCut();
+        private void OpenUserSettings(object sender, System.Windows.Input.MouseButtonEventArgs e) => storageViewModel.NavigateTo("usersettings");
     }
 }

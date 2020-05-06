@@ -187,6 +187,9 @@ void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fil
 void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
 	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
+	for (auto& arg : arguments) {
+		log.logInformation(arg.first + " " + arg.second);
+	}
 
 	try {
 		gcew::commons::CompileConfiguration::path = parentPath.string() + "\\configuration.xml";
