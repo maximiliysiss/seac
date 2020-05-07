@@ -14,9 +14,9 @@ namespace SeacClient.ViewModels
     {
         private readonly Dictionary<SeacRuntime.ExecuteMode, Brush> executeColor = new Dictionary<SeacRuntime.ExecuteMode, Brush>
         {
-            { SeacRuntime.ExecuteMode._0, Brushes.Black },
-            { SeacRuntime.ExecuteMode._1, Brushes.Blue },
-            { SeacRuntime.ExecuteMode._2, Brushes.Green },
+            { SeacRuntime.ExecuteMode._0, Brushes.White },
+            { SeacRuntime.ExecuteMode._1, Brushes.LightBlue },
+            { SeacRuntime.ExecuteMode._2, Brushes.LightGreen },
         };
         protected readonly ApplicationModel applicationModel;
         protected readonly ISeacRuntimeClient seacRuntimeClient;

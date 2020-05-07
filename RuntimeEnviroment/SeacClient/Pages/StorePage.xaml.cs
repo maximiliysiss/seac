@@ -22,5 +22,7 @@ namespace SeacClient.Pages
         private void MenuButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => ((IButtonViewModel)((TextBlock)sender).DataContext).OnClick();
 
         private void OpenUserSettings(object sender, System.Windows.Input.MouseButtonEventArgs e) => storageViewModel.NavigateTo("usersettings");
+
+        private void OpenReport(object sender, System.Windows.Input.MouseButtonEventArgs e) => storageViewModel.NavigateTo("report");
     }
 }

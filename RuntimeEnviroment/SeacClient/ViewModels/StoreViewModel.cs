@@ -1,13 +1,10 @@
 ﻿using SeacClient.Pages;
 using SeacClient.SeacRuntime;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace SeacClient.ViewModels
 {
@@ -49,6 +46,9 @@ namespace SeacClient.ViewModels
                     break;
                 case "usersettings":
                     Source = new UserSettingsPage();
+                    break;
+                case "report":
+                    Source = new ReportPage();
                     break;
             }
 
