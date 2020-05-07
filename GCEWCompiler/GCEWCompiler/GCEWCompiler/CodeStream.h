@@ -17,12 +17,13 @@ namespace gcew::commons {
 
 		struct IStreamData abstract {
 		protected:
-			ull stream_code;
 			bool isHeader{ false };
 		public:
+			ull stream_code;
 			bool is_header() { return isHeader; }
 			IStreamData(ull code) :stream_code(code) {}
 			virtual void write(std::ostream& out) = 0;
+			virtual void read(std::istream& in) = 0;
 		};
 
 		struct IStreamCodeData abstract : public IStreamData {
@@ -41,6 +42,8 @@ namespace gcew::commons {
 				ull memory_operation = 0, ull memory_agrument = 0)
 				: IStreamCodeData(1, code), operand_first(operand_first), operand_second(operand_second), operand_first_length(operand_first_length), operand_second_length(operand_second_length),
 				memory_operation(memory_operation), memory_agrument(memory_agrument) {
+			}
+			StreamData() : IStreamCodeData(0, 0) {
 			}
 			virtual void write(std::ostream& out) {
 				out.write((char*)&stream_code, sizeof(ull));
@@ -64,6 +67,9 @@ namespace gcew::commons {
 
 			// Inherited via IStreamData
 			virtual IStreamCodeData* cpy() override;
+
+			// Inherited via IStreamCodeData
+			virtual void read(std::istream& in) override;
 		};
 
 		struct StringStreamData : public IStreamCodeData {
@@ -72,6 +78,9 @@ namespace gcew::commons {
 
 			StringStreamData(ull code, std::string operand_first = std::string(), std::string operand_second = std::string(), ull memory_operation = 0, ull memory_agrument = 0)
 				:IStreamCodeData(2, code), memory_operation(memory_operation), memory_agrument(memory_agrument), operand_first(operand_first), operand_second(operand_second) {
+			}
+			StringStreamData()
+				:IStreamCodeData(0, 0) {
 			}
 			virtual void write(std::ostream& out) override {
 
@@ -90,12 +99,18 @@ namespace gcew::commons {
 
 			// Inherited via IStreamData
 			virtual IStreamCodeData* cpy() override;
+
+			// Inherited via IStreamCodeData
+			virtual void read(std::istream& in) override;
 		};
 
 		struct HeaderStreamData : public IStreamData {
 			std::string os, type;
 			HeaderStreamData(std::string os, std::string type)
 				: IStreamData(0), os(os), type(type) {
+				isHeader = true;
+			}
+			HeaderStreamData() : IStreamData(0) {
 				isHeader = true;
 			}
 			virtual void write(std::ostream& out) override {
@@ -109,18 +124,25 @@ namespace gcew::commons {
 				out.write((char*)&t_l, sizeof(ull));
 				out.write(type.c_str(), t_l);
 			}
+
+			// Inherited via IStreamData
+			virtual void read(std::istream& in) override;
 		};
 	protected:
 		ull line{ 0 };
 	public:
-		std::ostream& outStream;
+		std::ostream* outStream;
+		std::istream* inStream;
 
 		inline ull getLine() { return line; }
 
 		CodeStream(std::ostream& outStream);
+		CodeStream(std::istream& inStream);
 		virtual CodeStream& operator<<(IStreamData&& data);
 		virtual CodeStream& operator<<(IStreamData& data);
 		virtual CodeStream& operator<<(VirtualCodeStream& codeStream);
+		virtual CodeStream& operator>>(IStreamData& data);
+		virtual CodeStream& operator>>(IStreamData** data);
 		virtual ~CodeStream();
 	};
 

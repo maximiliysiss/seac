@@ -280,13 +280,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\x64\Release\configuration.xml">
-      <Filter>Source Files</Filter>
+    <Xml Include="configuration.xml">
+      <Filter>Resource Files</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

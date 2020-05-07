@@ -184,6 +184,35 @@ void generatePartialCode(Tree* rootTree, CodeStream& codeStream, std::string fil
 
 }
 
+void generateLibrary(Tree* rootTree, CodeStream& codeStream) {
+
+	VirtualCodeStream vs(codeStream);
+	vs << StreamData((ull)JitOperation::libstart);
+	for (auto& firstLevelTree : rootTree->getChildren()) {
+		FunctionTree* funcTree = dynamic_cast<FunctionTree*>(firstLevelTree);
+		if (funcTree)
+			vs << StringStreamData((ull)JitOperation::libinfo, funcTree->getFMName());
+	}
+	auto libEnd = vs.getLine();
+	vs << StreamData((ull)JitOperation::libend);
+
+	rootTree->createCode(vs);
+
+	for (auto& line : vs.ops()) {
+		line.second->line_property = line.first;
+	}
+
+	for (int i = 1; vs[i]->code != (ull)JitOperation::libend; i++) {
+		for (int j = libEnd; j < vs.size(); j++) {
+			if (vs[j]->code == (ull)JitOperation::proc && ((StringStreamData*)vs[j])->operand_first == ((StringStreamData*)vs[i])->operand_first) {
+				((StreamData*)vs[i])->memory_operation = vs[j]->line_property;
+			}
+		}
+	}
+
+	codeStream << vs;
+}
+
 void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
 	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
@@ -196,6 +225,7 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
 		auto& conf = gcew::commons::CompileConfiguration::instance();
 		conf.set_isPartial(arguments["--type"] == "remote");
+		conf.set_isLibrary(arguments["--type"] == "library");
 
 		std::string fileExecute = arguments["cmd"];
 		path p = absolute(path(fileExecute));
@@ -222,7 +252,11 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
 		CodeStream codeStream(outFileCode);
 		codeStream << CodeStream::HeaderStreamData(arguments["--os"], arguments["--type"]);
-		if (!conf.get_isPartial()) {
+
+		if (conf.get_isLibrary()) {
+			generateLibrary(rootTree, codeStream);
+		}
+		else if (!conf.get_isPartial()) {
 			rootTree->createCode(codeStream);
 		}
 		else {

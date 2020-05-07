@@ -30,7 +30,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <md:Card Margin="10" Width="200px" Background="#696969" Height="200px" Cursor="Hand" Foreground="{Binding Color}" MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                    <md:Card Margin="10" Width="200px" Background="#999999" Height="200px" Cursor="Hand" Foreground="{Binding Color}" MouseLeftButtonDown="Card_MouseLeftButtonDown">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock FontSize="16pt" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
                             <TextBlock FontSize="12pt" FontStyle="Italic" Text="{Binding Platform}"></TextBlock>

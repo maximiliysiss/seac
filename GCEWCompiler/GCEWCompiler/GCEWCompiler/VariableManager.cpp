@@ -1,4 +1,6 @@
 #include "VariableManager.h"
+#include "CompileConfiguration.h"
+#include "CodeStream.h"
 
 namespace gcew::commons {
 
@@ -59,6 +61,50 @@ namespace gcew::commons {
 			throw std::exception("not found function");
 		}
 		return contextInfo[name];
+	}
+
+	IncludeManager* IncludeManager::im = nullptr;
+
+	IncludeManager& IncludeManager::manager() {
+		if (im)
+			return *im;
+		return *(im = new IncludeManager());
+	}
+
+	void IncludeManager::registerLibs(std::string name) {
+		auto splits = splitter(name, '.');
+		std::string resultFileName = CompileConfiguration::instance().getLibsPath();
+		for (int i = 0; i < splits.size() - 1; i++) {
+			resultFileName += '\\' + splits[i];
+		}
+		resultFileName += '\\' + splits[splits.size() - 1] + ".seac";
+		std::ifstream lib(name);
+		if (!lib.is_open())
+			throw commons::compiler_exception("lib not found");
+
+		CodeStream codeStream(lib);
+
+		CodeStream::IStreamData* data = nullptr;
+		CodeStream::IStreamCodeData* streamCode = nullptr;
+
+		std::vector<std::string> functions;
+
+		do {
+			codeStream >> &data;
+			CodeStream::IStreamCodeData* streamCode = dynamic_cast<CodeStream::IStreamCodeData*>(data);
+
+			if (streamCode && streamCode->stream_code == 2) {
+
+			}
+
+			delete data;
+		} while (!streamCode || streamCode->code != (ull)JitOperation::libend);
+
+
+	}
+
+	bool IncludeManager::haveFunction(std::string name) {
+		return false;
 	}
 
 }

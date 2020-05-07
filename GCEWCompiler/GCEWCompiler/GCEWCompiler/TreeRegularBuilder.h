@@ -25,8 +25,6 @@ namespace gcew::regulars
 
 		static RegexResult isInclude(std::string input, bool);
 
-		static RegexResult isPureAsm(std::string input, bool);
-
 		static RegexResult isType(std::string input, bool);
 
 		static RegexResult isFunction(std::string input, bool);

@@ -19,7 +19,6 @@ namespace gcew::regulars
 		TreeRegularBuilder::isIf,
 		TreeRegularBuilder::isInclude,
 		TreeRegularBuilder::isOpenFigure,
-		TreeRegularBuilder::isPureAsm,
 		TreeRegularBuilder::isReturn,
 		TreeRegularBuilder::isType,
 		TreeRegularBuilder::isWhile,
@@ -56,12 +55,7 @@ namespace gcew::regulars
 
 	RegexResult TreeRegularBuilder::isInclude(std::string input, bool type)
 	{
-		return regex_matcher("^using [a-zA-Z]+([a-zA-Z0-9])*(.gcew)*;$", input, type) ? RegexResult::Include : RegexResult::NotClassic;
-	}
-
-	RegexResult TreeRegularBuilder::isPureAsm(std::string input, bool type)
-	{
-		return regex_matcher("^pureasm$", input, type) ? RegexResult::PureAsm : RegexResult::NotClassic;
+		return regex_matcher("^using [a-zA-Z]+.*;$", input, type) ? RegexResult::Include : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isType(std::string input, bool type)

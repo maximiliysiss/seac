@@ -19,6 +19,7 @@ namespace gcew::commons
 		std::string pathForCompile;
 		std::string libsPath;
 		auto_property(bool, isPartial);
+		auto_property(bool, isLibrary);
 	public:
 		static std::string path;
 		static std::string workPath;

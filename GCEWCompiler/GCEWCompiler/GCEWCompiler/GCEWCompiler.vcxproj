@@ -215,7 +215,7 @@
     <ClCompile Include="WhileTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\x64\Release\configuration.xml" />
+    <Xml Include="configuration.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat" />

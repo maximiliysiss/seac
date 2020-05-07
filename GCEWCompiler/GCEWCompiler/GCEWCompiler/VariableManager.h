@@ -2,6 +2,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <fstream>
+#include "Instruments.h"
 #define ull unsigned long long
 
 
@@ -42,7 +44,18 @@ namespace gcew::commons {
 		int getFunction(std::string name);
 	};
 
+	class IncludeManager {
+	private:
+		std::map<std::string, std::vector<std::string>> libs;
+		static IncludeManager* im;
+	public:
+		static IncludeManager& manager();
+		void registerLibs(std::string name);
+		bool haveFunction(std::string name);
+	};
+
 }
 
 #define VM gcew::commons::VariableManager::manager()
 #define FM gcew::commons::FunctionManager::manager()
+#define IM gcew::commons::IncludeManager::manager()
