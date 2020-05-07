@@ -44,10 +44,10 @@ void gcew::trees::elements::operations::CallOperation::toCode(gcew::commons::Cod
 	for (auto arg : arguments) {
 		arg->toCode(code);
 	}
-	if (nodeType == RegexResult::Call) {
+	if (nodeType == RegexResult::Call && FM.isGetFunction(function->getFMName())) {
 		ull tmpId = FM.getFunction(function->getFMName());
 		code << StringStreamData((ull)Operations::Call, this->name, std::string(), this->arguments.size(), tmpId);
 	}
 	else
-		code << StringStreamData((ull)Operations::ExtCall, this->name, std::string(), this->arguments.size());
+		code << StringStreamData((ull)Operations::ExtCall, this->name, std::string(), this->arguments.size(), (ull)(nodeType == RegexResult::Call));
 }

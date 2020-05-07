@@ -54,6 +54,8 @@ namespace gcew::commons {
 			break;
 		}
 
+		(*data)->stream_code = stream_code;
+
 		(*this) >> **data;
 		return (*this);
 	}
@@ -158,6 +160,15 @@ namespace gcew::commons {
 	}
 
 	void CodeStream::HeaderStreamData::read(std::istream& in) {
+		ull o_l = os.length();
+		ull t_l = type.length();
+
+		in.read((char*)&o_l, sizeof(ull));
+		os.resize(o_l);
+		in.read(os.data(), o_l);
+		in.read((char*)&t_l, sizeof(ull));
+		type.resize(t_l);
+		in.read(type.data(), t_l);
 	}
 
 }

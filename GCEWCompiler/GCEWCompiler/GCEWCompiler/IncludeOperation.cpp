@@ -12,14 +12,6 @@ namespace gcew::trees::elements::operations
 			isLocal = true;
 			fileName = CompileConfiguration::instance().workPath + fileName;
 		}
-		else {
-			parts = splitter(fileName, '.');
-			fileName = CompileConfiguration::instance().getLibsPath();
-			for (auto& p : parts) {
-				fileName += '\\' + p;
-			}
-			IM.registerLibs(fileName);
-		}
 	}
 
 

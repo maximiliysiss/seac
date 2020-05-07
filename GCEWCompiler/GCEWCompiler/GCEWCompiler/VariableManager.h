@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "Instruments.h"
 #define ull unsigned long long
 
 
@@ -42,6 +41,7 @@ namespace gcew::commons {
 		static FunctionManager& manager();
 		void registerTree(std::string name);
 		int getFunction(std::string name);
+		bool isGetFunction(std::string name);
 	};
 
 	class IncludeManager {
@@ -51,7 +51,7 @@ namespace gcew::commons {
 	public:
 		static IncludeManager& manager();
 		void registerLibs(std::string name);
-		bool haveFunction(std::string name);
+		void* getFunction(std::string name);
 	};
 
 }

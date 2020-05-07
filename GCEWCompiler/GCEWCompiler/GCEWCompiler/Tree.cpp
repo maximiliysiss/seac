@@ -95,7 +95,7 @@ namespace gcew::trees::structural
 		}
 		if (parent)
 			return parent->findFunctionTree(name);
-		return nullptr;
+		return (FunctionTree*)IM.getFunction(name);
 	}
 
 	void Tree::optimize()

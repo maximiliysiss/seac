@@ -66,6 +66,7 @@ gcew::trees::structural::FunctionTree::FunctionTree(int index, std::string line,
 	std::for_each(parts.begin(), parts.end(), [](std::string str) {str = gcew::commons::trim(str); });
 	std::transform(parts.begin(), parts.end(), std::back_inserter(arguments), [&root](std::string arg) {return new gcew::trees::elements::Variable(0, arg, root); });
 	isMainFunction = this->functionName == "main";
-	FM.registerTree(getFMName());
+	if (root)
+		FM.registerTree(getFMName());
 }
 

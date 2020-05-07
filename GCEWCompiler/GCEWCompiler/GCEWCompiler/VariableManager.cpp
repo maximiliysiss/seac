@@ -1,6 +1,7 @@
 #include "VariableManager.h"
 #include "CompileConfiguration.h"
 #include "CodeStream.h"
+#include "FunctionTree.h"
 
 namespace gcew::commons {
 
@@ -63,6 +64,10 @@ namespace gcew::commons {
 		return contextInfo[name];
 	}
 
+	bool FunctionManager::isGetFunction(std::string name){
+		return contextInfo.find(name) != contextInfo.end();
+	}
+
 	IncludeManager* IncludeManager::im = nullptr;
 
 	IncludeManager& IncludeManager::manager() {
@@ -78,7 +83,7 @@ namespace gcew::commons {
 			resultFileName += '\\' + splits[i];
 		}
 		resultFileName += '\\' + splits[splits.size() - 1] + ".seac";
-		std::ifstream lib(name);
+		std::ifstream lib(resultFileName);
 		if (!lib.is_open())
 			throw commons::compiler_exception("lib not found");
 
@@ -90,21 +95,47 @@ namespace gcew::commons {
 		std::vector<std::string> functions;
 
 		do {
+			if (data)
+				delete data;
 			codeStream >> &data;
-			CodeStream::IStreamCodeData* streamCode = dynamic_cast<CodeStream::IStreamCodeData*>(data);
+			streamCode = dynamic_cast<CodeStream::IStreamCodeData*>(data);
 
-			if (streamCode && streamCode->stream_code == 2) {
-
+			if (streamCode && streamCode->stream_code == 2 && streamCode->code == (ull)JitOperation::libinfo) {
+				functions.push_back(((StringStreamData*)streamCode)->operand_first);
 			}
-
-			delete data;
 		} while (!streamCode || streamCode->code != (ull)JitOperation::libend);
 
+		this->libs[name] = functions;
 
+		lib.close();
 	}
 
-	bool IncludeManager::haveFunction(std::string name) {
-		return false;
+	void* IncludeManager::getFunction(std::string name) {
+
+		for (auto& l : libs) {
+			std::string res;
+
+			for (auto& p : l.second) {
+				if (p.find(name) != std::string::npos) {
+					res = p;
+					break;
+				}
+			}
+
+			if (res.length() > 0) {
+				std::string funcVirtualCall = "void ";
+				auto splt = splitter(res, '_');
+				funcVirtualCall += splt[0] + "( ";
+				for (int i = 1; i < splt.size(); i++) {
+					funcVirtualCall += splt[i] + " a,";
+				}
+				funcVirtualCall.erase(funcVirtualCall.end() - 1);
+				funcVirtualCall += ')';
+				return new trees::structural::FunctionTree(0, funcVirtualCall, commons::RegexResult::Function, nullptr);
+			}
+		}
+
+		return nullptr;
 	}
 
 }
