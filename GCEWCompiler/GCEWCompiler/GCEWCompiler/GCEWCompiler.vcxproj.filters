@@ -153,9 +153,6 @@
     <ClInclude Include="CommonLogger.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
-    <ClInclude Include="RuntimeConfiguration.h">
-      <Filter>Header Files\commons</Filter>
-    </ClInclude>
     <ClInclude Include="CodeStream.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
@@ -261,9 +258,6 @@
       <Filter>Source Files\trees\structural</Filter>
     </ClCompile>
     <ClCompile Include="CommonLogger.cpp">
-      <Filter>Source Files\commons</Filter>
-    </ClCompile>
-    <ClCompile Include="RuntimeConfiguration.cpp">
       <Filter>Source Files\commons</Filter>
     </ClCompile>
     <ClCompile Include="CodeStream.cpp">
