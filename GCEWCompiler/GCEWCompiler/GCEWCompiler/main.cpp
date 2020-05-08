@@ -295,6 +295,8 @@ int main(int argc, char** argv)
 
 	if (arguments["cmd"] == "help") {
 		std::cout << help << std::endl;
+		std::cout << "Press Enter to Continue";
+		std::cin.ignore();
 		return EXIT_SUCCESS;
 	}
 

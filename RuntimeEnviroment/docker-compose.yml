@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  applicationapi:
+    image: ${DOCKER_REGISTRY-}applicationapi
+    build:
+      context: .
+      dockerfile: ApplicationAPI/Dockerfile
+
+  authapi:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: AuthAPI/Dockerfile
+
+
+  seacserver:
+    image: ${DOCKER_REGISTRY-}seacserver
+    build:
+      context: .
+      dockerfile: SeacServer/Dockerfile
+

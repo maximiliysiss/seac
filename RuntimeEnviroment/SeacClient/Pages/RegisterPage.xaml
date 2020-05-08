@@ -8,24 +8,29 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Background="#afafaf"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:wpfanimated="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
       Title="RegisterPage">
 
-    <Grid Height="270" Width="600" Background="#646464">
-        <md:Card>
-            <Grid Margin="20,5,20,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14pt">REGISTER</TextBlock>
-                <TextBox Grid.Row="1" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="EMAIL"></TextBox>
-                <PasswordBox Grid.Row="2" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="PASSWORD"></PasswordBox>
-                <PasswordBox Grid.Row="3" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="CONFIRMED PASSWORD"></PasswordBox>
-                <Button Height="40" FontSize="12pt" Grid.Row="4" Click="RegisterClick">Register</Button>
-            </Grid>
-        </md:Card>
+    <Grid>
+        <Grid Height="270" Width="600" Background="#646464">
+            <md:Card Background="#36393f">
+                <Grid Margin="20,5,20,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="White" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14pt">REGISTER</TextBlock>
+                    <TextBox Foreground="White" Grid.Row="1" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="EMAIL"></TextBox>
+                    <PasswordBox Foreground="White" Grid.Row="2" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="PASSWORD"></PasswordBox>
+                    <PasswordBox Foreground="White" Grid.Row="3" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="CONFIRMED PASSWORD"></PasswordBox>
+                    <Button Height="40" FontSize="12pt" Grid.Row="4" Click="RegisterClick">Register</Button>
+                </Grid>
+            </md:Card>
+        </Grid>
+
+        <Image wpfanimated:AnimationBehavior.SourceUri="/Resources/Background.gif" Stretch="Fill" Panel.ZIndex="-1" />
     </Grid>
 </Page>
