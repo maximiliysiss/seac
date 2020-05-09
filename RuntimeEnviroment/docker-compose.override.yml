@@ -3,21 +3,29 @@ version: '3.4'
 services:
   applicationapi:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
+      - Kestrel__Certificates__Default__Password=ro
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
   authapi:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
+      - Kestrel__Certificates__Default__Password=ro
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
   seacserver:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
+      - Kestrel__Certificates__Default__Password=ro
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
