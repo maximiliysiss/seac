@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["ApplicationAPI/ApplicationAPI.csproj", "ApplicationAPI/"]
 COPY ["CommonCoreLibrary/CommonCoreLibrary.csproj", "CommonCoreLibrary/"]
-RUN dotnet restore "./ApplicationAPI/ApplicationAPI.csproj"
+RUN dotnet restore "ApplicationAPI/ApplicationAPI.csproj"
 COPY . .
 WORKDIR "/src/ApplicationAPI"
 RUN dotnet build "ApplicationAPI.csproj" -c Release -o /app/build

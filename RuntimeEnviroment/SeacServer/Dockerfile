@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["SeacServer/SeacServer.csproj", "SeacServer/"]
 COPY ["CommonCoreLibrary/CommonCoreLibrary.csproj", "CommonCoreLibrary/"]
-RUN dotnet restore "./SeacServer/SeacServer.csproj"
+RUN dotnet restore "SeacServer/SeacServer.csproj"
 COPY . .
 WORKDIR "/src/SeacServer"
 RUN dotnet build "SeacServer.csproj" -c Release -o /app/build
