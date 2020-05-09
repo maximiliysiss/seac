@@ -47,11 +47,12 @@ namespace SeacServer
 
             app.RegisterWithConsul(hostApplicationLifetime);
 
-            app.UseSwaggerWithUI(Configuration["ApiInfo:Name"], Configuration["ApiInfo:Version"]);
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwaggerWithUI(Configuration["ApiInfo:Name"], Configuration["ApiInfo:Version"]);
+            app.UsePrometheusMetric();
 
             app.UseAuthorization();
             app.UseAuthentication();

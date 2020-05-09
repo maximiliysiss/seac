@@ -4,14 +4,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
-namespace ApplicationAPI
+namespace OcelotAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder().AddConfiguration(configuration);
+            builder.AddJsonFile($"ocelot{(env.IsDevelopment() ? ".Development" : "")}.json");
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -20,14 +24,12 @@ namespace ApplicationAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddJwtAuth(Configuration);
             services.AddConsul(Configuration);
-            services.AddSwagger(Configuration["ApiInfo:Name"], Configuration["ApiInfo:Version"]);
+            services.AddOcelot(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime hostApplicationLifetime)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime hostApplicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -40,15 +42,14 @@ namespace ApplicationAPI
 
             app.UseRouting();
 
-            app.UseSwaggerWithUI(Configuration["ApiInfo:Name"], Configuration["ApiInfo:Version"]);
-            app.UsePrometheusMetric();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            await app.UseOcelot();
         }
     }
 }
