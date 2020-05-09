@@ -1,12 +1,9 @@
 ﻿using SeacServer.Data;
-using SeacServer.Exceptions;
 using SeacServer.Models;
 using SeacServer.Settings;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SeacServer.Services
 {
@@ -24,10 +21,10 @@ namespace SeacServer.Services
 
     public class RuntimeService : IRuntimeService
     {
-        private readonly DatabaseContext databaseContext;
+        private readonly IDatabaseContext databaseContext;
         private readonly RuntimeSettings runtimeSettings;
 
-        public RuntimeService(DatabaseContext databaseContext, RuntimeSettings runtimeSettings)
+        public RuntimeService(IDatabaseContext databaseContext, RuntimeSettings runtimeSettings)
         {
             this.databaseContext = databaseContext;
             this.runtimeSettings = runtimeSettings;

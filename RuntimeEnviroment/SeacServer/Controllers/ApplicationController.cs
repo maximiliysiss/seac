@@ -11,10 +11,10 @@ namespace SeacServer.Controllers
     [ApiController]
     public class ApplicationController : ControllerBase
     {
-        private readonly DatabaseContext databaseContext;
+        private readonly IDatabaseContext databaseContext;
         private readonly IMapperService mapperService;
 
-        public ApplicationController(DatabaseContext databaseContext, IMapperService mapperService)
+        public ApplicationController(IDatabaseContext databaseContext, IMapperService mapperService)
         {
             this.databaseContext = databaseContext;
             this.mapperService = mapperService;
