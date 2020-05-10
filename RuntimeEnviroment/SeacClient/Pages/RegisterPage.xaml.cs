@@ -9,11 +9,15 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class RegisterPage : Page
     {
-        public RegisterPage()
+        private readonly MainPage mainPage;
+
+        public RegisterPage(MainPage mainPage)
         {
+            this.mainPage = mainPage;
             InitializeComponent();
         }
 
-        private void RegisterClick(object sender, RoutedEventArgs e) => this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel()));
+        private void RegisterClick(object sender, RoutedEventArgs e) => this.mainPage.Navigate(new StorePage(mainPage, new ViewModels.StoreViewModel()));
+        private void ReturnToAuth(object sender, System.Windows.Input.MouseButtonEventArgs e) => mainPage.Navigate(new AuthPage(mainPage));
     }
 }

@@ -4,6 +4,7 @@ using SeacClient.SeacRuntime;
 using SeacClient.Services;
 using SeacClient.Settings;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace SeacClient
@@ -34,10 +35,15 @@ namespace SeacClient
             navigationWindow = new NavigationWindow
             {
                 ShowsNavigationUI = false,
-                WindowState = WindowState.Maximized
+                ResizeMode = ResizeMode.NoResize,
+                WindowState = WindowState.Normal,
+                WindowStyle = WindowStyle.None
             };
             navigationWindow.Title = "Seac Runtime";
-            navigationWindow.Navigate(new AuthPage());
+            var viewModel = new ViewModels.MaiPageViewModel();
+            MainPage mainPage = new MainPage(viewModel);
+            viewModel.Source = new AuthPage(mainPage);
+            navigationWindow.Navigate(mainPage);
             navigationWindow.Show();
         }
     }

@@ -1,0 +1,36 @@
+﻿<Page x:Class="SeacClient.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SeacClient.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      ShowsNavigationUI="False"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DockPanel Background="{Binding Color}">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Width="33px" Padding="0" Click="OnMinimize">
+                    <md:PackIcon Height="10" Kind="WindowMinimize"></md:PackIcon>
+                </Button>
+                <Button Width="33px" Padding="0" Click="OnMaximize">
+                    <md:PackIcon Height="10" Kind="WindowMaximize"></md:PackIcon>
+                </Button>
+                <Button Width="33px" Padding="0" Click="OnClose">
+                    <md:PackIcon Height="10" Kind="Close"></md:PackIcon>
+                </Button>
+            </StackPanel>
+            <Grid Background="{Binding Color}" PreviewMouseLeftButtonDown="HeaderMouseDown" DockPanel.Dock="Left"></Grid>
+        </DockPanel>
+
+        <Frame Content="{Binding Source}" Grid.Row="1"></Frame>
+    </Grid>
+</Page>

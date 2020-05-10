@@ -1,16 +1,6 @@
-﻿using SeacClient.SeacRuntime;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SeacClient.Pages
 {
@@ -19,12 +9,15 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class AuthPage : Page
     {
-        public AuthPage()
+        private readonly MainPage mainPage;
+
+        public AuthPage(MainPage mainPage)
         {
+            this.mainPage = mainPage;
             InitializeComponent();
         }
 
-        private void LoginClick(object sender, RoutedEventArgs e) => this.NavigationService.Navigate(new StorePage(new ViewModels.StoreViewModel()));
-        private void RegisterClick(object sender, MouseButtonEventArgs e) => this.NavigationService.Navigate(new RegisterPage());
+        private void LoginClick(object sender, RoutedEventArgs e) => this.mainPage.Navigate(new StorePage(mainPage, new ViewModels.StoreViewModel()));
+        private void RegisterClick(object sender, MouseButtonEventArgs e) => this.mainPage.Navigate(new RegisterPage(mainPage));
     }
 }

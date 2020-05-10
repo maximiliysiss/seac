@@ -11,9 +11,11 @@ namespace SeacClient.Pages
     public partial class StorePage : Page
     {
         private readonly StoreViewModel storageViewModel;
+        private readonly MainPage mainPage;
 
-        public StorePage(StoreViewModel storeViewModel)
+        public StorePage(MainPage mainPage, StoreViewModel storeViewModel)
         {
+            this.mainPage = mainPage;
             InitializeComponent();
             this.DataContext = this.storageViewModel = storeViewModel;
             this.Loaded += async (s, e) => await storeViewModel.Load();

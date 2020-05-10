@@ -4,10 +4,6 @@ networks:
   seac-network:
     driver: bridge
 
-volumes:
-  prometheus_data: {}
-  grafana_data: {}
-
 services:
 
   consul:
@@ -90,27 +86,19 @@ services:
     volumes:
         - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
-        - '-config.file=/etc/prometheus/prometheus.yml'
+        - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
         - '9090:9090'
-    links:
-      - seacserver:seacserver
-      - authapi:authapi
-      - applicationapi:applicationapi
-      - db:db
-      - consul:consul
     networks:
       - seac-network
 
   grafana:
-    image: grafana/grafana:3.0.0-beta7
+    image: grafana/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=pass
     depends_on:
       - prometheus
     ports:
       - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
     networks:
       - seac-network
