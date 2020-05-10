@@ -6,9 +6,26 @@
       xmlns:local="clr-namespace:SeacClient.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:develop="clr-namespace:SeacClient.Pages.Frames"
+      ShowsNavigationUI="False"
+      Background="#444444"
       Title="ReportPage">
 
-    <Grid>
-        
+    <Page.Resources>
+        <develop:InDevelopment x:Key="develop"></develop:InDevelopment>
+    </Page.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock VerticalAlignment="Center" Foreground="White" FontSize="25pt" FontWeight="Bold" Margin="20,0,0,0">Report</TextBlock>
+
+        <Frame Grid.RowSpan="2" Grid.Row="1" Content="{StaticResource develop}">
+        </Frame>
+
     </Grid>
 </Page>

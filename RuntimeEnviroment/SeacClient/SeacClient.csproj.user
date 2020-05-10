@@ -16,6 +16,12 @@
     <Compile Update="Pages\AuthPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Additional\InDevelopment\InDevelopment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\DevelopmentPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +49,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\AuthPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Additional\InDevelopment\InDevelopment.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\DevelopmentPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\MainPage.xaml">

@@ -23,6 +23,7 @@ namespace SeacClient.ViewModels
                 new MenuButtonViewModel("STORE", "store", this),
                 new MenuButtonViewModel("LIBRARY", "library", this),
                 new MenuButtonViewModel("SETTINGS", "settings", this),
+                new MenuButtonViewModel("DEVELOPMENT", "develop", this),
             };
         }
 
@@ -49,6 +50,9 @@ namespace SeacClient.ViewModels
                     break;
                 case "report":
                     Source = new ReportPage();
+                    break;
+                case "develop":
+                    Source = new DevelopmentPage();
                     break;
             }
 
