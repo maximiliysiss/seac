@@ -1,0 +1,27 @@
+# prometheus.yml
+global:
+    scrape_interval: 5s
+    external_labels:
+        monitor: 'my-monitor'
+scrape_configs:
+    - job_name: 'prometheus'
+      target_groups:
+          - targets: ['localhost:9090']
+    - job_name: 'seac-auth-api'
+      scheme: https
+      tls_config:
+        insecure_skip_verify: true
+      target_groups:
+          - targets: ['authapi:443']
+    - job_name: 'seac-application-api'
+      scheme: https
+      tls_config:
+        insecure_skip_verify: true
+      target_groups:
+          - targets: ['applicationapi:443']
+    - job_name: 'seac-runtime-api'
+      scheme: https
+      tls_config:
+        insecure_skip_verify: true
+      target_groups:
+          - targets: ['seacserver:443']

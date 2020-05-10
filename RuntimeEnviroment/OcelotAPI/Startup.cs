@@ -31,8 +31,6 @@ namespace OcelotAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime hostApplicationLifetime)
         {
-            System.Net.ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
