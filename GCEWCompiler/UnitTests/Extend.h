@@ -1,6 +1,5 @@
 #pragma once
-#include "..\GCEWCompiler\GCEWCompiler\main.h"
-//#include "..\SeacRuntime\StaticAssemblyRuntime.h"
+#include "..\SeacRuntime\StaticAssemblyRuntime.h"
 #include <filesystem>
 #include <string>
 #include <iostream>

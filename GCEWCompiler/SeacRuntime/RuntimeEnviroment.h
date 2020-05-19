@@ -4,6 +4,7 @@
 #include "Call.h"
 #include "External.h"
 #include <map>
+#include "DebugMetrics.h"
 
 namespace seac::runtime {
 	class RuntimeEnviroment {
@@ -12,6 +13,11 @@ namespace seac::runtime {
 		seac::logger::Logger<RuntimeEnviroment>& logger;
 		std::stack<stack::Call*> callStack;
 		stack::Call* globalCallStack;
+
+#ifdef _DEBUG
+		metrics::DebugMetrics& dm;
+#endif // _DEBUG
+
 
 		typedef std::map<ull, uint> map_ull_uint;
 		read_only_prop_ref(map_ull_uint, functionFinder);

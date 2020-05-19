@@ -18,3 +18,4 @@ Debug/
 *.gcew
 TestProject/
 Release/
+packages/

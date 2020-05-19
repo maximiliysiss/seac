@@ -35,7 +35,6 @@ std::string createFileTest(std::string test, std::string code) {
 void compile(std::string dir, std::string testName) {
 	std::map<std::string, std::string> args;
 	args["cmd"] = dir + testName + ".gcew";
-	compile(testName, args);
 }
 
 

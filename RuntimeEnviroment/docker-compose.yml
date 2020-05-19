@@ -91,6 +91,10 @@ services:
         - '9090:9090'
     networks:
       - seac-network
+    links:
+      - authapi:authapi
+      - seacserver:seacserver
+      - applicationapi:applicationapi
 
   grafana:
     image: grafana/grafana

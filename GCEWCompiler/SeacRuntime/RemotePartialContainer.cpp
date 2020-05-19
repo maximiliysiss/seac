@@ -3,7 +3,8 @@
 
 namespace seac::runtime {
 	RemotePartialContainer::RemotePartialContainer(std::string name, std::string platform, std::string mode)
-		: rc(RuntimeConfiguration::config().get_remoteConfig()), re(RuntimeEnviroment::runtimeManager()), name(name), platform(platform), mode(mode), logger(logger::Logger<RemotePartialContainer>::getInstance()) {
+		: rc(RuntimeConfiguration::config().get_remoteConfig()), re(RuntimeEnviroment::runtimeManager()), name(name), platform(platform), mode(mode), logger(logger::Logger<RemotePartialContainer>::getInstance())
+	{
 	}
 
 	reader::IReader* seac::runtime::RemotePartialContainer::operator[](ull line) {
@@ -36,7 +37,7 @@ namespace seac::runtime {
 		this->readerLayouts[name] = readers;
 	}
 
-	void RemotePartialContainer::uploadLayout(std::string next){
+	void RemotePartialContainer::uploadLayout(std::string next) {
 		this->readerLayouts.erase(next);
 	}
 
@@ -55,6 +56,12 @@ namespace seac::runtime {
 	}
 
 	std::string RemotePartialContainer::fileRemoteRequest(std::string name, std::string platform, std::string mode) {
+
+#ifdef _DEBUG
+		auto stMetric = metrics::DebugMetrics::manager().start("load");
+#endif // _DEBUG
+
+
 		web::uri_builder builder(helpers::to_wstring(rc.get_url()));
 		builder.append_path(helpers::to_wstring(name));
 		builder.append_path(helpers::to_wstring(platform));
@@ -72,10 +79,18 @@ namespace seac::runtime {
 				bodyStream = response.content_ready().get().extract_utf8string(true).get();
 			}).wait();
 
+#ifdef _DEBUG
+			metrics::DebugMetrics::manager().end(stMetric);
+#endif // _DEBUG
 			return bodyStream;
 	}
 
 	std::string RemotePartialContainer::nextRequest(std::string name, std::string platform, std::string mode, std::string next) {
+
+#ifdef _DEBUG
+		auto stMetric = metrics::DebugMetrics::manager().start("load");
+#endif // _DEBUG
+
 		web::uri_builder builder(helpers::to_wstring(rc.get_url()));
 		builder.append_path(helpers::to_wstring(name));
 		builder.append_path(helpers::to_wstring(platform));
@@ -93,6 +108,10 @@ namespace seac::runtime {
 					throw helpers::runtime("cannot load data from server");
 				bodyStream = response.content_ready().get().extract_utf8string(true).get();
 			}).wait();
+
+#ifdef _DEBUG
+			metrics::DebugMetrics::manager().end(stMetric);
+#endif // _DEBUG
 
 			return bodyStream;
 	}

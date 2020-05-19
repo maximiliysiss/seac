@@ -74,6 +74,30 @@ namespace seac::runtime {
 			size = strlen((char*)data) + 1;
 	}
 
+	Storage& StringStorage::operator-(Storage&& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
+	Storage& StringStorage::operator-(Storage& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
+	Storage& StringStorage::operator*(Storage&& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
+	Storage& StringStorage::operator*(Storage& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
+	Storage& StringStorage::operator/(Storage&& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
+	Storage& StringStorage::operator/(Storage& s2){
+		throw helpers::runtime("invalid operation for string");
+	}
+
 	Storage& Storage::operator+(Storage&& s2) {
 		return (*this) + s2;
 	}

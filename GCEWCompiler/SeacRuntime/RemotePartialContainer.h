@@ -19,8 +19,11 @@ namespace seac::runtime {
 		std::string mode;
 		RemoteConfiguration& rc;
 		logger::Logger<RemotePartialContainer>& logger;
+
 	public:
 		RemotePartialContainer(std::string name, std::string platform, std::string mode);
+		~RemotePartialContainer() {
+		}
 		reader::IReader* operator[](ull line);
 		void loadLayout(std::string next);
 		void loadLayout(std::istream& in, std::string name);

@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Helpers">
       <UniqueIdentifier>{086f25e5-daa3-4028-94b1-5eb9684853b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Metrics">
+      <UniqueIdentifier>{439c4b5c-f004-4959-bc52-26f6318e4090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Metrics">
+      <UniqueIdentifier>{25650bb9-b7fb-4121-85af-e3e4deadc435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -111,6 +117,9 @@
     <ClCompile Include="RemotePartialContainer.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="DebugMetrics.cpp">
+      <Filter>Source Files\Metrics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.h">
@@ -169,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="RemotePartialContainer.h">
       <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMetrics.h">
+      <Filter>Header Files\Metrics</Filter>
+    </ClInclude>
+    <ClInclude Include="VariadicTable.h">
+      <Filter>Header Files\Metrics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -74,6 +74,19 @@ namespace seac::runtime {
 
 	struct StringStorage : public Storage {
 		StringStorage(ull id, void* data);
+
+		//virtual Storage& operator+(Storage&& s2) override;
+		//virtual Storage& operator+(Storage& s2) override;
+		virtual Storage& operator-(Storage&& s2) override;
+		virtual Storage& operator-(Storage& s2) override;
+		virtual Storage& operator*(Storage&& s2) override;
+		virtual Storage& operator*(Storage& s2) override;
+		virtual Storage& operator/(Storage&& s2) override;
+		virtual Storage& operator/(Storage& s2) override;
+		//virtual Storage& operator<(Storage&& s2) override;
+		//virtual Storage& operator<(Storage& s2) override;
+		//virtual Storage& operator>(Storage&& s2) override;
+		//virtual Storage& operator>(Storage& s2) override;
 	};
 
 }

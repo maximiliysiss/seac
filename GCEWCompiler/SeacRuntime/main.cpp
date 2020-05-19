@@ -4,6 +4,7 @@
 #include "Utilities.h"
 #include "Enums.h"
 #include "AssemblyRuntime.h"
+#include "VariadicTable.h"
 
 
 int main(int argn, char** argc) {
@@ -30,6 +31,18 @@ int main(int argn, char** argc) {
 	try {
 		auto factory = seac::runtime::IAssemblyRuntime::getAssemblyRuntime(execMode);
 		factory->execute(name, arguments);
+
+#ifdef _DEBUG
+		{
+			std::cout << "Runtime metrics\n";
+			VariadicTable<std::string, double> vt({ "Name", "Performance, mcs" });
+			for (auto& val : seac::metrics::DebugMetrics::manager().get_data()) {
+				vt.addRow(val.first, val.second);
+			}
+			vt.print(std::cout);
+		}
+#endif // _DEBUG
+
 
 		std::cout << "Press enter to close runtime\n";
 		std::cin.get();

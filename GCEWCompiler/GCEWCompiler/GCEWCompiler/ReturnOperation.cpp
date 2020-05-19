@@ -19,7 +19,9 @@ gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, s
 
 bool gcew::trees::elements::operations::ReturnOperation::isInActiveTree(std::string name)
 {
-	return this->ret->isInActiveTree(name);
+	if (ret)
+		return this->ret->isInActiveTree(name);
+	return true;
 }
 
 gcew::trees::elements::operations::ReturnOperation::~ReturnOperation()

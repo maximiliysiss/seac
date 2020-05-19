@@ -1,6 +1,7 @@
 #include "RemoteAssemblyRuntime.h"
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
+#include "DebugMetrics.h"
 
 seac::runtime::RemoteAssemblyRuntime::RemoteAssemblyRuntime()
 	:logger(seac::logger::Logger<RemoteAssemblyRuntime>::getInstance()), rc(seac::RuntimeConfiguration::config().get_remoteConfig()) {
@@ -37,6 +38,11 @@ void seac::runtime::RemoteAssemblyRuntime::execute(std::string name, std::map<st
 
 std::string seac::runtime::RemoteAssemblyRuntime::fileRemoteRequest(std::string name, std::string platform, std::string mode) {
 
+#ifdef _DEBUG
+	auto stMetric = metrics::DebugMetrics::manager().start("load");
+#endif // _DEBUG
+
+
 	web::uri_builder builder(helpers::to_wstring(rc.get_url()));
 	builder.append_path(helpers::to_wstring(name));
 	builder.append_path(helpers::to_wstring(platform));
@@ -53,6 +59,11 @@ std::string seac::runtime::RemoteAssemblyRuntime::fileRemoteRequest(std::string 
 				throw helpers::runtime("cannot load data from server");
 			bodyStream = response.content_ready().get().extract_utf8string(true).get();
 		}).wait();
+
+#ifdef _DEBUG
+		metrics::DebugMetrics::manager().end(stMetric);
+#endif // _DEBUG
+
 
 		return bodyStream;
 }

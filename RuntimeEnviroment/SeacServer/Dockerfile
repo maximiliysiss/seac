@@ -23,4 +23,5 @@ COPY --from=publish /app/publish .
 COPY wait /wait
 RUN chmod +x /wait
 COPY /cert /root/.dotnet/https
+COPY /SeacRepoData /src/RuntimeEnviroment/SeacRepoData
 ENTRYPOINT /wait && dotnet SeacServer.dll

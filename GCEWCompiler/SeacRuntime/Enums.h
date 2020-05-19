@@ -67,4 +67,35 @@ namespace seac::common {
 		endrg = 549
 	};
 
+	static std::map<JitOperation, std::string> JitConverter{
+	{ JitOperation::andop, str_(JitOperation::andop) },
+	{ JitOperation::assign, str_(JitOperation::assign) },
+	{ JitOperation::call, str_(JitOperation::call) },
+	{ JitOperation::divide, str_(JitOperation::divide) },
+	{ JitOperation::end, str_(JitOperation::end) },
+	{ JitOperation::endrg, str_(JitOperation::endrg) },
+	{ JitOperation::equal, str_(JitOperation::equal) },
+	{ JitOperation::exit, str_(JitOperation::exit) },
+	{ JitOperation::extcall, str_(JitOperation::extcall) },
+	{ JitOperation::func, str_(JitOperation::func) },
+	{ JitOperation::gequal, str_(JitOperation::gequal) },
+	{ JitOperation::greater, str_(JitOperation::greater) },
+	{ JitOperation::ifop, str_(JitOperation::ifop) },
+	{ JitOperation::init, str_(JitOperation::init) },
+	{ JitOperation::jump, str_(JitOperation::jump) },
+	{ JitOperation::lequal, str_(JitOperation::lequal) },
+	{ JitOperation::localend, str_(JitOperation::localend) },
+	{ JitOperation::lower, str_(JitOperation::lower) },
+	{ JitOperation::minus, str_(JitOperation::minus) },
+	{ JitOperation::multiply, str_(JitOperation::multiply) },
+	{ JitOperation::notequal, str_(JitOperation::notequal) },
+	{ JitOperation::orop, str_(JitOperation::orop) },
+	{ JitOperation::plus, str_(JitOperation::plus) },
+	{ JitOperation::proc, str_(JitOperation::proc) },
+	{ JitOperation::ref, str_(JitOperation::ref) },
+	{ JitOperation::ret, str_(JitOperation::ret) },
+	{ JitOperation::stack, str_(JitOperation::stack) },
+	{ JitOperation::start, str_(JitOperation::start) },
+	{ JitOperation::startrg, str_(JitOperation::startrg) },
+	};
 }

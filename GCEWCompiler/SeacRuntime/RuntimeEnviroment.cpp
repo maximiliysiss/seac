@@ -12,7 +12,11 @@ namespace seac::runtime {
 	RuntimeEnviroment* RuntimeEnviroment::re = nullptr;
 
 	RuntimeEnviroment::RuntimeEnviroment()
-		:logger(seac::logger::Logger<RuntimeEnviroment>::getInstance()) {
+		:logger(seac::logger::Logger<RuntimeEnviroment>::getInstance())
+#ifdef _DEBUG
+		, dm(metrics::DebugMetrics::manager())
+#endif
+	{
 		callStack.push(globalCallStack = new stack::Call("global", nullptr, line));
 	}
 
@@ -181,6 +185,12 @@ namespace seac::runtime {
 	}
 
 	void RuntimeEnviroment::jitOperation(seac::reader::IReader* operation) {
+
+#ifdef _DEBUG
+		auto stMetric = dm.start((JitOperation)operation->get_code());
+#endif // _DEBUG
+
+
 		switch ((JitOperation)operation->get_code()) {
 		case JitOperation::proc:
 			procStart((seac::reader::StringReader*)operation);
@@ -252,6 +262,11 @@ namespace seac::runtime {
 		default:
 			throw helpers::runtime("not found operation");
 		}
+
+#ifdef _DEBUG
+		dm.end(stMetric);
+#endif // _DEBUG
+
 
 		line++;
 		callStack.top()->get_line()++;
