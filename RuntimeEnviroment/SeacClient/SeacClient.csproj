@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonCoreLibrary\CommonCoreLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Background.gif" />
   </ItemGroup>
 

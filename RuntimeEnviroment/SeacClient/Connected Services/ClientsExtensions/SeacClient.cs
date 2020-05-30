@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CommonCoreLibrary.APIClient;
+using CommonCoreLibrary.Auth.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SeacClient.SeacRuntime
 {
-    public partial class SeacRuntimeClient
+    public partial class SeacRuntimeClient : BaseAPIClient
     {
         private Task<byte[]> stream;
+
+        public SeacRuntimeClient(IHttpContextAccessor httpContextAccessor, IBaseTokenService tokenService, IAuthBaseAPIClient authBaseAPIClient, HttpClient httpClient, string url) : base(httpContextAccessor, tokenService)
+        {
+            this.AuthAPIClient = authBaseAPIClient;
+            this._httpClient = httpClient;
+            this._baseUrl = url;
+        }
+
         public Task<byte[]> Stream => stream;
 
         private async Task ProcessResponse(System.Net.Http.HttpResponseMessage response)
