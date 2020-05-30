@@ -213,6 +213,12 @@ void generateLibrary(Tree* rootTree, CodeStream& codeStream) {
 	codeStream << vs;
 }
 
+std::string tolower(std::string data) {
+	std::transform(data.begin(), data.end(), data.begin(),
+		[](unsigned char c) { return std::tolower(c); });
+	return data;
+}
+
 void compile(path parentPath, std::map<std::string, std::string> arguments) {
 
 	gcew::commons::Logger<Tree>& log = gcew::commons::Logger<Tree>::getInstance();
@@ -224,29 +230,42 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 		gcew::commons::CompileConfiguration::path = parentPath.string() + "\\configuration.xml";
 
 		auto& conf = gcew::commons::CompileConfiguration::instance();
-		conf.set_isPartial(arguments["--type"] == "remote");
-		conf.set_isLibrary(arguments["--type"] == "library");
+		conf.set_isPartial(tolower(arguments["--type"]) == "remote");
+		conf.set_isLibrary(tolower(arguments["--type"]) == "library");
 
 		std::string fileExecute = arguments["cmd"];
 		path p = absolute(path(fileExecute));
 		path fileFolder = p.parent_path();
-		fileFolder += path::preferred_separator;
+		if (!fileFolder.string().empty())
+			fileFolder += path::preferred_separator;
 		conf.workPath = fileFolder.string();
 		fileFolder += conf.getCompilePath();
+
+		log.logInformation("File folder: " + fileFolder.string());
+		if (exists(fileFolder)) {
+			log.logInformation("Exists build directory");
+			remove_all(fileFolder);
+		}
+
+		log.logInformation("Create directory: " + fileFolder.string());
+		create_directory(fileFolder);
 		fileFolder += path::preferred_separator;
 
-		if (exists(fileFolder))
-			remove_all(fileFolder);
-		create_directory(fileFolder);
+		log.logInformation("Correct file: " + p.string());
 		p = correctFiles(p.string(), fileFolder.string());
 		p = gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(p.string(), nullptr);
 		auto rootTree = generateTree(p.string());
 		rootTree->postWork(rootTree);
 		rootTree->optimize();
-		fileFolder += "build\\";
-		if (exists(fileFolder))
+		fileFolder += "build";
+		log.logInformation("Build folder: " + fileFolder.string());
+		if (exists(fileFolder)) {
+			log.logInformation("Exists build directory");
 			remove_all(fileFolder);
+		}
 		create_directory(fileFolder);
+		fileFolder += path::preferred_separator;
+
 		std::string fileName = path(fileExecute).filename().string();
 		auto fileResult = fileFolder.string() + fileName.substr(0, fileName.find('.')) + "_build.seac";
 		std::ofstream outFileCode(fileResult, std::ios::trunc | std::ios::binary);
@@ -260,6 +279,7 @@ void compile(path parentPath, std::map<std::string, std::string> arguments) {
 			rootTree->createCode(codeStream);
 		}
 		else {
+			log.logInformation("Remote build");
 			generatePartialCode(rootTree, codeStream, fileFolder.string());
 		}
 	}

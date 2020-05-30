@@ -37,10 +37,10 @@ namespace SeacClient.ViewModels
             switch (uri)
             {
                 case "store":
-                    Source = new ApplicationListPage(new ApplicationsListViewModel(App.InjectContainer.Resolve<ISeacRuntimeClient>(), "Store"));
+                    Source = new ApplicationListPage(new ApplicationsListViewModel(App.InjectContainer.Resolve<ISeacRuntimeClient>(), "Store", System.Windows.Visibility.Collapsed));
                     break;
                 case "library":
-                    Source = new ApplicationListPage(new ApplicationsListViewModel(App.InjectContainer.Resolve<ISeacRuntimeClient>(), "Library"));
+                    Source = new ApplicationListPage(new ApplicationsListViewModel(App.InjectContainer.Resolve<ISeacRuntimeClient>(), "Library", System.Windows.Visibility.Visible));
                     break;
                 case "settings":
                     Source = new SettingsPage();

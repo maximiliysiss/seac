@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,5 +18,6 @@ namespace SeacServer.Models
         public string Version { get; set; }
         public string Platform { get; set; }
         public ExecuteMode ExecuteMode { get; set; }
+        public string Developer { get; set; }
     }
 }

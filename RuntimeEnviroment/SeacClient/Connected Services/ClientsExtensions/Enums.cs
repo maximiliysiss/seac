@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using SeacClient.SeacRuntime;
-
-namespace SeacClient.Connected_Services.ClientsExtensions
+﻿namespace SeacClient.Connected_Services.ClientsExtensions
 {
     public enum ExecuteMode
     {
@@ -12,4 +6,11 @@ namespace SeacClient.Connected_Services.ClientsExtensions
         Remote,
         FullRemote
     }
+
+
+    public static class EnumConverter
+    {
+        public static SeacClient.SeacRuntime.ExecuteMode Raw(this ExecuteMode executeMode) => (SeacClient.SeacRuntime.ExecuteMode)executeMode;
+    }
+
 }

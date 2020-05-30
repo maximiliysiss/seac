@@ -16,19 +16,25 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <DockPanel Background="{Binding Color}">
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Button Width="33px" Padding="0" Click="OnMinimize">
-                    <md:PackIcon Height="10" Kind="WindowMinimize"></md:PackIcon>
-                </Button>
-                <Button Width="33px" Padding="0" Click="OnMaximize">
-                    <md:PackIcon Height="10" Kind="WindowMaximize"></md:PackIcon>
-                </Button>
-                <Button Width="33px" Padding="0" Click="OnClose">
-                    <md:PackIcon Height="10" Kind="Close"></md:PackIcon>
-                </Button>
-            </StackPanel>
-            <Grid Background="{Binding Color}" PreviewMouseLeftButtonDown="HeaderMouseDown" DockPanel.Dock="Left"></Grid>
+        <DockPanel>
+
+            <DockPanel Background="{Binding Color}" DockPanel.Dock="Left">
+            </DockPanel>
+
+            <DockPanel Background="{Binding Color}" DockPanel.Dock="Right">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Width="33px" Padding="0" Click="OnMinimize">
+                        <md:PackIcon Height="10" Kind="WindowMinimize"></md:PackIcon>
+                    </Button>
+                    <Button Width="33px" Padding="0" Click="OnMaximize">
+                        <md:PackIcon Height="10" Kind="WindowMaximize"></md:PackIcon>
+                    </Button>
+                    <Button Width="33px" Padding="0" Click="OnClose">
+                        <md:PackIcon Height="10" Kind="Close"></md:PackIcon>
+                    </Button>
+                </StackPanel>
+                <Grid Background="{Binding Color}" PreviewMouseLeftButtonDown="HeaderMouseDown" DockPanel.Dock="Left"></Grid>
+            </DockPanel>
         </DockPanel>
 
         <Frame Content="{Binding Source}" Grid.Row="1"></Frame>

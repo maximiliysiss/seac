@@ -56,5 +56,11 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - full remote</TextBlock>
             </StackPanel>
         </StackPanel>
+
+        <DockPanel Grid.RowSpan="3">
+            <Border CornerRadius="50" MouseLeftButtonDown="StartLocalApplication" Background="#444444" Height="60" Width="60" Margin="0,0,50,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand">
+                <md:PackIcon Kind="AddCircle" Height="60" Width="60" Visibility="{Binding VisibleAdd}"  Foreground="White"  md:HintAssist.Hint="Add local application"></md:PackIcon>
+            </Border>
+        </DockPanel>
     </Grid>
 </Page>

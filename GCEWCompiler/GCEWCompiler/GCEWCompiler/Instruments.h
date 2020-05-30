@@ -12,6 +12,8 @@
 #include <Windows.h>
 #include "TreeRegularBuilder.h"
 #pragma comment(lib, "Rpcrt4.lib")
+#include <locale>
+#include <codecvt>
 
 namespace gcew::commons
 {
@@ -42,6 +44,7 @@ namespace gcew::commons
 	void removeFromString(std::string& input, std::string remove);
 	std::string createUniqueGUID();
 	std::vector<std::string> getArguments(std::string line);
+	std::wstring to_wstring(std::string str);
 }
 
 #endif // !INSTRUMENTS_H

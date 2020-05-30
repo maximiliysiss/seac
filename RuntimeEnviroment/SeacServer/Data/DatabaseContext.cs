@@ -17,6 +17,7 @@ namespace SeacServer.Data
         }
 
         public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationRelease> ApplicationReleases { get; set; }
 
         IQueryable<Application> IDatabaseContext.Applications => this.Applications;
 

@@ -2,6 +2,7 @@
 
 std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::string path, std::ofstream* fileOutput, bool isLocal)
 {
+	auto logger = gcew::commons::Logger<PreProcessor>::getInstance();
 	gcew::commons::CompileConfiguration& conf = gcew::commons::CompileConfiguration::instance();
 
 	std::ifstream file(path);
@@ -40,8 +41,10 @@ std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::s
 		outputFile->close();
 
 	file.close();
-	if (isLocal)
-		std::filesystem::remove(std::filesystem::path(path));
+	if (isLocal) {
+		logger.logInformation(path);
+		std::filesystem::remove_all(path);
+	}
 
 	if (fileOutput)
 		return "";

@@ -1,8 +1,7 @@
 ﻿using SeacClient.SeacRuntime;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Windows;
 
 namespace SeacClient.ViewModels
 {
@@ -10,9 +9,11 @@ namespace SeacClient.ViewModels
     {
         public IEnumerable<ApplicationViewModel> Applications { get; private set; }
         public string Title { get; private set; }
+        public Visibility VisibleAdd { get; set; }
 
-        public ApplicationsListViewModel(ISeacRuntimeClient seacRuntimeClient, string title)
+        public ApplicationsListViewModel(ISeacRuntimeClient seacRuntimeClient, string title, Visibility visibility)
         {
+            VisibleAdd = visibility;
             Title = title;
             Applications = seacRuntimeClient.ApiApplicationAsync().GetAwaiter().GetResult().Select(x => ApplicationViewModel.CreateViewModel(x, seacRuntimeClient));
         }
