@@ -1,5 +1,12 @@
-﻿using Ninject;
+﻿using AuthAPI.Settings;
+using CommonCoreLibrary.Auth.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Ninject;
 using Ninject.Modules;
+using SeacClient.AuthAPI;
+using SeacClient.SeacRuntime;
+using SeacClient.Settings;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -10,6 +17,7 @@ namespace SeacClient.Services
         T Resolve<T>();
         void Bind<It, T>() where T : It;
         void Bind<It, T>(Dictionary<string, object> args) where T : It;
+        void Init(IConfigurationRoot configurationRoot, RuntimeSettings runtimeSettings);
     }
 
     public class ApplicationContainer : IInjectContainer
@@ -31,6 +39,21 @@ namespace SeacClient.Services
                 bind.WithConstructorArgument(arg.Key, arg.Value);
         }
 
+        public void Init(IConfigurationRoot configurationRoot, RuntimeSettings runtimeSettings)
+        {
+            standardKernel.Inject(configurationRoot.GetSection("AuthSettings").Get<AuthSettings>());
+            Bind<ISeacRuntimeClient, SeacRuntimeClient>(new Dictionary<string, object>
+            {
+                { "baseUrl", runtimeSettings.ServerRuntimeUrl},
+                { "httpClient",new System.Net.Http.HttpClient()  }
+            });
+            Bind<IAuthClient, AuthClient>(new Dictionary<string, object>
+            {
+                { "baseUrl", runtimeSettings.ServerAuthUrl},
+                { "httpClient",new System.Net.Http.HttpClient()  }
+            });
+        }
+
         public T Resolve<T>() => standardKernel.Get<T>();
     }
 
@@ -40,6 +63,8 @@ namespace SeacClient.Services
         public override void Load()
         {
             Bind<INotificationService>().To<NotificationService>();
+            Bind<IHttpContextAccessor>().To<VirtualHttpContextAccessor>();
+            Bind<IBaseTokenService>().To<VirtualTokenService>();
         }
     }
 }

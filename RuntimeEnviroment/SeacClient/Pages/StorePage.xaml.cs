@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using SeacClient.Services;
 using SeacClient.ViewModels;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -11,9 +12,9 @@ namespace SeacClient.Pages
     public partial class StorePage : Page
     {
         private readonly StoreViewModel storageViewModel;
-        private readonly MainPage mainPage;
+        private readonly INavigateWindow mainPage;
 
-        public StorePage(MainPage mainPage, StoreViewModel storeViewModel)
+        public StorePage(INavigateWindow mainPage, StoreViewModel storeViewModel)
         {
             this.mainPage = mainPage;
             InitializeComponent();

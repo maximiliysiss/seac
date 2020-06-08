@@ -1,4 +1,5 @@
-﻿using SeacClient.ViewModels;
+﻿using SeacClient.Services;
+using SeacClient.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace SeacClient.Pages
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class MainPage : Page, INavigateWindow
     {
         private readonly MaiPageViewModel mainPageViewModel;
 

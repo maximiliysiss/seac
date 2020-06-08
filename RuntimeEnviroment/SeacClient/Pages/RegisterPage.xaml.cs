@@ -1,4 +1,5 @@
 ﻿using SeacClient.SeacRuntime;
+using SeacClient.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,6 +16,7 @@ namespace SeacClient.Pages
         {
             this.mainPage = mainPage;
             InitializeComponent();
+            this.DataContext = new RegisterViewModel();
         }
 
         private void RegisterClick(object sender, RoutedEventArgs e) => this.mainPage.Navigate(new StorePage(mainPage, new ViewModels.StoreViewModel()));
