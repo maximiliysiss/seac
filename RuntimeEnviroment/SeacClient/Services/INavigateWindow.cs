@@ -8,5 +8,6 @@ namespace SeacClient.Services
     public interface INavigateWindow
     {
         void Navigate(Page page);
+        void GoBack();
     }
 }

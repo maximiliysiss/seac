@@ -12,12 +12,14 @@ namespace SeacClient.ViewModels
         private readonly INavigateWindow navigateWindow;
         private readonly IAuthClient authBaseAPI;
         private readonly IBaseTokenService baseTokenService;
+        private readonly INotificationService notificationService;
 
-        public RegisterViewModel(IAuthClient authBaseAPI, IBaseTokenService baseTokenService, INavigateWindow navigateWindow)
+        public RegisterViewModel(IAuthClient authBaseAPI, IBaseTokenService baseTokenService, INavigateWindow navigateWindow, INotificationService notificationService)
         {
             this.navigateWindow = navigateWindow;
             this.authBaseAPI = authBaseAPI;
             this.baseTokenService = baseTokenService;
+            this.notificationService = notificationService;
         }
 
         public string Login { get; set; }
@@ -33,10 +35,11 @@ namespace SeacClient.ViewModels
 
                 var res = await authBaseAPI.ApiAuthRegisterAsync(new RegisterModel { Email = Login, Nickname = Login, Password = Password });
                 await baseTokenService.SignInAsync(res);
-                navigateWindow.Navigate(new StorePage(navigateWindow, new ViewModels.StoreViewModel()));
+                navigateWindow.Navigate(new StorePage(navigateWindow, new StoreViewModel(await authBaseAPI.ApiUserAsync($"Bearer {res.AccessToken}"), navigateWindow)));
             }
             catch (Exception)
             {
+                notificationService.NotifyError("Register error");
             }
         }
     }

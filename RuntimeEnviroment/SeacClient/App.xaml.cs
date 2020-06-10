@@ -1,10 +1,10 @@
-﻿using AuthAPI.Settings;
+﻿using CommonCoreLibrary.Auth.Interfaces;
 using Microsoft.Extensions.Configuration;
 using SeacClient.AuthAPI;
 using SeacClient.Pages;
-using SeacClient.SeacRuntime;
 using SeacClient.Services;
 using SeacClient.Settings;
+using SeacClient.ViewModels;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -36,9 +36,10 @@ namespace SeacClient
                 WindowStyle = WindowStyle.None
             };
             navigationWindow.Title = "Seac Runtime";
-            var viewModel = new ViewModels.MaiPageViewModel();
+            var viewModel = new ViewModels.MainPageViewModel();
             MainPage mainPage = new MainPage(viewModel);
-            viewModel.Source = new AuthPage(mainPage);
+            viewModel.Source = new AuthPage(mainPage, new AuthViewModel(InjectContainer.Resolve<IAuthClient>(), InjectContainer.Resolve<IBaseTokenService>(), mainPage,
+                InjectContainer.Resolve<INotificationService>()));
             navigationWindow.Navigate(mainPage);
             navigationWindow.Show();
         }

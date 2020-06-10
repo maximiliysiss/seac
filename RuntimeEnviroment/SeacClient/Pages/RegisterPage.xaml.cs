@@ -1,4 +1,7 @@
-﻿using SeacClient.SeacRuntime;
+﻿using CommonCoreLibrary.Auth.Interfaces;
+using SeacClient.AuthAPI;
+using SeacClient.SeacRuntime;
+using SeacClient.Services;
 using SeacClient.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,16 +13,23 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class RegisterPage : Page
     {
-        private readonly MainPage mainPage;
+        private readonly INavigateWindow mainPage;
+        private readonly RegisterViewModel registerViewModel;
 
-        public RegisterPage(MainPage mainPage)
+        public RegisterPage(INavigateWindow mainPage, RegisterViewModel registerViewModel)
         {
+            this.Uid = nameof(RegisterPage);
             this.mainPage = mainPage;
             InitializeComponent();
-            this.DataContext = new RegisterViewModel();
+            this.DataContext = this.registerViewModel = registerViewModel;
         }
 
-        private void RegisterClick(object sender, RoutedEventArgs e) => this.mainPage.Navigate(new StorePage(mainPage, new ViewModels.StoreViewModel()));
-        private void ReturnToAuth(object sender, System.Windows.Input.MouseButtonEventArgs e) => mainPage.Navigate(new AuthPage(mainPage));
+        private async void RegisterClick(object sender, RoutedEventArgs e)
+        {
+            registerViewModel.ConfirmPassword = ConfirmedPassword.Password.Trim();
+            registerViewModel.Password = Password.Password.Trim();
+            await registerViewModel.RegisterAsync();
+        }
+        private void ReturnToAuth(object sender, System.Windows.Input.MouseButtonEventArgs e) => mainPage.GoBack();
     }
 }

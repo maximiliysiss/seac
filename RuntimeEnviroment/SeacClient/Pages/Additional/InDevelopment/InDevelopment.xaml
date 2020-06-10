@@ -10,7 +10,7 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="InDevelopment">
 
-    <Border Height="400px" Width="800" BorderBrush="Gray" BorderThickness="2" CornerRadius="20" Background="#9f9f9f">
+    <Border Width="800" BorderBrush="Gray" BorderThickness="2" CornerRadius="20" Background="#9f9f9f">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

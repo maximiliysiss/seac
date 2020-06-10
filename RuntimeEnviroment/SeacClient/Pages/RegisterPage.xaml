@@ -24,11 +24,11 @@
                         <RowDefinition Height="20px"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Foreground="White" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14pt">REGISTER</TextBlock>
-                    <TextBox Foreground="White" Grid.Row="1" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="EMAIL"></TextBox>
-                    <PasswordBox Foreground="White" Grid.Row="2" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="PASSWORD"></PasswordBox>
-                    <PasswordBox Foreground="White" Grid.Row="3" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="CONFIRMED PASSWORD"></PasswordBox>
+                    <TextBox Text="{Binding Login}" Foreground="White" Grid.Row="1" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="EMAIL"></TextBox>
+                    <PasswordBox Name="Password" Foreground="White" Grid.Row="2" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="PASSWORD"></PasswordBox>
+                    <PasswordBox Name="ConfirmedPassword" Foreground="White" Grid.Row="3" FontSize="14pt" VerticalAlignment="Center" md:HintAssist.Hint="CONFIRMED PASSWORD"></PasswordBox>
                     <Button Height="40" FontSize="12pt" Grid.Row="4" Click="RegisterClick">Register</Button>
-                    <TextBlock MouseLeftButtonDown="ReturnToAuth" Grid.Row="5" FontSize="10pt" Foreground="#FF3E82FB">Return to creating new user</TextBlock>
+                    <TextBlock MouseLeftButtonDown="ReturnToAuth" Cursor="Hand" Grid.Row="5" FontSize="10pt" Foreground="#FF3E82FB">Return to login</TextBlock>
                 </Grid>
             </md:Card>
         </Grid>

@@ -1,5 +1,8 @@
-﻿using SeacClient.Pages;
+﻿using CommonCoreLibrary.Auth.Interfaces;
+using SeacClient.AuthAPI;
+using SeacClient.Pages;
 using SeacClient.SeacRuntime;
+using SeacClient.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,7 +19,7 @@ namespace SeacClient.ViewModels
         public Page Source { get; private set; }
         public List<MenuButtonViewModel> MenuButtons { get; private set; }
 
-        public StoreViewModel()
+        public StoreViewModel(UserModel userModel, INavigateWindow navigateWindow)
         {
             this.MenuButtons = new List<MenuButtonViewModel>
             {
@@ -25,7 +28,14 @@ namespace SeacClient.ViewModels
                 new MenuButtonViewModel("SETTINGS", "settings", this),
                 new MenuButtonViewModel("DEVELOPMENT", "develop", this),
             };
+
+            this.UserModel = userModel;
+            this.navigateWindow = navigateWindow;
         }
+
+        public UserModel UserModel { get; private set; }
+
+        private readonly INavigateWindow navigateWindow;
 
         public void NavigateTo(string uri)
         {
@@ -46,7 +56,7 @@ namespace SeacClient.ViewModels
                     Source = new SettingsPage();
                     break;
                 case "usersettings":
-                    Source = new UserSettingsPage();
+                    Source = new UserSettingsPage(new UserSettingsViewModel(navigateWindow, App.InjectContainer.Resolve<IBaseTokenService>()));
                     break;
                 case "report":
                     Source = new ReportPage();

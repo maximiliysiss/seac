@@ -20,6 +20,7 @@ namespace SeacClient.Pages
     {
         public DevelopmentPage()
         {
+            this.Uid = nameof(DevelopmentPage);
             InitializeComponent();
         }
     }

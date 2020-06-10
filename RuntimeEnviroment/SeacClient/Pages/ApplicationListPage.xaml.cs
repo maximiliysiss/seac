@@ -13,6 +13,7 @@ namespace SeacClient.Pages
     {
         public ApplicationListPage(ApplicationsListViewModel applicationsListViewModel)
         {
+            this.Uid = nameof(ApplicationListPage);
             InitializeComponent();
             this.DataContext = applicationsListViewModel;
         }

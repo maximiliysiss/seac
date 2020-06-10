@@ -19,7 +19,7 @@ namespace SeacClient.Services
         {
             cfg.PositionProvider = new WindowPositionProvider(
                 parentWindow: Application.Current.MainWindow,
-                corner: Corner.TopRight,
+                corner: Corner.BottomRight,
                 offsetX: 10,
                 offsetY: 10);
 

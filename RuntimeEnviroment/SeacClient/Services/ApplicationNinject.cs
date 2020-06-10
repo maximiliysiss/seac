@@ -41,7 +41,8 @@ namespace SeacClient.Services
 
         public void Init(IConfigurationRoot configurationRoot, RuntimeSettings runtimeSettings)
         {
-            standardKernel.Inject(configurationRoot.GetSection("AuthSettings").Get<AuthSettings>());
+            standardKernel.Bind<AuthSettings>().ToConstant(configurationRoot.GetSection("AuthSettings").Get<AuthSettings>());
+
             Bind<ISeacRuntimeClient, SeacRuntimeClient>(new Dictionary<string, object>
             {
                 { "baseUrl", runtimeSettings.ServerRuntimeUrl},

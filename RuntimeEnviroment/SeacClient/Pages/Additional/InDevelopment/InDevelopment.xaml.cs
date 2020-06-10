@@ -10,6 +10,7 @@ namespace SeacClient.Pages.Frames
     {
         public InDevelopment()
         {
+            this.Uid = nameof(InDevelopment);
             InitializeComponent();
             DataContext = new InDevelopmentViewModel();
         }

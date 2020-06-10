@@ -16,6 +16,7 @@ namespace CommonCoreLibrary.Auth.Interfaces
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token, bool lifetime = true);
         string GenerateFullToken(string token);
         Task SignInAsync(IAuthResult loginResult);
+        Task SignOutAsync();
     }
 
     public class ClientTokenService : IBaseTokenService
@@ -61,6 +62,11 @@ namespace CommonCoreLibrary.Auth.Interfaces
             await httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties());
             /*for next request in this request*/
             httpContextAccessor.HttpContext.User = principal;
+        }
+
+        public async Task SignOutAsync()
+        {
+            await httpContextAccessor.HttpContext.SignOutAsync();
         }
     }
 }

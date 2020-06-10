@@ -2,7 +2,6 @@
 *.cache
 obj/
 bin/
-Migrations/
 GlobalProjects/
 *.cd
 *.asm

@@ -16,6 +16,7 @@ namespace SeacClient.Pages
 
         public StorePage(INavigateWindow mainPage, StoreViewModel storeViewModel)
         {
+            this.Uid = nameof(StorePage);
             this.mainPage = mainPage;
             InitializeComponent();
             this.DataContext = this.storageViewModel = storeViewModel;

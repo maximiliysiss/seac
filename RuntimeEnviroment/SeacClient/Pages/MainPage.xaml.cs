@@ -12,10 +12,11 @@ namespace SeacClient.Pages
     /// </summary>
     public partial class MainPage : Page, INavigateWindow
     {
-        private readonly MaiPageViewModel mainPageViewModel;
+        private readonly MainPageViewModel mainPageViewModel;
 
-        public MainPage(MaiPageViewModel mainPageViewModel)
+        public MainPage(MainPageViewModel mainPageViewModel)
         {
+            this.Uid = nameof(MainPage);
             InitializeComponent();
             this.DataContext = this.mainPageViewModel = mainPageViewModel;
         }
@@ -38,5 +39,7 @@ namespace SeacClient.Pages
         private void OnMinimize(object sender, RoutedEventArgs e) => Window.GetWindow(this).WindowState = WindowState.Minimized;
 
         public void Navigate(Page page) => mainPageViewModel.NavigateAsync(page);
+
+        public void GoBack() => mainPageViewModel.GoBack();
     }
 }

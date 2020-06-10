@@ -47,9 +47,7 @@
             <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="5,0,30,0" Orientation="Horizontal">
                 <md:PackIcon Height="30" Width="30" Cursor="Hand" VerticalAlignment="Center" Margin="0,0,5,0" Kind="ReportProblem" Foreground="White" MouseLeftButtonDown="OpenReport">
                 </md:PackIcon>
-                <TextBlock HorizontalAlignment="Center" Cursor="Hand" FontSize="12pt" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" MouseLeftButtonDown="OpenUserSettings">
-                sdfsdfsdf
-                </TextBlock>
+                <TextBlock Text="{Binding UserModel.Nickname}" HorizontalAlignment="Center" Cursor="Hand" FontSize="12pt" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" MouseLeftButtonDown="OpenUserSettings"></TextBlock>
             </StackPanel>
         </DockPanel>
 

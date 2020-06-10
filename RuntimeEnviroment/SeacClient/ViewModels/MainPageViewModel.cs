@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -6,13 +7,13 @@ using System.Windows.Navigation;
 
 namespace SeacClient.ViewModels
 {
-    public class MaiPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
-        public MaiPageViewModel()
+        public MainPageViewModel()
         {
         }
 
-        public MaiPageViewModel(Page content)
+        public MainPageViewModel(Page content)
         {
             Source = content;
         }
@@ -25,10 +26,19 @@ namespace SeacClient.ViewModels
 
         public void NavigateAsync(Page page)
         {
-            var prev = Source;
-            Source = page;
-            ((NavigationWindow)Window.GetWindow(prev)).RemoveBackEntry();
+            if (page.Uid != Source.Uid)
+            {
+                var prev = Source;
+                Source = page;
+                ((NavigationWindow)Window.GetWindow(prev)).RemoveBackEntry();
+            }
             OnPropertyChanged(nameof(Source));
+        }
+
+        public void GoBack()
+        {
+            var service = Source.NavigationService;
+            service.GoBack();
         }
     }
 }

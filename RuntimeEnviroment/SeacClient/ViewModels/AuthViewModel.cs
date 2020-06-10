@@ -12,12 +12,14 @@ namespace SeacClient.ViewModels
         private readonly INavigateWindow navigateWindow;
         private readonly IAuthClient authBaseAPI;
         private readonly IBaseTokenService baseTokenService;
+        private readonly INotificationService notificationService;
 
-        public AuthViewModel(IAuthClient authBaseAPI, IBaseTokenService baseTokenService, INavigateWindow navigateWindow)
+        public AuthViewModel(IAuthClient authBaseAPI, IBaseTokenService baseTokenService, INavigateWindow navigateWindow, INotificationService notificationService)
         {
             this.navigateWindow = navigateWindow;
             this.authBaseAPI = authBaseAPI;
             this.baseTokenService = baseTokenService;
+            this.notificationService = notificationService;
         }
 
         public string Login { get; set; }
@@ -32,10 +34,11 @@ namespace SeacClient.ViewModels
 
                 var res = await authBaseAPI.ApiAuthLoginPostAsync(new LoginModel { Login = Login, Password = Password });
                 await baseTokenService.SignInAsync(res);
-                navigateWindow.Navigate(new StorePage(navigateWindow, new StoreViewModel()));
+                navigateWindow.Navigate(new StorePage(navigateWindow, new StoreViewModel(await authBaseAPI.ApiUserAsync($"Bearer {res.AccessToken}"), navigateWindow)));
             }
             catch (Exception)
             {
+                notificationService.NotifyError("Enter correct login/password");
             }
         }
     }

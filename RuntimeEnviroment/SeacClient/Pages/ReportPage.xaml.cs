@@ -20,6 +20,7 @@ namespace SeacClient.Pages
     {
         public ReportPage()
         {
+            this.Uid = nameof(ReportPage);
             InitializeComponent();
         }
     }

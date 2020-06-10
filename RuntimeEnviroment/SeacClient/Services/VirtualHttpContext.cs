@@ -1,5 +1,6 @@
 ﻿using AuthAPI.Settings;
 using CommonCoreLibrary.Auth.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -17,7 +18,7 @@ namespace SeacClient.Services
     {
         public HttpContext HttpContext { get; set; } = new VirtualHttpContext
         {
-            User = new ClaimsPrincipal(new VirtuaIdentity())
+            User = new ClaimsPrincipal(new VirtualIdentity(false))
         };
     }
 
@@ -32,7 +33,7 @@ namespace SeacClient.Services
         public override HttpRequest Request => throw new NotImplementedException();
 
         public override CancellationToken RequestAborted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override IServiceProvider RequestServices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override IServiceProvider RequestServices { get; set; } = new VirtualServiceProvider();
 
         public override HttpResponse Response => throw new NotImplementedException();
 
@@ -48,11 +49,18 @@ namespace SeacClient.Services
         }
     }
 
-    public class VirtuaIdentity : IIdentity
+    public class VirtualIdentity : IIdentity
     {
+        private readonly bool isAuth;
+
+        public VirtualIdentity(bool isAuth = true)
+        {
+            this.isAuth = isAuth;
+        }
+
         public string AuthenticationType => JwtBearerDefaults.AuthenticationScheme;
 
-        public bool IsAuthenticated => false;
+        public bool IsAuthenticated => isAuth;
 
         public string Name => string.Empty;
     }
@@ -72,6 +80,44 @@ namespace SeacClient.Services
             principal.Identities.First().AddClaim(new Claim("Refresh", loginResult.RefreshToken));
             /*for next request in this request*/
             httpContextAccessor.HttpContext.User = principal;
+        }
+    }
+
+    public class VirtualServiceProvider : IServiceProvider
+    {
+        private readonly IAuthenticationService authenticationService = new VirtualIAuthService();
+
+        public object GetService(Type serviceType)
+        {
+            return authenticationService;
+        }
+    }
+
+    public class VirtualIAuthService : IAuthenticationService
+    {
+        public Task<AuthenticateResult> AuthenticateAsync(HttpContext context, string scheme)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ChallengeAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ForbidAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SignInAsync(HttpContext context, string scheme, ClaimsPrincipal principal, AuthenticationProperties properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task SignOutAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            context.User = new ClaimsPrincipal(new VirtualIdentity(false));
         }
     }
 }
