@@ -64,7 +64,11 @@ namespace seac::common {
 		ref = 547,
 
 		startrg = 548,
-		endrg = 549
+		endrg = 549,
+
+		libstart = 550,
+		libend = 551,
+		libinfo = 552
 	};
 
 	static std::map<JitOperation, std::string> JitConverter{
