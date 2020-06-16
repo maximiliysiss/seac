@@ -44,6 +44,7 @@ namespace SeacServer
             }
 
             databaseContext.Apply();
+            databaseContext.UploadLocalProjects();
 
             app.RegisterWithConsul(hostApplicationLifetime);
 
