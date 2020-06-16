@@ -1,8 +1,24 @@
 #pragma once
+#include <map>
+#include <string>
+#include "CommonLogger.h"
+#define ull unsigned long long
+#define elif else if
+#define auto_property(type, name) \
+	protected: \
+		type name; \
+	public: \
+		type get_##name() { \
+			return this->##name; \
+		} \
+		void set_##name(type name){ \
+			this->##name = name; \
+		} \
+	private:
 
 namespace gcew::commons
 {
-	enum Operations {
+	enum class Operations : ull {
 		FieldSet = 0,
 		Convert = 1,
 		FieldGet = 2,
@@ -23,10 +39,13 @@ namespace gcew::commons
 		Lower = '<',
 		Equal = '=',
 		Not = '!',
-		Mod = '%'
+		Mod = '%',
+		Call = 2000,
+		ExtCall = 2001,
+		Addr = 2002
 	};
 
-	enum RegexResult {
+	enum class RegexResult : ull {
 		Include,
 		Type,
 		For,
@@ -41,12 +60,51 @@ namespace gcew::commons
 		Mathematic,
 		Assigment,
 		Call,
+		ExternalCall,
 		Break,
 		Continue,
 		PureAsm,
 		Class,
 		Struct,
 		Return,
-		Block
+		Block,
+		RegionStart,
+		RegionEnd,
+	};
+
+	enum class JitOperation : ull {
+		func = 428,
+		proc = 436,
+		init = 1306,
+		equal = 536,
+		plus = 452,
+		minus = 556,
+		divide = 629,
+		multiply = 896,
+		call = 412,
+		start = 558,
+		ret = 672,
+		end = 311,
+		exit = 442,
+		assign = 645,
+		stack = 534,
+		localend = 535,
+		lower = 537,
+		greater = 538,
+		lequal = 539,
+		gequal = 540,
+		notequal = 542,
+		andop = 543,
+		orop = 544,
+		ifop = 545,
+		jump = 546,
+		ref = 547,
+
+		startrg = 548,
+		endrg = 549,
+
+		libstart = 550,
+		libend = 551,
+		libinfo = 552
 	};
 }

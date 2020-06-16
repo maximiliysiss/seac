@@ -1,33 +1,27 @@
 #include "ReturnOperation.h"
 
-
-
-void gcew::trees::elements::operations::ReturnOperation::createData(std::string & code)
-{
-	if (ret)
-		this->ret->createData(code);
-}
-
 bool gcew::trees::elements::operations::ReturnOperation::isCallFunction(std::string name)
 {
 	return this->ret->isCallFunction(name);
 }
 
-gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line)
-	:Operation(index, line, RegexResult::Return)
+gcew::trees::elements::operations::ReturnOperation::ReturnOperation(int index, std::string line, void* root)
+	:Operation(index, line, RegexResult::Return, root)
 {
 	auto parts = gcew::commons::splitter(line.substr(0, line.length() - 1), ' ');
 	if (parts.size() > 1) {
 		std::string tmp;
 		for (int i = 1; i < parts.size(); i++)
 			tmp += parts[i];
-		ret = gcew::commons::Parser::preParser(tmp);
+		ret = gcew::commons::Parser::preParser(tmp, root);
 	}
 }
 
 bool gcew::trees::elements::operations::ReturnOperation::isInActiveTree(std::string name)
 {
-	return this->ret->isInActiveTree(name);
+	if (ret)
+		return this->ret->isInActiveTree(name);
+	return true;
 }
 
 gcew::trees::elements::operations::ReturnOperation::~ReturnOperation()
@@ -36,16 +30,17 @@ gcew::trees::elements::operations::ReturnOperation::~ReturnOperation()
 		delete functionTree;
 }
 
-void gcew::trees::elements::operations::ReturnOperation::postWork(void * tree)
+void gcew::trees::elements::operations::ReturnOperation::postWork(void* tree)
 {
 	functionTree = ((gcew::trees::structural::Tree*)tree)->findFunctionTreeUp();
 	if (ret)
 		ret->postWork(tree);
 }
 
-void gcew::trees::elements::operations::ReturnOperation::toCode(std::string & code)
+void gcew::trees::elements::operations::ReturnOperation::toCode(gcew::commons::CodeStream& code)
 {
 	if (ret)
 		ret->toCode(code);
-	code += "jmp " + gcew::commons::CompileConfiguration::typeOperation["function"][gcew::commons::Operations::End] + functionTree->getName() + "\n";
+	functionTree->get_returnLines().push_back(code.getLine());
+	code << StreamData((ull)JitOperation::jump, sizeof(ull));
 }

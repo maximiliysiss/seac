@@ -69,7 +69,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -89,10 +100,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <PostBuildEvent>
       <Command>build.bat $(TargetDir)</Command>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -125,10 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Appenders.h" />
     <ClInclude Include="AssigmentOperation.h" />
     <ClInclude Include="BoolNode.h" />
     <ClInclude Include="BreakOperation.h" />
     <ClInclude Include="CallOperation.h" />
+    <ClInclude Include="CodeStream.h" />
     <ClInclude Include="CommonLogger.h" />
     <ClInclude Include="CompileConfiguration.h" />
     <ClInclude Include="ContinueOperation.h" />
@@ -144,26 +161,28 @@
     <ClInclude Include="IfTree.h" />
     <ClInclude Include="IncludeOperation.h" />
     <ClInclude Include="Instruments.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="OneNode.h" />
     <ClInclude Include="Operation.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="PreProcessor.h" />
-    <ClInclude Include="PureAsmTree.h" />
+    <ClInclude Include="RegionOperation.h" />
     <ClInclude Include="ReturnOperation.h" />
     <ClInclude Include="Term.h" />
-    <ClInclude Include="tinystr.h" />
-    <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeRegularBuilder.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Variable.h" />
+    <ClInclude Include="VariableManager.h" />
     <ClInclude Include="WhileTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Appenders.cpp" />
     <ClCompile Include="AssigmentOperation.cpp" />
     <ClCompile Include="BoolNode.cpp" />
     <ClCompile Include="BreakOperation.cpp" />
     <ClCompile Include="CallOperation.cpp" />
+    <ClCompile Include="CodeStream.cpp" />
     <ClCompile Include="CommonLogger.cpp" />
     <ClCompile Include="CompileConfiguration.cpp" />
     <ClCompile Include="ContinueOperation.cpp" />
@@ -183,26 +202,18 @@
     <ClCompile Include="Operation.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PreProcessor.cpp" />
-    <ClCompile Include="PureAsmTree.cpp" />
+    <ClCompile Include="RegionOperation.cpp" />
     <ClCompile Include="ReturnOperation.cpp" />
     <ClCompile Include="Term.cpp" />
-    <ClCompile Include="tinystr.cpp" />
-    <ClCompile Include="tinyxml.cpp" />
-    <ClCompile Include="tinyxmlerror.cpp" />
-    <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="TreeRegularBuilder.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Variable.cpp" />
+    <ClCompile Include="VariableManager.cpp" />
     <ClCompile Include="WhileTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="masmCompile.bat">
-      <FileType>Document</FileType>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\x64\Release\configuration.xml" />
+    <Xml Include="configuration.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat" />

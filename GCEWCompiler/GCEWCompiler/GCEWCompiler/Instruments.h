@@ -12,13 +12,22 @@
 #include <Windows.h>
 #include "TreeRegularBuilder.h"
 #pragma comment(lib, "Rpcrt4.lib")
+#include <locale>
+#include <codecvt>
 
 namespace gcew::commons
 {
+	class compiler_exception :public std::exception {
+	public:
+		compiler_exception(std::string m)
+			:std::exception(m.data()) {
+		}
+	};
+
 	std::string ltrim(std::string str);
 	std::string rtrim(std::string str);
 	std::string trim(std::string str);
-	void commentEraser(std::string &code, bool & status);
+	void commentEraser(std::string& code, bool& status);
 	void eraserRepeate(std::string& line, char symbol);
 	std::string eraseSpaces(std::string line);
 	std::vector<std::string> splitter(std::string line, char sep);
@@ -29,10 +38,13 @@ namespace gcew::commons
 	std::list<size_t> findAllIndexesWithOffset(std::string input, std::string substr);
 	std::list<size_t> findAllIndexesWithOffset(std::string input, char substr);
 	bool isNumber(std::string str);
-	bool isBracketCorrect(const std::string & str);
-	void removeFromString(std::string & input, std::string remove);
+	bool isString(std::string str);
+	bool isSimple(std::string str);
+	bool isBracketCorrect(const std::string& str);
+	void removeFromString(std::string& input, std::string remove);
 	std::string createUniqueGUID();
 	std::vector<std::string> getArguments(std::string line);
+	std::wstring to_wstring(std::string str);
 }
 
 #endif // !INSTRUMENTS_H

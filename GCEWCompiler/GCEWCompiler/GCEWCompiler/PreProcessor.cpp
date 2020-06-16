@@ -1,11 +1,12 @@
 #include "PreProcessor.h"
 
-std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::string path, std::ofstream * fileOutput, bool isLocal)
+std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::string path, std::ofstream* fileOutput, bool isLocal)
 {
-	gcew::commons::CompileConfiguration & conf = gcew::commons::CompileConfiguration::instance();
+	auto logger = gcew::commons::Logger<PreProcessor>::getInstance();
+	gcew::commons::CompileConfiguration& conf = gcew::commons::CompileConfiguration::instance();
 
 	std::ifstream file(path);
-	std::ofstream * outputFile;
+	std::ofstream* outputFile;
 	if (fileOutput)
 		outputFile = fileOutput;
 	else
@@ -23,8 +24,10 @@ std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::s
 				p += std::filesystem::path::preferred_separator;
 				preProcessorIncluder(p.string() + std::filesystem::path(include.getFileName()).filename().string(), outputFile);
 			}
-			else
-				preProcessorIncluder(include.getFileName() + ".gcew", outputFile, false);
+			else {
+				auto name = commons::splitter(tmp, ' ')[1];
+				IM.registerLibs(name.substr(0, name.length() - 1));
+			}
 			break;
 		}
 		default:
@@ -38,8 +41,10 @@ std::string gcew::trees::preprocessor::PreProcessor::preProcessorIncluder(std::s
 		outputFile->close();
 
 	file.close();
-	if (isLocal)
-		std::filesystem::remove(std::filesystem::path(path));
+	if (isLocal) {
+		logger.logInformation(path);
+		std::filesystem::remove_all(path);
+	}
 
 	if (fileOutput)
 		return "";

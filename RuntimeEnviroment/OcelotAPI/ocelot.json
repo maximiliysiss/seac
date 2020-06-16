@@ -1,0 +1,73 @@
+{
+  "ReRoutes": [
+
+    {
+      "DownstreamPathTemplate": "/swagger/index.html",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authapi",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/authapi/swagger"
+    },
+    {
+      "DownstreamPathTemplate": "/swagger/index.html",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "applicationapi",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/application/swagger"
+    },
+    {
+      "DownstreamPathTemplate": "/swagger/index.html",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "seacserver",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/runtime/swagger"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authapi",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/authapi/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "applicationapi",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/application/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "seacserver",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/runtime/{catchAll}"
+    }
+  ],
+  "GlobalConfiguration": {}
+}

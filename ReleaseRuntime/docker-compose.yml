@@ -1,0 +1,105 @@
+version: '3.4'
+
+networks:
+  seac-network:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+
+  consul:
+    image: bitnami/consul:latest
+    networks:
+      - seac-network
+    ports:
+      - '8300:8300'
+      - '8301:8301'
+      - '8301:8301/udp'
+      - '8500:8500'
+      - '8600:8600'
+      - '8600:8600/udp'
+
+  applicationapi:
+    image: maximiliysiss/applicationapi
+    ports:
+      - "8000:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  authapi:
+    image: maximiliysiss/authapi
+    ports:
+      - "8001:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+
+  seacserver:
+    image: maximiliysiss/seacserver
+    ports:
+      - "8002:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  ocelotapi:
+    image: maximiliysiss/ocelotapi
+    ports:
+      - "8003:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1437:1433"
+    networks:
+      - seac-network
+
+  prometheus:
+    image: prom/prometheus:0.18.0
+    volumes:
+        - prometheus_data:/prometheus
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+        - '-config.file=/etc/prometheus/prometheus.yml'
+    ports:
+        - '9090:9090'
+    links:
+      - seacserver:seacserver
+      - authapi:authapi
+      - applicationapi:applicationapi
+      - db:db
+      - consul:consul
+    networks:
+      - seac-network
+
+  grafana:
+    image: grafana/grafana:3.0.0-beta7
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=pass
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - seac-network

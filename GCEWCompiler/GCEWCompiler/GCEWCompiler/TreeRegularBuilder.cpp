@@ -4,8 +4,11 @@ namespace gcew::regulars
 {
 
 	std::list<TreeRegularBuilder::RegexValidate> TreeRegularBuilder::regexes = {
+		TreeRegularBuilder::isRegionStart,
+		TreeRegularBuilder::isRegionEnd,
 		TreeRegularBuilder::isAssigment,
 		TreeRegularBuilder::isBreak,
+		TreeRegularBuilder::isExternalCall,
 		TreeRegularBuilder::isCall,
 		TreeRegularBuilder::isCloseFigure,
 		TreeRegularBuilder::isContinue,
@@ -16,7 +19,6 @@ namespace gcew::regulars
 		TreeRegularBuilder::isIf,
 		TreeRegularBuilder::isInclude,
 		TreeRegularBuilder::isOpenFigure,
-		TreeRegularBuilder::isPureAsm,
 		TreeRegularBuilder::isReturn,
 		TreeRegularBuilder::isType,
 		TreeRegularBuilder::isWhile,
@@ -53,17 +55,12 @@ namespace gcew::regulars
 
 	RegexResult TreeRegularBuilder::isInclude(std::string input, bool type)
 	{
-		return regex_matcher("^using [a-zA-Z]+([a-zA-Z0-9])*(.gcew)*;$", input, type) ? RegexResult::Include : RegexResult::NotClassic;
-	}
-
-	RegexResult TreeRegularBuilder::isPureAsm(std::string input, bool type)
-	{
-		return regex_matcher("^pureasm$", input, type) ? RegexResult::PureAsm : RegexResult::NotClassic;
+		return regex_matcher("^using [a-zA-Z]+.*;$", input, type) ? RegexResult::Include : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isType(std::string input, bool type)
 	{
-		return regex_matcher("^[a-zA-Z]+[a-z-A-Z0-9]* [a-zA-Z]+[a-zA-Z0-9]*( = .*)*;$", input, type) ? RegexResult::Type : RegexResult::NotClassic;
+		return regex_matcher("^[a-zA-Z]+[a-z-A-Z0-9]* [a-zA-Z]+[a-zA-Z0-9]*( *= *.*)*;$", input, type) ? RegexResult::Type : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isFunction(std::string input, bool type)
@@ -93,7 +90,7 @@ namespace gcew::regulars
 
 	RegexResult TreeRegularBuilder::isFor(std::string input, bool type)
 	{
-		return regex_matcher(getForRegex(), input, type) ? RegexResult::For : RegexResult::NotClassic;
+		return regex_matcher("^for\\(.*;.*;.*\\)$", input, type) ? RegexResult::For : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isOpenFigure(std::string input, bool type)
@@ -116,6 +113,11 @@ namespace gcew::regulars
 		return regex_matcher("^[a-zA-Z]+[a-zA-Z0-9]*\\(.*\\);$", input, type) ? RegexResult::Call : RegexResult::NotClassic;
 	}
 
+	RegexResult TreeRegularBuilder::isExternalCall(std::string input, bool type)
+	{
+		return regex_matcher("^[a-zA-Z]+[a-zA-Z0-9]*:[a-zA-Z]+[a-zA-Z0-9]*\\(.*\\);$", input, type) ? RegexResult::ExternalCall : RegexResult::NotClassic;
+	}
+
 	RegexResult TreeRegularBuilder::isBreak(std::string input, bool type)
 	{
 		return regex_matcher("^break;$", input, type) ? RegexResult::Break : RegexResult::NotClassic;
@@ -129,6 +131,14 @@ namespace gcew::regulars
 	RegexResult TreeRegularBuilder::isReturn(std::string input, bool type)
 	{
 		return regex_matcher("^return *.*;$", input, type) ? RegexResult::Return : RegexResult::NotClassic;
+	}
+
+	RegexResult TreeRegularBuilder::isRegionStart(std::string input, bool type) {
+		return regex_matcher("^#regionstart$", input, type) ? RegexResult::RegionStart : RegexResult::NotClassic;
+	}
+
+	RegexResult TreeRegularBuilder::isRegionEnd(std::string input, bool type) {
+		return regex_matcher("^#regionend$", input, type) ? RegexResult::RegionEnd : RegexResult::NotClassic;
 	}
 
 	RegexResult TreeRegularBuilder::isFunctionInExpression(std::string input)

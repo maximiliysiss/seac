@@ -10,21 +10,20 @@ namespace gcew::trees::elements::operations
 	class AssigmentOperation :
 		public Operation
 	{
-		Variable * var;
-		BaseNode * exp;
+		Variable* var;
+		BaseNode* exp;
 		std::string name;
 	public:
 		virtual bool isCallFunction(std::string name) override;
-		AssigmentOperation(int index, std::string line);
+		AssigmentOperation(int index, std::string line, void*);
 		~AssigmentOperation();
 
 		// Inherited via Operation
-		virtual void toCode(std::string & code) override;
+		virtual void toCode(CodeStream& code) override;
 
 		// Inherited via Operation
-		virtual void postWork(void * tree) override;
+		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name) override;
-		virtual void createData(std::string & code) override;
 	};
 }
 

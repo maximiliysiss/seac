@@ -13,10 +13,112 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Runtime">
+      <UniqueIdentifier>{e5b3f1a9-8705-436f-95c8-4918911d624e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime">
+      <UniqueIdentifier>{20920953-e8db-429a-aece-ea926aa9c454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logger">
+      <UniqueIdentifier>{acee53d9-7439-4531-aeda-f70025c442d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logger">
+      <UniqueIdentifier>{b660d85b-6fca-4cb0-b5c9-f2901705c70a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Reader">
+      <UniqueIdentifier>{a0ac342b-e263-48ec-a5d3-deff35c58e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Reader">
+      <UniqueIdentifier>{b752f677-374a-4e5f-bbd5-64528364a61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\Stack">
+      <UniqueIdentifier>{d157aa2c-9ec0-48da-8bc0-1e8eaa7be496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Stack">
+      <UniqueIdentifier>{ddcfac21-629d-4deb-95f1-2119294c2ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\External">
+      <UniqueIdentifier>{4f4cecfd-39b6-4285-ba28-9e9f8acdcf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\External">
+      <UniqueIdentifier>{f697ce15-93ff-4257-8698-d10ace1fbe6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{baca9164-51cb-4909-b627-78b582ca81bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{086f25e5-daa3-4028-94b1-5eb9684853b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Metrics">
+      <UniqueIdentifier>{439c4b5c-f004-4959-bc52-26f6318e4090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Metrics">
+      <UniqueIdentifier>{25650bb9-b7fb-4121-85af-e3e4deadc435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblyRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualPageMemory.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Appenders.cpp">
+      <Filter>Source Files\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticAssemblyRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Reader.cpp">
+      <Filter>Source Files\Reader</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeEnviroment.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Call.cpp">
+      <Filter>Source Files\Runtime\Stack</Filter>
+    </ClCompile>
+    <ClCompile Include="External.h">
+      <Filter>Header Files\Runtime\External</Filter>
+    </ClCompile>
+    <ClCompile Include="External.cpp">
+      <Filter>Source Files\Runtime\External</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeConfiguration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalConfiguration.cpp">
+      <Filter>Source Files\Runtime\External</Filter>
+    </ClCompile>
+    <ClCompile Include="bitset.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="runtime.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoteAssemblyRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="FullRemoteAssemblyRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="RemotePartialContainer.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugMetrics.cpp">
+      <Filter>Source Files\Metrics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -26,5 +128,70 @@
     <ClInclude Include="Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VirtualPageMemory.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Appenders.h">
+      <Filter>Header Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticAssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Reader.h">
+      <Filter>Header Files\Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeEnviroment.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Call.h">
+      <Filter>Header Files\Runtime\Stack</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeConfiguration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalConfiguration.h">
+      <Filter>Header Files\Runtime\External</Filter>
+    </ClInclude>
+    <ClInclude Include="bitset.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="runtime.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="AssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoteAssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="FullRemoteAssemblyRuntime.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RemotePartialContainer.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMetrics.h">
+      <Filter>Header Files\Metrics</Filter>
+    </ClInclude>
+    <ClInclude Include="VariadicTable.h">
+      <Filter>Header Files\Metrics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="build.bat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -14,11 +14,10 @@ namespace gcew::trees::parser
 	{
 	protected:
 		std::string operation;
-		BaseNode * node;
+		BaseNode* node;
 	public:
-		virtual void toCode(std::string & code) = 0;
-		virtual void createData(std::string & code);
-		OneNode(BaseNode * node, std::string operation);
+		virtual void toCode(gcew::commons::CodeStream& code) = 0;
+		OneNode(BaseNode* node, std::string operation, void*);
 		~OneNode();
 
 		// Inherited via BaseNode
@@ -27,20 +26,26 @@ namespace gcew::trees::parser
 
 	class OperatorNot : public OneNode {
 	public:
-		OperatorNot(std::string operation, BaseNode * node);
-		virtual void toCode(std::string & code) override;
+		OperatorNot(std::string operation, BaseNode* node, void*);
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 
 	class CallNode : public OneNode {
-		gcew::trees::elements::Element * call;
+		gcew::trees::elements::Element* call;
 	public:
 		virtual std::string tryGetType() override;
 		virtual bool isCallFunction(std::string name) override;
-		virtual void createData(std::string & code) override;
-		virtual void postWork(void * tree) override;
+		virtual void postWork(void* tree) override;
 		virtual bool isInActiveTree(std::string name) override;
-		CallNode(std::string operation);
-		virtual void toCode(std::string & code) override;
+		CallNode(std::string operation, void*);
+		virtual void toCode(gcew::commons::CodeStream& code) override;
+	};
+
+	class AddressNode : public OneNode {
+		std::string varName;
+	public:
+		AddressNode(std::string operation, void*);
+		virtual void toCode(gcew::commons::CodeStream& code) override;
 	};
 }
 

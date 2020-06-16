@@ -1,29 +1,34 @@
 #include "WhileTree.h"
 
-gcew::trees::structural::WhileTree::WhileTree(int index, std::string line)
-	:CycleTree(index, line, gcew::commons::RegexResult::While)
+gcew::trees::structural::WhileTree::WhileTree(int index, std::string line, void* root)
+	:CycleTree(index, line, gcew::commons::RegexResult::While, root)
 {
-	this->breakOperation = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::End] + name;
-	this->continueOperation = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::Start] + name;
 	auto startBrk = line.find('(');
 	auto endBrk = line.find(')');
-	this->condition = gcew::commons::Parser::preParser(line.substr(startBrk + 1, endBrk - startBrk - 1));
+	this->condition = gcew::commons::Parser::preParser(line.substr(startBrk + 1, endBrk - startBrk - 1), root);
 }
 
-void gcew::trees::structural::WhileTree::toCode(std::string & code)
+void gcew::trees::structural::WhileTree::toCode(gcew::commons::CodeStream& code)
 {
-	std::string start = continueOperation;
-	std::string body = gcew::commons::CompileConfiguration::typeOperation["while"][gcew::commons::Operations::Body] + name;
-	std::string end = breakOperation;
-	code += start + ":\n";
-	code += "finit\n";
-	auto cond = dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
-	auto index = code.find(cond[1]);
-	code.insert(index + cond[1].length(), "\njmp " + body + "\n");
-	index = code.find(cond[2]);
-	code.insert(index + cond[2].length(), "\njmp " + end + "\n");
-	code += body + ":\n";
-	Tree::toCode(code);
-	code += "jmp " + start + "\n";
-	code += end + ":\n";
+	ull preCondition = code.getLine() - 1;
+	dynamic_cast<BoolNode*>(condition)->toBoolCode(code);
+	ull whileStart = code.getLine();
+	VirtualCodeStream vs(code);
+	vs << StreamData((ull)commons::JitOperation::ifop, sizeof(ull), &whileStart, sizeof(ull));
+	auto* tmpIf = (StreamData*)vs.findByCodeLast((ull)commons::JitOperation::ifop);
+	vs << StreamData((ull)commons::JitOperation::start);
+	Tree::toCode(vs);
+	vs << StreamData((ull)commons::JitOperation::jump, sizeof(ull), &preCondition);
+	tmpIf->operand_second = new ull(vs.getLine() - 1);
+	vs << StreamData((ull)commons::JitOperation::localend);
+
+	for (auto& line : breakers) {
+		((StreamData*)vs.ops()[line])->operand_first = new ull(*(ull*)tmpIf->operand_second);
+	}
+
+	for (auto& line : continues) {
+		((StreamData*)vs.ops()[line])->operand_first = new ull(preCondition);
+	}
+
+	code << vs;
 }

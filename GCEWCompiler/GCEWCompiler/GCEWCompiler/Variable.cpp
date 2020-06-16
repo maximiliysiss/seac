@@ -8,14 +8,14 @@ namespace gcew::trees::elements
 			return this->exp->isCallFunction(name);
 		return false;
 	}
-	void Variable::postWork(void * tree)
+	void Variable::postWork(void* tree)
 	{
 		if (exp)
 			exp->postWork(tree);
 	}
 
-	Variable::Variable(int index, std::string line)
-		:Element(index, line, RegexResult::Type)
+	Variable::Variable(int index, std::string line, void* root)
+		:Element(index, line, RegexResult::Type, root)
 	{
 		auto parts = splitter(line, ' ');
 		bool breakOperation = line[line.length() - 1] == ';';
@@ -24,32 +24,25 @@ namespace gcew::trees::elements
 		codeName = name + gcew::commons::createUniqueGUID();
 		if (line.find('=') != std::string::npos) {
 			parts = splitter(line, '=');
-			this->exp = Parser::preParser(trim(parts[1]).substr(0, parts[1].length() - breakOperation));
+			auto values = trim(parts[1]).substr(0, parts[1].length() - breakOperation);
+			if (gcew::commons::isSimple(values))
+				this->exp = new Term(values, type, root);
+			else
+				this->exp = Parser::preParser(values, root);
 		}
 		else
 			name = name.substr(0, name.length() - breakOperation);
 	}
 
-	void Variable::toCode(std::string & code)
+	void Variable::toCode(CodeStream& code)
 	{
+		ull id = VM.registerVariable(this->name, CompileConfiguration::jitTypes[type]);
+		auto prop = commons::CompileConfiguration::typeProp(type);
+		code << StreamData((ull)gcew::commons::JitOperation::init, sizeof(ull), &id, sizeof(uint), &prop, (ull)gcew::commons::CompileConfiguration::jitTypes[type]);
 		if (exp) {
-			auto * term = dynamic_cast<Term*>(exp);
-			if (!term || !term->isTempValue()) {
-				exp->toCode(code);
-				code += gcew::commons::CompileConfiguration::typeOperation[type][gcew::commons::Operations::FieldGet] + " " + codeName + "\n";
-			}
+			exp->toCode(code);
+			code << StreamData((ull)gcew::commons::JitOperation::assign, sizeof(ull), &id);
 		}
-	}
-
-	void Variable::createData(std::string & code)
-	{
-		std::string value = "?";
-		auto * term = dynamic_cast<gcew::trees::parser::Term*>(this->exp);
-		if (term && term->isTempValue())
-			value = ((gcew::trees::parser::Term*)exp)->getValue();
-		else if (exp)
-			exp->createData(code);
-		code += codeName + " " + gcew::commons::CompileConfiguration::typeOperation[type][Operations::Convert] + " " + value + "\n";
 	}
 
 	Variable::~Variable()

@@ -21,7 +21,7 @@ std::string gcew::commons::trim(std::string str)
 
 
 
-void gcew::commons::commentEraser(std::string &line, bool & currentState)
+void gcew::commons::commentEraser(std::string& line, bool& currentState)
 {
 	auto indexOpen = line.find("/*");
 	auto indexClose = line.find("*/");
@@ -67,7 +67,7 @@ std::string gcew::commons::eraseSpaces(std::string line)
 	char spaces[]{ ' ', '\n','\t' };
 	std::for_each(spaces, spaces + 3, [&line](char c) {
 		eraserRepeate(line, c);
-	});
+		});
 	return line;
 }
 
@@ -180,9 +180,9 @@ std::string gcew::commons::codeCorrector(std::string code)
 		std::smatch sm;
 		auto cpy = code;
 		while (std::regex_search(cpy, sm, rg)) {
-			for (auto m : sm) {
-				rightNewLine(code, m);
-				removeFromString(cpy, m);
+			for (auto fm : sm) {
+				rightNewLine(code, fm);
+				removeFromString(cpy, fm);
 			}
 		}
 	}
@@ -238,12 +238,22 @@ std::list<size_t> gcew::commons::findAllIndexesWithOffset(std::string input, cha
 bool gcew::commons::isNumber(std::string str)
 {
 	for (char c : str)
-		if (!std::isdigit(c) && c != '.')
+		if (!std::isdigit(c) && c != '.' && str[0] != '+' && str[0] != '-')
 			return false;
 	return true;
 }
 
-bool gcew::commons::isBracketCorrect(const std::string & str)
+bool gcew::commons::isString(std::string str)
+{
+	return str.length() > 3 && str[0] == '\'' && str[str.length() - 1] == '\'';
+}
+
+bool gcew::commons::isSimple(std::string str) {
+	return isNumber(str) || isString(str);
+}
+
+
+bool gcew::commons::isBracketCorrect(const std::string& str)
 {
 	std::stack<char> s;
 	for (char c : str) {
@@ -257,7 +267,7 @@ bool gcew::commons::isBracketCorrect(const std::string & str)
 	return s.empty();
 }
 
-void gcew::commons::removeFromString(std::string & input, std::string remove)
+void gcew::commons::removeFromString(std::string& input, std::string remove)
 {
 	size_t iter;
 	while ((iter = input.find(remove)) != std::string::npos) {
@@ -278,33 +288,49 @@ std::string gcew::commons::createUniqueGUID()
 	}
 	guid.erase(std::remove(guid.begin(), guid.end(), '-'), guid.end());
 	if (std::isdigit(guid[0]))
-		guid = 'a' + guid;
+		guid = (char)('a' + (rand() % ('z' - 'a'))) + guid;
 	return guid;
 }
 
 std::vector<std::string> gcew::commons::getArguments(std::string line)
 {
 	std::vector<std::string> arguments;
-	std::stack<bool> isInArgument;
-	int prev = 0;
-	for (int i = 0; i < line.length(); i++) {
-		char c = line[i];
-		if (c == '(') {
-			isInArgument.push(true);
-			continue;
-		}
-		if (c == ')') {
-			if (isInArgument.top())
-				isInArgument.pop();
-			else
-				isInArgument.push(false);
-			continue;
-		}
-		if (c == ',' && isInArgument.empty()) {
-			arguments.push_back(line.substr(prev, i - prev));
-			prev = i + 1;
-		}
+	bool inString = false;
+	std::string tmp;
+	std::stack<bool> inTemp;
+
+	if (!commons::isBracketCorrect(line)) {
+		throw commons::compiler_exception("bracket error in '" + line + "'");
 	}
-	arguments.push_back(line.substr(prev, line.length() - prev));
+
+	for (int i = 0; i < line.length(); i++) {
+		if (line[i] == '\'') {
+			inString = !inString;
+		}
+		if (inString) {
+			tmp += line[i];
+			continue;
+		}
+
+		if (line[i] == '(') {
+			inTemp.push(true);
+		}
+		else if (line[i] == ')') {
+			inTemp.pop();
+		}
+
+		if (line[i] == ',' && inTemp.empty()) {
+			arguments.push_back(tmp);
+			tmp = "";
+			continue;
+		}
+
+		tmp += line[i];
+	}
+
+	if (tmp.length() > 0) {
+		arguments.push_back(tmp);
+	}
+
 	return arguments;
 }

@@ -49,12 +49,6 @@
     <Filter Include="Source Files\regulars">
       <UniqueIdentifier>{494edd31-f3c7-4a3f-8496-cbfe5484557d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\libs">
-      <UniqueIdentifier>{e0d8acff-2949-40dd-86da-549958533a2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\libs">
-      <UniqueIdentifier>{87e9a8ab-621f-457d-a6b2-fe90e6d511b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\trees\elements\operations">
       <UniqueIdentifier>{500dfd5b-76a3-46a1-87e0-63563ae4022f}</UniqueIdentifier>
     </Filter>
@@ -120,12 +114,6 @@
     <ClInclude Include="CompileConfiguration.h">
       <Filter>Header Files\commons</Filter>
     </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>Header Files\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>Header Files\libs</Filter>
-    </ClInclude>
     <ClInclude Include="IncludeOperation.h">
       <Filter>Header Files\trees\elements\operations</Filter>
     </ClInclude>
@@ -153,9 +141,6 @@
     <ClInclude Include="FunctionTree.h">
       <Filter>Header Files\trees\structural</Filter>
     </ClInclude>
-    <ClInclude Include="PureAsmTree.h">
-      <Filter>Header Files\trees\structural</Filter>
-    </ClInclude>
     <ClInclude Include="ReturnOperation.h">
       <Filter>Header Files\trees\elements\operations</Filter>
     </ClInclude>
@@ -167,6 +152,21 @@
     </ClInclude>
     <ClInclude Include="CommonLogger.h">
       <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeStream.h">
+      <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableManager.h">
+      <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="Appenders.h">
+      <Filter>Header Files\commons</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegionOperation.h">
+      <Filter>Header Files\trees\elements\operations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,18 +221,6 @@
     <ClCompile Include="CompileConfiguration.cpp">
       <Filter>Source Files\commons</Filter>
     </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
     <ClCompile Include="IncludeOperation.cpp">
       <Filter>Source Files\trees\elements\operations</Filter>
     </ClCompile>
@@ -260,9 +248,6 @@
     <ClCompile Include="FunctionTree.cpp">
       <Filter>Source Files\trees\structural</Filter>
     </ClCompile>
-    <ClCompile Include="PureAsmTree.cpp">
-      <Filter>Source Files\trees\structural</Filter>
-    </ClCompile>
     <ClCompile Include="ReturnOperation.cpp">
       <Filter>Source Files\trees\elements\operations</Filter>
     </ClCompile>
@@ -275,20 +260,27 @@
     <ClCompile Include="CommonLogger.cpp">
       <Filter>Source Files\commons</Filter>
     </ClCompile>
+    <ClCompile Include="CodeStream.cpp">
+      <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableManager.cpp">
+      <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="Appenders.cpp">
+      <Filter>Source Files\commons</Filter>
+    </ClCompile>
+    <ClCompile Include="RegionOperation.cpp">
+      <Filter>Source Files\trees\elements\operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="masmCompile.bat">
-      <Filter>Source Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\x64\Release\configuration.xml">
-      <Filter>Source Files</Filter>
+    <Xml Include="configuration.xml">
+      <Filter>Resource Files</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

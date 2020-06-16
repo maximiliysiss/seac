@@ -14,7 +14,8 @@ namespace gcew::trees::parser
 		return std::string();
 	}
 
-	BaseNode::BaseNode()
+	BaseNode::BaseNode(void* root)
+		:root(root)
 	{
 		name = gcew::commons::createUniqueGUID();
 	}

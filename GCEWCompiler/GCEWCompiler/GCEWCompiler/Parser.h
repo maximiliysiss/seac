@@ -36,8 +36,8 @@ namespace gcew::commons
 
 	struct Parser
 	{
-		static BaseNode * preParser(std::string str);
-		static BaseNode * parser(std::string str);
+		static BaseNode* preParser(std::string str, void* root);
+		static BaseNode* parser(std::string str, void* root);
 	};
 
 	OperationParser getOperation(char c, int type);

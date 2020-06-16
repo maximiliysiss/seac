@@ -1,0 +1,108 @@
+version: '3.4'
+
+networks:
+  seac-network:
+    driver: bridge
+
+services:
+
+  consul:
+    image: bitnami/consul:latest
+    networks:
+      - seac-network
+    ports:
+      - '8300:8300'
+      - '8301:8301'
+      - '8301:8301/udp'
+      - '8500:8500'
+      - '8600:8600'
+      - '8600:8600/udp'
+
+  applicationapi:
+    image: ${DOCKER_REGISTRY-}applicationapi
+    build:
+      context: .
+      dockerfile: ApplicationAPI/Dockerfile
+    ports:
+      - "8000:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  authapi:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: AuthAPI/Dockerfile
+    ports:
+      - "8001:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+
+  seacserver:
+    image: ${DOCKER_REGISTRY-}seacserver
+    build:
+      context: .
+      dockerfile: SeacServer/Dockerfile
+    ports:
+      - "8002:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: db:1433, consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  ocelotapi:
+    image: ${DOCKER_REGISTRY-}ocelotapi
+    build:
+      context: .
+      dockerfile: OcelotAPI/Dockerfile
+    ports:
+      - "8003:443"
+    networks:
+      - seac-network
+    environment:
+      WAIT_HOSTS: consul:8500
+      WAIT_HOSTS_TIMEOUT: 300
+
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1437:1433"
+    networks:
+      - seac-network
+
+  prometheus:
+    image: prom/prometheus:0.18.0
+    volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+        - '9090:9090'
+    networks:
+      - seac-network
+    links:
+      - authapi:authapi
+      - seacserver:seacserver
+      - applicationapi:applicationapi
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=pass
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    networks:
+      - seac-network

@@ -2,7 +2,6 @@
 *.cache
 obj/
 bin/
-Migrations/
 GlobalProjects/
 *.cd
 *.asm
@@ -11,8 +10,11 @@ GlobalProjects/
 *.ipdb
 *.pdb
 *.obj
+x64/
 x64/Debug/
 GCEWCompiler/GCEWCompiler/x64/
 Debug/
 *.gcew
 TestProject/
+Release/
+packages/

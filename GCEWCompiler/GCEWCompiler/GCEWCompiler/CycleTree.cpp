@@ -3,13 +3,6 @@
 
 namespace gcew::trees::structural
 {
-	void CycleTree::createData(std::string & code)
-	{
-		Tree::createData(code);
-		if (condition)
-			condition->createData(code);
-	}
-
 	bool CycleTree::isCallFunction(std::string name)
 	{
 		return condition->isCallFunction(name);
@@ -17,6 +10,7 @@ namespace gcew::trees::structural
 
 	void CycleTree::postWork(void * tree)
 	{
+		Tree::postWork(tree);
 		condition->postWork(tree);
 	}
 
@@ -25,8 +19,8 @@ namespace gcew::trees::structural
 		return Tree::isInActiveTree(name) || this->condition->isInActiveTree(name);
 	}
 
-	CycleTree::CycleTree(int index, std::string line, gcew::commons::RegexResult reg)
-		:Tree(index, line, reg)
+	CycleTree::CycleTree(int index, std::string line, gcew::commons::RegexResult reg, void*root)
+		:Tree(index, line, reg, root)
 	{
 	}
 

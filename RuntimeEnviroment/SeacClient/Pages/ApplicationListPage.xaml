@@ -1,0 +1,66 @@
+﻿<Page x:Class="SeacClient.Pages.ApplicationListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SeacClient.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:convert="clr-namespace:SeacClient.Converters"
+      Title="ApplicationListPage">
+
+    <Page.Resources>
+        <convert:MenuContextConverter x:Key="MenuContextConverter"></convert:MenuContextConverter>
+    </Page.Resources>
+
+    <Grid Background="#444444">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title}" FontStyle="Italic" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="16pt" Foreground="White" FontWeight="Bold"></TextBlock>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Applications}" Padding="10,0,10,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <md:Card Margin="10" Width="200px" Background="#999999" Height="200px" Cursor="Hand" Foreground="{Binding Color}" MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock FontSize="16pt" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+                            <TextBlock FontSize="12pt" FontStyle="Italic" Text="{Binding Platform}"></TextBlock>
+                            <TextBlock FontSize="12pt" FontStyle="Italic" Text="{Binding Version}"></TextBlock>
+                        </StackPanel>
+                        <md:Card.ContextMenu>
+                            <ContextMenu ItemsSource="{Binding MenuContextButtons, Converter={StaticResource MenuContextConverter}}"></ContextMenu>
+                        </md:Card.ContextMenu>
+                    </md:Card>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#999999">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <md:PackIcon Kind="Information" Foreground="White" Height="30" Width="30"></md:PackIcon>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - standalone</TextBlock>
+
+                <md:PackIcon Kind="Information" Foreground="LightBlue" Height="30" Width="30"></md:PackIcon>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - remote</TextBlock>
+
+                <md:PackIcon Kind="Information" Foreground="LightGreen" Height="30" Width="30"></md:PackIcon>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="2,0,10,0"> - full remote</TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <DockPanel Grid.RowSpan="3">
+            <Border CornerRadius="50" MouseLeftButtonDown="StartLocalApplication" Background="#444444" Height="60" Width="60" Margin="0,0,50,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand">
+                <md:PackIcon Kind="AddCircle" Height="60" Width="60" Visibility="{Binding VisibleAdd}"  Foreground="White"  md:HintAssist.Hint="Add local application"></md:PackIcon>
+            </Border>
+        </DockPanel>
+    </Grid>
+</Page>

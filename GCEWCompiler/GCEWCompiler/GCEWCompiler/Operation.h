@@ -7,9 +7,9 @@ namespace  gcew::trees::elements
 		: public Element
 	{
 	public:
-		Operation(int index, std::string line, RegexResult reg);
+		Operation(int index, std::string line, RegexResult reg, void*);
 		virtual ~Operation();
-		void toCode(std::string& code) = 0;
+		void toCode(gcew::commons::CodeStream& code) = 0;
 	};
 }
 

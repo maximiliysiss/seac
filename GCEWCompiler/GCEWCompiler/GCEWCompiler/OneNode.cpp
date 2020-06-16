@@ -3,13 +3,9 @@
 
 namespace gcew::trees::parser
 {
-	void OneNode::createData(std::string & code)
-	{
-		node->createData(code);
-	}
 
-	OneNode::OneNode(BaseNode * node, std::string operation)
-		: node(node), operation(operation)
+	OneNode::OneNode(BaseNode* node, std::string operation, void* root)
+		: BaseNode(root), node(node), operation(operation)
 	{
 	}
 
@@ -24,12 +20,12 @@ namespace gcew::trees::parser
 		return this->node->isCallFunction(name);
 	}
 
-	OperatorNot::OperatorNot(std::string operation, BaseNode * node)
-		:OneNode(node, operation)
+	OperatorNot::OperatorNot(std::string operation, BaseNode* node, void* root)
+		:OneNode(node, operation, root)
 	{
 	}
 
-	void OperatorNot::toCode(std::string & code)
+	void OperatorNot::toCode(gcew::commons::CodeStream& code)
 	{
 	}
 
@@ -46,12 +42,7 @@ namespace gcew::trees::parser
 		return call->isCallFunction(name);
 	}
 
-	void CallNode::createData(std::string & code)
-	{
-		call->createData(code);
-	}
-
-	void CallNode::postWork(void * tree)
+	void CallNode::postWork(void* tree)
 	{
 		call->postWork(tree);
 	}
@@ -61,17 +52,25 @@ namespace gcew::trees::parser
 		return ((gcew::trees::elements::operations::CallOperation*)this->call)->getFunctionName() == name;
 	}
 
-	CallNode::CallNode(std::string operation)
-		:OneNode(nullptr, operation)
+	CallNode::CallNode(std::string operation, void* root)
+		:OneNode(nullptr, operation, root)
 	{
-		this->call = new gcew::trees::elements::operations::CallOperation(0, operation + ";");
-		dynamic_cast<gcew::trees::elements::operations::CallOperation*>(this->call)
-			->setTree(*gcew::trees::structural::Tree::currentTree);
+		this->call = new gcew::trees::elements::operations::CallOperation(0, operation + ";", gcew::regulars::RegexResult::Call, root);
+		dynamic_cast<gcew::trees::elements::operations::CallOperation*>(this->call)->setTree(*gcew::trees::structural::Tree::currentTree);
 	}
 
-	void CallNode::toCode(std::string & code)
+	void CallNode::toCode(gcew::commons::CodeStream& code)
 	{
 		call->toCode(code);
+	}
+
+	AddressNode::AddressNode(std::string operation, void* root)
+		:OneNode(nullptr, operation, root), varName(operation) {
+	}
+
+	void AddressNode::toCode(gcew::commons::CodeStream& code) {
+		auto vr = VM.getVariable(varName);
+		code << StreamData((ull)commons::JitOperation::ref, sizeof(ull), &vr.id);
 	}
 
 }
